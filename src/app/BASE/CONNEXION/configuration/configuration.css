@@ -32,10 +32,10 @@ body {
 
 /* Titre */
 .max-w-xl h2 {
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 30px;
-  color: #004aad;
+  margin-bottom: 35px;
+  color: #0c0c0c;
   text-align: center;
 }
 
@@ -43,7 +43,7 @@ body {
 form {
   display: flex;
   flex-direction: column;
-  gap: 25px; /* entre les groupes */
+  gap: 30px; /* entre les groupes */
   flex: 1;
 }
 
