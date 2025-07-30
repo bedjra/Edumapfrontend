@@ -22,12 +22,6 @@ roles = ['admin', 'secretaire', 'enseignant'];
 
 passwordVisible = false;
 
-togglePasswordVisibility() {
-  this.passwordVisible = !this.passwordVisible;
-}
-ngOnInit() {
-  console.log('Composant inscription chargé');
-}
 
 onSignup() {
   if (this.credentials.password !== this.credentials.confirmPassword) {

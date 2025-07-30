@@ -21,12 +21,21 @@ export class LoginComponent {
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
+  }
+
   onLogin() {
+    if (!this.credentials.email || !this.credentials.password) {
+      alert("Veuillez remplir tous les champs.");
+      return;
+    }
+
     this.http.post('http://localhost:8080/api/login', this.credentials)
       .subscribe({
         next: (response: any) => {
           alert('Connexion réussie !');
-          this.router.navigateByUrl('/dashboard'); // ou une autre route comme /
+          this.router.navigateByUrl('/dashboard'); // 🔁 Redirection après connexion
         },
         error: err => {
           alert('Erreur lors de la connexion. Vérifiez vos identifiants.');
@@ -35,3 +44,5 @@ export class LoginComponent {
       });
   }
 }
+
+
