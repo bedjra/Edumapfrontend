@@ -1,18 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginService } from '../../SERVICE/login-service';
 
 @Component({
   selector: 'app-configuration',
- standalone: true, // ✅ important
+  standalone: true,
   imports: [FormsModule, CommonModule, HttpClientModule],
-   templateUrl: './configuration.html',
+  templateUrl: './configuration.html',
   styleUrl: './configuration.css'
 })
 export class Configuration {
-
   configuration = {
     nom: '',
     adresse: '',
@@ -28,7 +28,7 @@ export class Configuration {
 
   systemes = ['PRIMAIRE', 'COLLEGE', 'LYCEE'];
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private configService: LoginService, private router: Router) {}
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
@@ -43,29 +43,29 @@ export class Configuration {
     }
   }
 
-  
   onSubmit() {
-  const formData = new FormData();
-  formData.append('nom', this.configuration.nom);
-  formData.append('adresse', this.configuration.adresse);
-  formData.append('tel', this.configuration.tel);
-  formData.append('cel', this.configuration.cel);
-  formData.append('bp', this.configuration.bp);
-  formData.append('devise', this.configuration.devise);
-  formData.append('systeme', this.configuration.systeme);
-  
-  if (this.configuration.image) {
-    formData.append('image', this.configuration.image);
-  }
+    const formData = new FormData();
+    formData.append('nom', this.configuration.nom);
+    formData.append('adresse', this.configuration.adresse);
+    formData.append('tel', this.configuration.tel);
+    formData.append('cel', this.configuration.cel);
+    formData.append('bp', this.configuration.bp);
+    formData.append('devise', this.configuration.devise);
+    formData.append('systeme', this.configuration.systeme);
 
-  this.http.post('http://localhost:8080/api/configuration', formData).subscribe({
-    next: () => {
-      alert("Configuration enregistrée avec succès.");
-      this.router.navigateByUrl('/');  // Redirection vers la page d’accueil
-    },
-    error: (err) => {
-      console.error("Erreur lors de l'enregistrement", err);
-      alert("Erreur lors de l'enregistrement, veuillez réessayer.");
+    if (this.configuration.image) {
+      formData.append('image', this.configuration.image);
     }
-  });
-}}
+
+    this.configService.saveConfiguration(formData).subscribe({
+      next: () => {
+        alert('Configuration enregistrée avec succès.');
+        this.router.navigateByUrl('/'); // redirection accueil
+      },
+      error: (err) => {
+        console.error("Erreur lors de l'enregistrement", err);
+        alert("Erreur lors de l'enregistrement, veuillez réessayer.");
+      }
+    });
+  }
+}

@@ -16,4 +16,8 @@ export class LoginService {
   registerUser(data: { email: string; password: string; role: string }): Observable<any> {
     return this.http.post(`${this.baseUrl}/user/save`, data);
   }
+
+   saveConfiguration(formData: FormData) {
+    return this.http.post(`${this.baseUrl}/ecole`, formData);
+  }
 }
