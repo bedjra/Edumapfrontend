@@ -1,149 +1,151 @@
-/* Reset et base */
+/* Reset & base styles */
 * {
-  box-sizing: border-box;
-}
-
-body, html {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f3f4f6; /* gris clair */
-  height: 100vh;
+  box-sizing: border-box;
+}/* Style global */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f7f9fb;
 }
 
-/* Container principal centré */
+/* Conteneur principal */
 .container {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
 }
 
-/* Boîte blanche avec ombre */
+/* Box contenant les deux colonnes */
 .box {
-  background: white;
-  width: 900px;
-  max-width: 100%;
   display: flex;
-  border-radius: 20px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  flex-direction: row;
+  background-color: white;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
   overflow: hidden;
+  width: 100%;
+  max-width: 1000px;
 }
 
-/* Partie gauche */
+/* Partie gauche : logo + slogan */
 .left {
-  flex: 1;
-  background-color: #bfdbfe; /* bleu clair */
+  background-color: #bfdbfe;
+  color: rgb(12, 12, 12);
   padding: 40px 30px;
+  width: 40%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  color: #1e293b; /* gris foncé */
+  align-items: center;
 }
 
 .logo {
-  width: 130px;
+  width: 120px;
   margin-bottom: 20px;
 }
 
 .slogan {
-  font-weight: 600;
-  font-size: 18px;
+  font-size: 1.1rem;
   text-align: center;
+  line-height: 1.6;
 }
 
-/* Partie droite */
+/* Partie droite : formulaire */
 .right {
-  flex: 1;
+  width: 60%;
   padding: 40px 30px;
-  color: #374151; /* gris foncé */
 }
 
 .right h2 {
+  margin-bottom: 25px;
+  color: #004aad;
+  font-size: 1.8rem;
   text-align: center;
-  font-weight: 700;
-  font-size: 28px;
-  margin-bottom: 30px;
 }
 
-/* Formulaire */
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-label {
+form label {
+  display: block;
   margin-bottom: 6px;
   font-weight: 600;
-  font-size: 14px;
+  color: #333;
 }
 
-input[type="email"],
-input[type="password"],
-select {
-  padding: 10px 14px;
-  margin-bottom: 20px;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border-color 0.3s ease;
+form input,
+form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
 }
 
-input[type="email"]:focus,
-input[type="password"]:focus,
-select:focus {
-  outline: none;
-  border-color: #3b82f6; /* bleu */
-  box-shadow: 0 0 6px #93c5fd;
-}
-
-/* Checkbox afficher mot de passe */
 .show-password {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 25px;
-}
-
-.show-password input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
+  margin-bottom: 20px;
 }
 
 .show-password label {
-  cursor: pointer;
-  font-size: 14px;
-  color: #4b5563; /* gris moyen */
+  margin-left: 8px;
+  font-size: 0.9rem;
+  color: #555;
 }
 
-/* Bouton */
 .submit-btn {
-  background-color: #1682a3; /* vert */
-  border: none;
+  width: 100%;
+  padding: 12px;
+  background-color: #004aad;
   color: white;
-  padding: 14px 0;
-  font-weight: 700;
-  font-size: 18px;
-  border-radius: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
 }
 
 .submit-btn:hover {
-  background-color: #157080; /* vert foncé */
+  background-color: #003183;
 }
 
-/* Footer */
 footer {
   text-align: center;
-  margin-top: 0px;
-  color: #6b7280; /* gris clair */
-  font-size: 14px;
+  margin-top: 20px;
+  color: #888;
+  font-size: 0.85rem;
 }
 
-.author {
-  font-weight: 700;
-  color: #374151; /* gris foncé */
+footer .author {
+  font-weight: 600;
+  color: #004aad;
+}
+
+/* Responsive pour écrans ≥ 1440px */
+@media screen and (min-width: 1440px) {
+  .box {
+    max-width: 1200px;
+  }
+
+  .logo {
+    width: 140px;
+  }
+
+  .right h2 {
+    font-size: 2rem;
+  }
+
+  form input,
+  form select {
+    font-size: 1rem;
+  }
+
+  .submit-btn {
+    font-size: 1.1rem;
+  }
 }
