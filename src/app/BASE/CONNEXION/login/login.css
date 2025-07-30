@@ -141,6 +141,22 @@ footer .author {
   font-weight: bold;
 }
 
+.afficherMotDEpASSE {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  margin-top: -10px;
+  margin-bottom: 15px;
+  gap: 5px;
+  color: #333;
+  justify-content: center; /* ✅ Centre horizontalement */
+}
+
+.error {
+  color: red;
+  font-size: 0.75rem;
+  margin-top: 4px;
+}
 
 
 
