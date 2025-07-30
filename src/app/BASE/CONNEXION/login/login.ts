@@ -1,15 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router'; // ✅ CORRECT import
+import { Router } from '@angular/router';
+import { LoginService } from '../../SERVICE/login-service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [FormsModule, CommonModule, HttpClientModule],
   templateUrl: './login.html',
-  styleUrls: ['./login.css'] // ✅ Pluriel
+  styleUrls: ['./login.css']
 })
 export class LoginComponent {
   credentials = {
@@ -19,7 +20,7 @@ export class LoginComponent {
 
   passwordVisible = false;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private loginService: LoginService, private router: Router) {}
 
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
@@ -31,18 +32,15 @@ export class LoginComponent {
       return;
     }
 
-    this.http.post('http://localhost:8080/api/login', this.credentials)
-      .subscribe({
-        next: (response: any) => {
-          alert('Connexion réussie !');
-          this.router.navigateByUrl('/dashboard'); // 🔁 Redirection après connexion
-        },
-        error: err => {
-          alert('Erreur lors de la connexion. Vérifiez vos identifiants.');
-          console.error(err);
-        }
-      });
+    this.loginService.login(this.credentials).subscribe({
+      next: (response: any) => {
+        alert('Connexion réussie !');
+        this.router.navigateByUrl('/dashboard');
+      },
+      error: err => {
+        alert('Erreur lors de la connexion. Vérifiez vos identifiants.');
+        console.error(err);
+      }
+    });
   }
 }
-
-
