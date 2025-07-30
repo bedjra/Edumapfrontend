@@ -10,7 +10,6 @@ body {
   font-family: "Segoe UI", sans-serif;
   background-color: #f7f9fb;
   height: 100vh;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
@@ -62,24 +61,19 @@ body {
 /* Partie droite */
 .right {
   width: 60%;
-  padding: 25px 20px;
+  padding: 40px 5%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background-color: white;
-  padding: 10px 5% 10px 5%;
   color: black;
-  box-shadow: 0 10px 8px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
 }
 
 /* Titre centré */
 .right h2 {
   text-align: center;
-  font-size: 1.6rem;
-  color: #004aad;
+  font-size: 1.8rem;
+  color: #0f0f0f;
   margin-bottom: 30px;
 }
 
@@ -89,13 +83,13 @@ form label {
   margin-bottom: 5px;
   display: block;
   font-size: 0.9rem;
-
 }
 
 /* Champs input et select stylisés */
 form input,
 form select {
-  width: 380px;
+  width: 100%;
+  max-width: 380px;
   padding: 12px;
   border: 3px solid #ddd;
   border-radius: 5px;
@@ -103,14 +97,13 @@ form select {
   margin-bottom: 15px;
 }
 
-
-/* Bouton d'envoi comme .custom-blue */
+/* Bouton de soumission */
 .submit-btn {
   background-color: rgb(117, 170, 244);
   color: white;
   border-radius: 50px;
-  margin-top: 20px;
-  padding: 10px 20px;
+  margin-top: 40px;
+  padding: 10px 30px;
   border: none;
   font-weight: bold;
   font-family: 'Roboto', sans-serif;
@@ -125,32 +118,28 @@ form select {
 }
 
 .form-group {
-  margin-bottom: 15px; /* Ajuste à ton goût (10px, 15px, etc.) */
+  margin-bottom: 15px;
 }
 
-/* Footer */
-footer {
-  text-align: center;
-  font-size: 0.8rem;
-  color: #777;
-  padding: 0px 0;
-}
-
-footer .author {
-  color: #004aad;
-  font-weight: bold;
-}
-
-.afficherMotDEpASSE {
+.password-toggle {
   display: flex;
   align-items: center;
-  font-size: 0.9rem;
-  margin-top: -10px;
-  margin-bottom: 15px;
-  gap: 5px;
-  color: #333;
-  justify-content: center; /* ✅ Centre horizontalement */
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 14px;
 }
+
+.password-toggle input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.password-toggle label {
+  cursor: pointer;
+  color: #333;
+}
+
 
 .error {
   color: red;
@@ -158,8 +147,18 @@ footer .author {
   margin-top: 4px;
 }
 
+/* Footer */
+footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #777;
+  padding: 10px 0;
+}
 
-
+footer .author {
+  color: #004aad;
+  font-weight: bold;
+}
 
 /* Responsive Desktop HD */
 @media screen and (min-width: 1440px) {
@@ -169,7 +168,7 @@ footer .author {
   }
 
   .right h2 {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 
   form input,
@@ -177,8 +176,3 @@ footer .author {
     font-size: 1rem;
   }
 }
-
-
-
-
-

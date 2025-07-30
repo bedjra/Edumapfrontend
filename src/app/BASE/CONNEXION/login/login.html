@@ -27,17 +27,16 @@
                     <div *ngIf="password.invalid && password.touched" class="error">Le mot de passe est requis.</div>
                 </div>
 
-                <!-- ✅ Zone Afficher le mdp -->
-                <div class="afficherMotDEpASSE">
+                <!-- Checkbox pour afficher le mot de passe -->
+                <div class="password-toggle">
                     <input type="checkbox" id="showPasswordCheckbox" (change)="togglePasswordVisibility()" />
                     <label for="showPasswordCheckbox">Afficher le mot de passe</label>
                 </div>
 
+
                 <button type="submit" class="submit-btn" [disabled]="loginForm.invalid">Se connecter</button>
             </form>
         </div>
-
-
     </div>
 </div>
 
