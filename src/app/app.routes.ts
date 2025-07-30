@@ -4,7 +4,7 @@ import { Inscription } from './BASE/CONNEXION/inscription/inscription';
 import { Configuration } from './BASE/CONNEXION/configuration/configuration';
 
 export const routes: Routes = [
-          { path: '', component: Inscription },
-          { path: '', component: Configuration },
+          { path: 'inscription', component: Inscription },
+          { path: 'configuration', component: Configuration },
 
 ];

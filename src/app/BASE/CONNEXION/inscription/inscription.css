@@ -1,43 +1,46 @@
-/* Reset & base styles */
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}/* Style global */
+}
+
+/* Body */
 body {
-  margin: 0;
-  padding: 0;
   font-family: "Segoe UI", sans-serif;
   background-color: #f7f9fb;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Conteneur principal */
 .container {
-  min-height: 100vh;
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 30px;
 }
 
-/* Box contenant les deux colonnes */
+/* Box */
 .box {
   display: flex;
-  flex-direction: row;
   background-color: white;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   width: 100%;
-  max-width: 1000px;
+  max-width: 960px;
+  height: 85vh;
 }
 
-/* Partie gauche : logo + slogan */
+/* Partie gauche */
 .left {
   background-color: #bfdbfe;
-  color: rgb(12, 12, 12);
-  padding: 40px 30px;
   width: 40%;
+  padding: 25px 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -45,107 +48,112 @@ body {
 }
 
 .logo {
-  width: 120px;
-  margin-bottom: 20px;
+  width: 90px;
+  margin-bottom: 12px;
 }
 
 .slogan {
-  font-size: 1.1rem;
+  font-size: 1rem;
   text-align: center;
-  line-height: 1.6;
+  color: #111;
+  line-height: 1.4;
 }
 
-/* Partie droite : formulaire */
+/* Partie droite */
 .right {
   width: 60%;
-  padding: 40px 30px;
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+  padding: 10px 5% 10px 5%;
+  color: black;
+  box-shadow: 0 10px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
+/* Titre centré */
 .right h2 {
-  margin-bottom: 25px;
-  color: #004aad;
-  font-size: 1.8rem;
   text-align: center;
+  font-size: 1.6rem;
+  color: #004aad;
+  margin-bottom: 30px;
 }
 
+/* Labels */
 form label {
-  display: block;
-  margin-bottom: 6px;
   font-weight: 600;
-  color: #333;
+  margin-bottom: 5px;
+  display: block;
+  font-size: 0.9rem;
+
 }
 
+/* Champs input et select stylisés */
 form input,
 form select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 0.95rem;
-}
-
-.show-password {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.show-password label {
-  margin-left: 8px;
-  font-size: 0.9rem;
-  color: #555;
-}
-
-.submit-btn {
-  width: 100%;
+  width: 380px;
   padding: 12px;
-  background-color: #004aad;
+  border: 3px solid #ddd;
+  border-radius: 5px;
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 15px;
+}
+
+
+/* Bouton d'envoi comme .custom-blue */
+.submit-btn {
+  background-color: rgb(117, 170, 244);
   color: white;
+  border-radius: 50px;
+  margin-top: 20px;
+  padding: 10px 20px;
   border: none;
-  border-radius: 6px;
-  font-size: 1rem;
   font-weight: bold;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
   transition: background-color 0.3s;
+  width: fit-content;
+  align-self: center;
 }
 
 .submit-btn:hover {
-  background-color: #003183;
+  background-color: #4c9ce3;
 }
 
+.form-group {
+  margin-bottom: 15px; /* Ajuste à ton goût (10px, 15px, etc.) */
+}
+
+/* Footer */
 footer {
   text-align: center;
-  margin-top: 20px;
-  color: #888;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  color: #777;
+  padding: 0px 0;
 }
 
 footer .author {
-  font-weight: 600;
   color: #004aad;
+  font-weight: bold;
 }
 
-/* Responsive pour écrans ≥ 1440px */
+/* Responsive Desktop HD */
 @media screen and (min-width: 1440px) {
   .box {
-    max-width: 1200px;
-  }
-
-  .logo {
-    width: 140px;
+    height: 80vh;
+    max-width: 1100px;
   }
 
   .right h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   form input,
   form select {
     font-size: 1rem;
-  }
-
-  .submit-btn {
-    font-size: 1.1rem;
   }
 }
