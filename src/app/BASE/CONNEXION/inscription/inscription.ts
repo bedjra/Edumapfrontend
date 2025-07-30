@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-inscription',
+    standalone: true, // ✅ important
   imports: [FormsModule, CommonModule, HttpClientModule],
   templateUrl: './inscription.html',
   styleUrl: './inscription.css'
@@ -23,6 +24,9 @@ passwordVisible = false;
 
 togglePasswordVisibility() {
   this.passwordVisible = !this.passwordVisible;
+}
+ngOnInit() {
+  console.log('Composant inscription chargé');
 }
 
 onSignup() {
