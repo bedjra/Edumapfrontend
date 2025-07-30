@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-configuration',
@@ -27,7 +28,7 @@ export class Configuration {
 
   systemes = ['PRIMAIRE', 'COLLEGE', 'LYCEE'];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
@@ -42,22 +43,29 @@ export class Configuration {
     }
   }
 
+  
   onSubmit() {
-    const formData = new FormData();
-    formData.append('nom', this.configuration.nom);
-    formData.append('adresse', this.configuration.adresse);
-    formData.append('tel', this.configuration.tel);
-    formData.append('cel', this.configuration.cel);
-    formData.append('bp', this.configuration.bp);
-    formData.append('devise', this.configuration.devise);
-    formData.append('systeme', this.configuration.systeme);
-    if (this.configuration.image) {
-      formData.append('image', this.configuration.image);
-    }
-
-    this.http.post('http://localhost:8080/api/configuration', formData).subscribe({
-      next: () => alert("Configuration enregistrée avec succès."),
-      error: (err) => console.error("Erreur lors de l'enregistrement", err)
-    });
+  const formData = new FormData();
+  formData.append('nom', this.configuration.nom);
+  formData.append('adresse', this.configuration.adresse);
+  formData.append('tel', this.configuration.tel);
+  formData.append('cel', this.configuration.cel);
+  formData.append('bp', this.configuration.bp);
+  formData.append('devise', this.configuration.devise);
+  formData.append('systeme', this.configuration.systeme);
+  
+  if (this.configuration.image) {
+    formData.append('image', this.configuration.image);
   }
-}
+
+  this.http.post('http://localhost:8080/api/configuration', formData).subscribe({
+    next: () => {
+      alert("Configuration enregistrée avec succès.");
+      this.router.navigateByUrl('/');  // Redirection vers la page d’accueil
+    },
+    error: (err) => {
+      console.error("Erreur lors de l'enregistrement", err);
+      alert("Erreur lors de l'enregistrement, veuillez réessayer.");
+    }
+  });
+}}
