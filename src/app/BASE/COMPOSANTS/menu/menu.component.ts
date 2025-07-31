@@ -29,4 +29,6 @@ export class MenuComponent {
     this.activeMenuItem = menuItem;
     this.menuItemClick.emit(menuItem);
   }
+
+  
 }
