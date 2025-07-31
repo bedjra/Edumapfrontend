@@ -20,7 +20,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px;
+  padding: 20px;
 }
 
 /* Box */
@@ -102,9 +102,11 @@ form select {
   background-color: rgb(117, 170, 244);
   color: white;
   border-radius: 50px;
-  margin-top: 40px;
+  margin-top: 30px;
+  margin-left: 150px;
   padding: 10px 30px;
   border: none;
+  font-size: medium;
   font-weight: bold;
   font-family: 'Roboto', sans-serif;
   cursor: pointer;
@@ -118,7 +120,7 @@ form select {
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 .password-toggle {
@@ -159,6 +161,26 @@ footer .author {
   color: #004aad;
   font-weight: bold;
 }
+
+
+.signup-link {
+  text-align: center;
+  margin-top: 45px;
+  font-size: 14px;
+  color: #333;
+}
+
+.signup-link a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
 
 /* Responsive Desktop HD */
 @media screen and (min-width: 1440px) {
