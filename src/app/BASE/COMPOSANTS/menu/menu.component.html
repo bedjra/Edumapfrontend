@@ -1,0 +1,92 @@
+<div class="image">
+  <img src="../../../../assets/lo.png" alt="LE LLOG">
+</div>
+
+<div class="sidebar">
+  <ul class="nav-links">
+    <li>
+      <a [routerLink]="['/base/statistique']" [class.active]="activeLink === '/base/statistique'"
+        (click)="setActive('/base/statistique')">
+        <img src="../../../../assets/dash.png" alt="LE LLOG" style="height: 20px;">
+        <span class="links_name">Accueil</span>
+      </a>
+    </li>
+
+    <li>
+      <a [routerLink]="['/base/inscrire-éleve']" [class.active]="activeLink === '/base/inscrire-éleve'"
+        (click)="setActive('/base/inscrire-éleve')">
+        <i class="fas fa-user-graduate"></i>
+        <span class="links_name">Ajouter étudiant</span>
+      </a>
+    </li>
+
+    <li>
+      <a [routerLink]="['/base/parcours']" [class.active]="activeLink === '/base/parcours'"
+        (click)="setActive('/base/parcours')">
+        <i class="fas fa-users"></i>
+        <span class="links_name">Étudiants</span>
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/base/scolarite" [class.active]="activeLink === '/base/scolarite'"
+        (click)="setActive('/base/scolarite')">
+
+        <i class="fa-solid fa-sack-dollar fa-2x"></i>
+        <span class="links_name">Scolarité</span>
+      </a>
+
+    </li>
+
+    <li>
+      <a routerLink="/base/matiere" [class.active]="activeLink === '/base/matiere'"
+        (click)="setActive('/base/matiere')">
+        <i class="fas fa-book"></i>
+        <span class="links_name">Matiere</span>
+      </a>
+    </li>
+
+    <li>
+      <a (click)="openDialog()" (click)="setActive('/base/note')">
+        <i class="fas fa-pen"></i>
+        <span class="links_name">Notes </span>
+      </a>
+    </li>
+
+
+    <li>
+      <a routerLink="/base/bullettin" [class.active]="activeLink === '/base/bullettin'"
+        (click)="setActive('/base/bullettin')">
+        <i class="fas fa-file-alt"></i>
+        <span class="links_name">Bullettin </span>
+      </a>
+    </li>
+
+    <!-- 
+
+    <li>
+      <a routerLink="/base/configuration" [class.active]="activeLink === '/base/configuration'"
+        (click)="setActive('/base/configuration')">
+        <i class="fas fa-file-alt"></i>
+        <span class="links_name">config</span>
+      </a>
+
+    </li>
+     -->
+
+    <li>
+      <a routerLink="/base/parametre" [class.active]="activeLink === '/base/parametre'"
+        (click)="setActive('/base/parametre')">
+        <i class="fa-solid fa-gear"></i>
+        <span class="links_name">Parametre</span>
+      </a>
+    </li>
+
+    <li class="log_out">
+      <a [routerLink]="['/']" [class.active]="activeLink === '/'" (click)="setActive('/')">
+        <i class="fas fa-sign-out-alt"></i>
+        <span class="links_name">Déconnexion</span>
+      </a>
+    </li>
+  </ul>
+</div>
