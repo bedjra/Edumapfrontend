@@ -1,53 +1,32 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { LoginService } from '../../SERVICE/login.service';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../../PAGES/NOTES/dialog/dialog.component';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [RouterLink,
-    
-  ],
   templateUrl: './menu.component.html',
-  styleUrl: './menu.component.css'
+  styleUrl: './menu.component.css',
 })
 export class MenuComponent {
-  activeLink: string = '/base/statistique'; // Par défaut, aucun lien n'est actif
-  constructor(public dialog: MatDialog) { }
+  @Input() collapsed = false;
+  @Output() menuItemClick = new EventEmitter<string>();
 
+  activeMenuItem = 'dashboard';
+  openSubmenus: string[] = [];
 
-logout() {
-  localStorage.removeItem('userEmail');
-  alert('Déconnexion réussie');
-}
+  toggleSubmenu(submenuKey: string): void {
+    if (this.collapsed) return;
 
-setActive(link: string) {
-  console.log("Lien actif:", link);
-  this.activeLink = link;
-}
+    const isOpen = this.openSubmenus.includes(submenuKey);
 
+    if (isOpen) {
+      this.openSubmenus = this.openSubmenus.filter((key) => key !== submenuKey);
+    } else {
+      this.openSubmenus.push(submenuKey);
+    }
+  }
 
-openDialog() {
-  this.dialog.open(DialogComponent, {
-    maxWidth: '50vw',
-    maxHeight: '80vh',
-    height: '75vh',
-    width: '50vw',
-    panelClass: 'blue-dialog'
-  });
-}
-
-
-isSemestreModalOpen = false;
-
-openSemestreModal() {
-  this.isSemestreModalOpen = true;
-}
-
-closeSemestreModal() {
-  this.isSemestreModalOpen = false;
-}
-
-
+  selectMenuItem(menuItem: string): void {
+    this.activeMenuItem = menuItem;
+    this.menuItemClick.emit(menuItem);
+  }
 }

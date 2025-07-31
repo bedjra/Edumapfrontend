@@ -1,92 +1,134 @@
-<div class="image">
-  <img src="../../../../assets/lo.png" alt="LE LLOG">
-</div>
 
-<div class="sidebar">
-  <ul class="nav-links">
-    <li>
-      <a [routerLink]="['/base/statistique']" [class.active]="activeLink === '/base/statistique'"
-        (click)="setActive('/base/statistique')">
-        <img src="../../../../assets/dash.png" alt="LE LLOG" style="height: 20px;">
-        <span class="links_name">Accueil</span>
-      </a>
-    </li>
-
-    <li>
-      <a [routerLink]="['/base/inscrire-éleve']" [class.active]="activeLink === '/base/inscrire-éleve'"
-        (click)="setActive('/base/inscrire-éleve')">
-        <i class="fas fa-user-graduate"></i>
-        <span class="links_name">Ajouter étudiant</span>
-      </a>
-    </li>
-
-    <li>
-      <a [routerLink]="['/base/parcours']" [class.active]="activeLink === '/base/parcours'"
-        (click)="setActive('/base/parcours')">
+<div class="sidebar-content">
+  <div class="sidebar-header">
+    <h3 class="brand">
+      <div class="logo">C</div>
+      <span class="brand-text" [class.hidden]="collapsed">CLASSIK</span>
+    </h3>
+  </div>
+  
+  <nav class="sidebar-menu">
+    <a class="menu-item" 
+       [class.active]="activeMenuItem === 'dashboard'"
+       (click)="selectMenuItem('dashboard')">
+      <i class="fas fa-tachometer-alt"></i>
+      <span class="menu-text" [class.hidden]="collapsed">Tableau de bord</span>
+    </a>
+    
+    <div class="menu-group">
+      <button class="menu-item has-submenu" 
+              [class.open]="openSubmenus.includes('students')"
+              (click)="toggleSubmenu('students')"
+              [disabled]="collapsed">
         <i class="fas fa-users"></i>
-        <span class="links_name">Étudiants</span>
-      </a>
-    </li>
-
-    <li>
-      <a routerLink="/base/scolarite" [class.active]="activeLink === '/base/scolarite'"
-        (click)="setActive('/base/scolarite')">
-
-        <i class="fa-solid fa-sack-dollar fa-2x"></i>
-        <span class="links_name">Scolarité</span>
-      </a>
-
-    </li>
-
-    <li>
-      <a routerLink="/base/matiere" [class.active]="activeLink === '/base/matiere'"
-        (click)="setActive('/base/matiere')">
-        <i class="fas fa-book"></i>
-        <span class="links_name">Matiere</span>
-      </a>
-    </li>
-
-    <li>
-      <a (click)="openDialog()" (click)="setActive('/base/note')">
-        <i class="fas fa-pen"></i>
-        <span class="links_name">Notes </span>
-      </a>
-    </li>
-
-
-    <li>
-      <a routerLink="/base/bullettin" [class.active]="activeLink === '/base/bullettin'"
-        (click)="setActive('/base/bullettin')">
+        <span class="menu-text" [class.hidden]="collapsed">Gestion des élèves</span>
+        <i class="fas fa-chevron-right arrow" 
+           [class.hidden]="collapsed"
+           [class.rotated]="openSubmenus.includes('students')"></i>
+      </button>
+      <div class="submenu" 
+           [class.open]="openSubmenus.includes('students') && !collapsed">
+        <a class="menu-item submenu-item" 
+           [class.active]="activeMenuItem === 'add-students'"
+           (click)="selectMenuItem('add-students')">
+          <span class="menu-text">Ajouter des élèves</span>
+        </a>
+        <a class="menu-item submenu-item" 
+           [class.active]="activeMenuItem === 'list-students'"
+           (click)="selectMenuItem('list-students')">
+          <span class="menu-text">Liste des élèves</span>
+        </a>
+      </div>
+    </div>
+    
+    <div class="menu-group">
+      <button class="menu-item has-submenu" 
+              [class.open]="openSubmenus.includes('notes')"
+              (click)="toggleSubmenu('notes')"
+              [disabled]="collapsed">
+        <i class="fas fa-sticky-note"></i>
+        <span class="menu-text" [class.hidden]="collapsed">Notes & Bulletins</span>
+        <i class="fas fa-chevron-right arrow" 
+           [class.hidden]="collapsed"
+           [class.rotated]="openSubmenus.includes('notes')"></i>
+      </button>
+      <div class="submenu" 
+           [class.open]="openSubmenus.includes('notes') && !collapsed">
+        <a class="menu-item submenu-item" 
+           [class.active]="activeMenuItem === 'input-notes'"
+           (click)="selectMenuItem('input-notes')">
+          <span class="menu-text">Saisie des notes</span>
+        </a>
+        <a class="menu-item submenu-item" 
+           [class.active]="activeMenuItem === 'bulletins'"
+           (click)="selectMenuItem('bulletins')">
+          <span class="menu-text">Bulletins</span>
+        </a>
+      </div>
+    </div>
+    
+    <div class="menu-group">
+      <button class="menu-item has-submenu" 
+              [class.open]="openSubmenus.includes('payments')"
+              (click)="toggleSubmenu('payments')"
+              [disabled]="collapsed">
+        <i class="fas fa-money-bill-wave"></i>
+        <span class="menu-text" [class.hidden]="collapsed">Paiements</span>
+        <i class="fas fa-chevron-right arrow" 
+           [class.hidden]="collapsed"
+           [class.rotated]="openSubmenus.includes('payments')"></i>
+      </button>
+      <div class="submenu" 
+           [class.open]="openSubmenus.includes('payments') && !collapsed">
+        <a class="menu-item submenu-item" 
+           [class.active]="activeMenuItem === 'received-payments'"
+           (click)="selectMenuItem('received-payments')">
+          <span class="menu-text">Paiements reçus</span>
+        </a>
+        <a class="menu-item submenu-item" 
+           [class.active]="activeMenuItem === 'unpaid-tracking'"
+           (click)="selectMenuItem('unpaid-tracking')">
+          <span class="menu-text">Suivi des impayés</span>
+        </a>
+        <a class="menu-item submenu-item" 
+           [class.active]="activeMenuItem === 'generate-receipt'"
+           (click)="selectMenuItem('generate-receipt')">
+          <span class="menu-text">Générer une quittance</span>
+        </a>
+      </div>
+    </div>
+    
+    <div class="menu-group">
+      <button class="menu-item has-submenu" 
+              [class.open]="openSubmenus.includes('documents')"
+              (click)="toggleSubmenu('documents')"
+              [disabled]="collapsed">
         <i class="fas fa-file-alt"></i>
-        <span class="links_name">Bullettin </span>
-      </a>
-    </li>
-
-    <!-- 
-
-    <li>
-      <a routerLink="/base/configuration" [class.active]="activeLink === '/base/configuration'"
-        (click)="setActive('/base/configuration')">
-        <i class="fas fa-file-alt"></i>
-        <span class="links_name">config</span>
-      </a>
-
-    </li>
-     -->
-
-    <li>
-      <a routerLink="/base/parametre" [class.active]="activeLink === '/base/parametre'"
-        (click)="setActive('/base/parametre')">
-        <i class="fa-solid fa-gear"></i>
-        <span class="links_name">Parametre</span>
-      </a>
-    </li>
-
-    <li class="log_out">
-      <a [routerLink]="['/']" [class.active]="activeLink === '/'" (click)="setActive('/')">
-        <i class="fas fa-sign-out-alt"></i>
-        <span class="links_name">Déconnexion</span>
-      </a>
-    </li>
-  </ul>
+        <span class="menu-text" [class.hidden]="collapsed">Documents</span>
+        <i class="fas fa-chevron-right arrow" 
+           [class.hidden]="collapsed"
+           [class.rotated]="openSubmenus.includes('documents')"></i>
+      </button>
+      <div class="submenu" 
+           [class.open]="openSubmenus.includes('documents') && !collapsed">
+        <a class="menu-item submenu-item" 
+           [class.active]="activeMenuItem === 'doc-bulletins'"
+           (click)="selectMenuItem('doc-bulletins')">
+          <span class="menu-text">Bulletins</span>
+        </a>
+        <a class="menu-item submenu-item" 
+           [class.active]="activeMenuItem === 'payment-receipts'"
+           (click)="selectMenuItem('payment-receipts')">
+          <span class="menu-text">Reçu de paiement</span>
+        </a>
+      </div>
+    </div>
+    
+    <a class="menu-item" 
+       [class.active]="activeMenuItem === 'settings'"
+       (click)="selectMenuItem('settings')">
+      <i class="fas fa-cog"></i>
+      <span class="menu-text" [class.hidden]="collapsed">Paramètres</span>
+    </a>
+  </nav>
 </div>
