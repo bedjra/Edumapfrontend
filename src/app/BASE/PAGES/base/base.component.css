@@ -1,0 +1,25 @@
+.header {
+    position: fixed;
+    top: 0;
+    margin-left: 16.8%;
+    width: 84%;
+    height: 60px; /* Ajuste selon la hauteur du header */
+    z-index: 1000;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.col-lg-2 {
+    background-color: rgb(169, 184, 202);
+    height: 100vh; /* Hauteur fixe */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 16.66%; /* 2/12 = 16.66% pour correspondre à col-lg-2 */
+}
+
+.content-area {
+    margin-left: 20.8%;
+    margin-top: 60px; 
+    width: 99%;
+    /* Ajuste selon la hauteur du header */
+}
