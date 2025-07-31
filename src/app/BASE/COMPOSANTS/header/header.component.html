@@ -1,31 +1,49 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light px-3">
 
-    <div class="ml-auto">
-        <!-- Barre de recherche -->
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Rechercher..." />
-
-        </div>
+<div class="header-container">
+  <div class="header-left">
+    <button class="menu-toggle btn" (click)="onToggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb breadcrumb-custom mb-0">
+        <li class="breadcrumb-item active">{{ currentPage }}</li>
+      </ol>
+    </nav>
+  </div>
+  
+  <div class="header-right">
+    <div class="search-box">
+      <input type="text" 
+             class="form-control" 
+             placeholder="Faire votre recherche..."
+             [(ngModel)]="searchQuery"
+             (keyup.enter)="onSearch()"
+             #searchInput>
+      <button class="search-btn" (click)="onSearch()">
+        <i class="fas fa-search"></i>
+      </button>
     </div>
-
-
-    <div class="d-flex left-section">
-        <!-- Icône d'alarme -->
-        <button class="btn btn-light position-relative">
-            <i class="fas fa-bell"></i>
-            <span class="position-absolute top-0 start-100 translate-middle badge bg-danger">3</span>
-        </button>
-
-        <!-- Icône de profil + Nom -->
-        <div class="profile">
-            <span class="admin_name" style="font-size: 12px">
-                Welcome <br /> {{ userRole }}
-            </span>
-            <img src="../../../../assets/profil.png" alt="LE LLOG">
-        </div>
-
-
+    
+    <div class="notification-bell" (click)="toggleNotifications()">
+      <i class="fas fa-bell"></i>
+      <span class="badge" *ngIf="notificationCount > 0">{{ notificationCount }}</span>
     </div>
-
-
-</nav>
+    
+    <div class="user-profile dropdown" 
+         [class.show]="userMenuOpen"
+         (click)="toggleUserMenu()">
+      <div class="user-avatar">
+        {{ userInitials }}
+      </div>
+      <span class="d-none d-md-inline user-name">{{ userName }}</span>
+      <i class="fas fa-chevron-down"></i>
+      
+      <div class="dropdown-menu" [class.show]="userMenuOpen">
+        <a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profil</a>
+        <a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Paramètres</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+      </div>
+    </div>
+  </div>
+</div>

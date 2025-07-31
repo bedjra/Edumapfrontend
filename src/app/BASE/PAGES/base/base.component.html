@@ -1,23 +1,27 @@
-<div class="col-lg-2 col-md-4 p-0 d-flex flex-column" style="  background-color: rgb(169, 184, 202);
- height: 100vh;">
-    <app-menu class="flex-grow-1"></app-menu>
-</div>
 <div class="container-fluid h-100">
-    <div class="row h-100">
-        <!-- Menu latéral -->
-
-
-        <!-- Conteneur principal -->
-        <div class="col-lg-10 col-md-8 col-sm-12 d-flex flex-column p-0">
-            <!-- Header en haut -->
-            <header class="header">
-                <app-header class="flex-grow-1"></app-header>
-            </header>
-
-            <!-- Contenu dynamique (router-outlet) -->
-            <section class="flex-grow-1 content-area p-3" style="background-color: white;">
-                <router-outlet></router-outlet>
-            </section>
-        </div>
+  <div class="row h-100">
+    <!-- Menu latéral -->
+    <div class="col-lg-2 col-md-4 p-0 d-flex flex-column sidebar-container" 
+         [class.collapsed]="sidebarCollapsed">
+      <app-menu class="flex-grow-1" 
+                [collapsed]="sidebarCollapsed"
+                (menuItemClick)="onMenuItemClick($event)"></app-menu>
     </div>
+
+    <!-- Conteneur principal -->
+    <div class="col-lg-10 col-md-8 col-sm-12 d-flex flex-column p-0 main-container"
+         [class.expanded]="sidebarCollapsed">
+      <!-- Header en haut -->
+      <header class="header">
+        <app-header class="flex-grow-1"
+                   (toggleSidebar)="toggleSidebar()"
+                   (searchQuery)="onSearch($event)"></app-header>
+      </header>
+
+      <!-- Contenu dynamique (router-outlet) -->
+      <section class="flex-grow-1 content-area p-3">
+        <router-outlet></router-outlet>
+      </section>
+    </div>
+  </div>
 </div>
