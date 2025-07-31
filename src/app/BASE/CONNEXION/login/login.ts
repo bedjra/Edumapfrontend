@@ -10,12 +10,12 @@ import { LoginService } from '../../SERVICE/login-service';
   standalone: true,
   imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './login.html',
-  styleUrls: ['./login.css']
+  styleUrls: ['./login.css'],
 })
 export class LoginComponent {
   credentials = {
     email: '',
-    password: ''
+    password: '',
   };
 
   passwordVisible = false;
@@ -28,7 +28,7 @@ export class LoginComponent {
 
   onLogin() {
     if (!this.credentials.email || !this.credentials.password) {
-      alert("Veuillez remplir tous les champs.");
+      alert('Veuillez remplir tous les champs.');
       return;
     }
 
@@ -37,10 +37,16 @@ export class LoginComponent {
         alert('Connexion réussie !');
         this.router.navigateByUrl('/dashboard');
       },
-      error: err => {
-        alert('Erreur lors de la connexion. Vérifiez vos identifiants.');
+      error: (err) => {
+        if (err?.error?.message?.includes('licence est expirée')) {
+          alert(
+            'Votre licence est expirée. Veuillez contacter l’administrateur.'
+          );
+        } else {
+          alert('Erreur lors de la connexion. Vérifiez vos identifiants.');
+        }
         console.error(err);
-      }
+      },
     });
   }
 }

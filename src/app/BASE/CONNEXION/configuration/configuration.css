@@ -17,15 +17,19 @@ body {
 
 /* Container principal */
 .max-w-xl {
-  max-width: 1100px; /* agrandi comme box */
-  margin: 2.5rem auto 0 auto; /* mt-10 */
-  padding: 1.5rem 2rem; /* p-6 modifié pour confort */
+  max-width: 1100px;
+  /* agrandi comme box */
+  margin: 2.5rem auto 0 auto;
+  /* mt-10 */
+  padding: 1.5rem 2rem;
+  /* p-6 modifié pour confort */
   background-color: white;
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   color: black;
   height: 90vh;
-  overflow-y: auto; /* scroll interne si contenu trop grand */
+  overflow-y: auto;
+  /* scroll interne si contenu trop grand */
   display: flex;
   flex-direction: column;
 }
@@ -43,20 +47,23 @@ body {
 form {
   display: flex;
   flex-direction: column;
-  gap: 30px; /* entre les groupes */
+  gap: 30px;
+  /* entre les groupes */
   flex: 1;
 }
 
 /* Chaque groupe de 2 champs côte à côte */
 .form-group-card {
   display: flex;
-  gap: 40px; /* espace entre les 2 colonnes */
+  gap: 50px;
+  /* espace entre les 2 colonnes */
   justify-content: space-between;
 }
 
 /* Chaque champ individuel */
 .form-group {
-  flex: 1; /* prend la moitié disponible */
+  flex: 1;
+  /* prend la moitié disponible */
   display: flex;
   flex-direction: column;
 }
@@ -98,7 +105,7 @@ form {
   height: auto;
   border-radius: 8px;
   border: 1px solid #ddd;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Bouton */
@@ -106,7 +113,8 @@ form {
   background-color: rgb(117, 170, 244);
   color: white;
   border-radius: 50px;
-  margin-top: 10px; /* réduit l'espace au-dessus */
+  margin-top: 10px;
+  /* réduit l'espace au-dessus */
   padding: 10px 20px;
   border: none;
   font-weight: bold;
@@ -124,17 +132,33 @@ form {
 /* Responsive desktop HD */
 @media screen and (min-width: 1440px) {
   .max-w-xl {
+    margin-top: 80px;
+    padding-top: 30px;
     max-width: 1200px;
     height: 80vh;
   }
 
   .max-w-xl h2 {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
   }
 
   .form-group input[type="text"],
   .form-group select {
-    font-size: 1rem;
+    font-size: 1.2em;
+  }
+
+
+  .submit-btn {
+    border-radius: 50px;
+    margin-top: 50px;
+    font-size: 1.2rem;
+  }
+
+
+  .form-group label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
   }
 }
 
@@ -145,5 +169,3 @@ form {
     gap: 15px;
   }
 }
-
-
