@@ -1,11 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
   imports: [],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrl: './dashboard.component.css',
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
+  totalStudents = 5000;
+  totalBulletins = 573;
+  totalPayments = 12234;
+  totalRevenue = 15500000;
 
+  constructor() {}
+
+  ngOnInit(): void {
+    // Initialisation des données
+  }
 }

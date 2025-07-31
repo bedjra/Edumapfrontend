@@ -1,14 +1,17 @@
-
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-header',
+  standalone: true,
+  imports: [CommonModule, FormsModule], 
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent  {
-
- @Input() currentPage = 'Tableau de bord';
+export class HeaderComponent {
+  @Input() currentPage = 'Tableau de bord';
   @Output() toggleSidebar = new EventEmitter<void>();
   @Output() searchQuery = new EventEmitter<string>();
 
