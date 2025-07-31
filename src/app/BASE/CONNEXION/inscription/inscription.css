@@ -109,9 +109,11 @@ form select {
   background-color: rgb(117, 170, 244);
   color: white;
   border-radius: 50px;
-  margin-top: 20px;
-  padding: 10px 20px;
+  margin-top: 30px;
+  margin-left: 110px;
+  padding: 10px 30px;
   border: none;
+  font-size: medium;
   font-weight: bold;
   font-family: 'Roboto', sans-serif;
   cursor: pointer;
