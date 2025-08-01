@@ -1,15 +1,3 @@
-.header-container {
-  position: fixed;
-  top: 0;
-  right: 0;
-  display: flex;
-  justify-content: space-between;
-  height: 70px;
-  background: white;
-  border-bottom: 1px solid #94b8db;
-  z-index: 1030;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
 
 /* Classe pour compenser la hauteur du header fixe */
 .main-content {
