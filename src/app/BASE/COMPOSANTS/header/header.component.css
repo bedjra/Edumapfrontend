@@ -268,7 +268,7 @@
 .header-container {
   position: fixed;
   top: 0;
-  left: 280px; /* Important : décale vers la droite */
+  left: 290px; /* Important : décale vers la droite */
   right: 0;
   height: 70px;
   background: white;
