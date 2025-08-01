@@ -24,28 +24,23 @@
 
 ---->
 
-<div class="container-fluid h-100">
+<div class="layout-container">
+  <!-- Sidebar -->
+  <div class="sidebar" [class.collapsed]="sidebarCollapsed">
+    <app-menu [collapsed]="sidebarCollapsed" (menuItemClick)="onMenuItemClick($event)"></app-menu>
+  </div>
 
- <!-- SIDEBAR -->
-    <div class="sidebar-container" [class.collapsed]="sidebarCollapsed">
-      <app-menu [collapsed]="sidebarCollapsed" (menuItemClick)="onMenuItemClick($event)"></app-menu>
-    </div>
- <!-- SIDEBAR -->
-    <div class="sidebar-container" [class.collapsed]="sidebarCollapsed">
-      <app-menu [collapsed]="sidebarCollapsed" (menuItemClick)="onMenuItemClick($event)"></app-menu>
-    </div>
-
-  <div class="row h-100">
-
-   
-
+  <!-- Contenu principal (Header + Page) -->
+  <div class="main-wrapper">
     
+    <!-- Header -->
+    <header class="header">
+      <app-header (toggleSidebar)="toggleSidebar()" (searchQuery)="onSearch($event)"></app-header>
+    </header>
 
-    <!-- CONTENU PRINCIPAL -->
-    <div class="main-container" [class.expanded]="sidebarCollapsed">
-      <section class="content-area p-3">
-        <router-outlet></router-outlet>
-      </section>
+    <!-- Contenu de la page -->
+    <div class="page-content">
+      <router-outlet></router-outlet>
     </div>
 
   </div>
