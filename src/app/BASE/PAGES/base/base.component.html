@@ -26,17 +26,20 @@
 
 <div class="container-fluid h-100">
 
-  <!-- HEADER -->
-  <header class="header" [class.expanded]="sidebarCollapsed">
-    <app-header (toggleSidebar)="toggleSidebar()" (searchQuery)="onSearch($event)"></app-header>
-  </header>
-
-  <div class="row h-100">
-
-    <!-- SIDEBAR -->
+ <!-- SIDEBAR -->
     <div class="sidebar-container" [class.collapsed]="sidebarCollapsed">
       <app-menu [collapsed]="sidebarCollapsed" (menuItemClick)="onMenuItemClick($event)"></app-menu>
     </div>
+ <!-- SIDEBAR -->
+    <div class="sidebar-container" [class.collapsed]="sidebarCollapsed">
+      <app-menu [collapsed]="sidebarCollapsed" (menuItemClick)="onMenuItemClick($event)"></app-menu>
+    </div>
+
+  <div class="row h-100">
+
+   
+
+    
 
     <!-- CONTENU PRINCIPAL -->
     <div class="main-container" [class.expanded]="sidebarCollapsed">
