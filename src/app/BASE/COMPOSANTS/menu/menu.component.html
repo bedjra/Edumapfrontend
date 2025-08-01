@@ -66,20 +66,14 @@
       </div>
     </div>
     
-    <div class="menu-group">
-      <button class="menu-item has-submenu" 
-              [class.open]="openSubmenus.includes('payments')"
-              (click)="toggleSubmenu('payments')"
-              [disabled]="collapsed">
-        <i class="fas fa-money-bill-wave"></i>
-        <span class="menu-text" [class.hidden]="collapsed">Paiements</span>
-        <i class="fas fa-chevron-right arrow" 
-           [class.hidden]="collapsed"
-           [class.rotated]="openSubmenus.includes('payments')"></i>
-      </button>
-      
-    </div>
+  
     
+       <a class="menu-item" 
+       [class.active]="activeMenuItem === 'payments'"
+       (click)="selectMenuItem('Paiements')">
+        <i class="fas fa-money-bill-wave"></i>
+      <span class="menu-text" [class.hidden]="collapsed">Paiements</span>
+    </a>
     
     
     <a class="menu-item" 

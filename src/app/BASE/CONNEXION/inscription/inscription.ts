@@ -21,6 +21,7 @@ export class Inscription {
   };
 
   roles = ['admin', 'secretaire', 'enseignant'];
+localStorage.setItem('userRole', this.credentials.role);
 
   passwordVisible = false;
 

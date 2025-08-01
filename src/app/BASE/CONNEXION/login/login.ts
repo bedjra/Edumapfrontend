@@ -19,6 +19,7 @@ export class LoginComponent {
   };
 
   passwordVisible = false;
+// Exemple dans ton `onSignup()` ou `onLogin()`
 
   constructor(private loginService: LoginService, private router: Router) {}
 
@@ -26,27 +27,34 @@ export class LoginComponent {
     this.passwordVisible = !this.passwordVisible;
   }
 
-  onLogin() {
-    if (!this.credentials.email || !this.credentials.password) {
-      alert('Veuillez remplir tous les champs.');
-      return;
-    }
-
-    this.loginService.login(this.credentials).subscribe({
-      next: (response: any) => {
-        alert('Connexion réussie !');
-        this.router.navigateByUrl('/dashboard');
-      },
-      error: (err) => {
-        if (err?.error?.message?.includes('licence est expirée')) {
-          alert(
-            'Votre licence est expirée. Veuillez contacter l’administrateur.'
-          );
-        } else {
-          alert('Erreur lors de la connexion. Vérifiez vos identifiants.');
-        }
-        console.error(err);
-      },
-    });
+ onLogin() {
+  if (!this.credentials.email || !this.credentials.password) {
+    alert('Veuillez remplir tous les champs.');
+    return;
   }
+
+  this.loginService.login(this.credentials).subscribe({
+    next: (response: any) => {
+      alert('Connexion réussie !');
+
+      // Stocker les infos dans le localStorage
+      const user = {
+        email: response.email,
+        role: response.role
+      };
+      localStorage.setItem('user', JSON.stringify(user));
+
+      this.router.navigateByUrl('/dashboard');
+    },
+    error: (err) => {
+      if (err?.error?.message?.includes('licence est expirée')) {
+        alert('Votre licence est expirée. Veuillez contacter l’administrateur.');
+      } else {
+        alert('Erreur lors de la connexion. Vérifiez vos identifiants.');
+      }
+      console.error(err);
+    },
+  });
+}
+
 }
