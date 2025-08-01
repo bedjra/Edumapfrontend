@@ -4,6 +4,7 @@ import { Configuration } from './BASE/CONNEXION/configuration/configuration';
 import { LoginComponent } from './BASE/CONNEXION/login/login';
 import { BaseComponent } from './BASE/PAGES/base/base.component';
 import { DashboardComponent } from './BASE/PAGES/dashboard/dashboard.component';
+import { Parametres } from './BASE/PAGES/parametres/parametres';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -15,6 +16,7 @@ export const routes: Routes = [
     component: BaseComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'parametre', component: Parametres },
       
     ],
   },
