@@ -1,6 +1,10 @@
+<header class="header">
+                <app-header class="flex-grow-1" (toggleSidebar)="toggleSidebar()"
+                    (searchQuery)="onSearch($event)"></app-header>
+            </header>
+<!----
 <div class="container-fluid h-100">
     <div class="row h-100">
-        <!-- Menu latéral -->
         <div class="col-lg-2 col-md-4 p-0 d-flex flex-column sidebar-container" [class.collapsed]="sidebarCollapsed">
             <app-menu class="flex-grow-1" [collapsed]="sidebarCollapsed"
                 (menuItemClick)="onMenuItemClick($event)"></app-menu>
@@ -20,3 +24,5 @@
 
     </div>
 </div>
+
+--->
