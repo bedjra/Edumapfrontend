@@ -1,15 +1,12 @@
-<header class="header">
-                <app-header class="flex-grow-1" (toggleSidebar)="toggleSidebar()"
-                    (searchQuery)="onSearch($event)"></app-header>
-            </header>
-<!----
+
+<!---
 <div class="container-fluid h-100">
     <div class="row h-100">
+
         <div class="col-lg-2 col-md-4 p-0 d-flex flex-column sidebar-container" [class.collapsed]="sidebarCollapsed">
             <app-menu class="flex-grow-1" [collapsed]="sidebarCollapsed"
                 (menuItemClick)="onMenuItemClick($event)"></app-menu>
         </div>
-
         <div class="col-lg-10 col-md-8 col-sm-12 d-flex flex-column p-0 main-container"
             [class.expanded]="sidebarCollapsed">
             <header class="header">
@@ -25,4 +22,36 @@
     </div>
 </div>
 
---->
+---->
+
+<div class="container-fluid h-100">
+
+  <!-- HEADER GLOBAL AU-DESSUS DE TOUT -->
+  <header class="header">
+    <app-header class="flex-grow-1" 
+                (toggleSidebar)="toggleSidebar()"
+                (searchQuery)="onSearch($event)">
+    </app-header>
+  </header>
+
+  <div class="row h-100">
+
+    <!-- SIDEBAR -->
+    <div class="col-lg-2 col-md-4 p-0 d-flex flex-column sidebar-container" 
+         [class.collapsed]="sidebarCollapsed">
+      <app-menu class="flex-grow-1" 
+                [collapsed]="sidebarCollapsed"
+                (menuItemClick)="onMenuItemClick($event)">
+      </app-menu>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="col-lg-10 col-md-8 col-sm-12 d-flex flex-column p-0 main-container"
+         [class.expanded]="sidebarCollapsed">
+      <section class="flex-grow-1 content-area p-3">
+        <router-outlet></router-outlet>
+      </section>
+    </div>
+
+  </div>
+</div>
