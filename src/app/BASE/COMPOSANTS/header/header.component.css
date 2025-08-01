@@ -1,9 +1,23 @@
 .header-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 30px;
-  height: 100%;
+  height: 70px;
+  background: white;
+  border-bottom: 1px solid #e9ecef;
+  z-index: 1030;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Classe pour compenser la hauteur du header fixe */
+.main-content {
+  margin-top: 70px;
+  min-height: calc(100vh - 70px);
 }
 
 .header-left {
@@ -167,7 +181,7 @@
   visibility: hidden;
   transform: translateY(-10px);
   transition: all 0.3s ease;
-  z-index: 1000;
+  z-index: 1050;
 }
 
 .dropdown-menu.show {
