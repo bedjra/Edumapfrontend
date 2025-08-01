@@ -1,1 +1,261 @@
-<p>add works!</p>
+
+    <div class="container">
+        <h2>Entrer les informations et la photo de l'élève si disponible !</h2>
+        
+        <!-- Progress Indicator -->
+        <div class="progress-container">
+            <div class="step active" id="step-1">1</div>
+            <div class="line" id="line-1"></div>
+            <div class="step" id="step-2">2</div>
+            <div class="line" id="line-2"></div>
+            <div class="step" id="step-3">3</div>
+        </div>
+
+        <form id="studentForm">
+            
+            <!-- Étape 1: Informations personnelles -->
+            <div class="form-step active" id="step-content-1">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nom">Nom</label>
+                        <input 
+                            type="text" 
+                            id="nom" 
+                            name="nom" 
+                            placeholder="Entrer le nom"
+                            class="form-control"
+                            required
+                        >
+                        <div class="error-message" id="nom-error">Le nom est requis</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="prenoms">Prénoms</label>
+                        <input 
+                            type="text" 
+                            id="prenoms" 
+                            name="prenoms" 
+                            placeholder="Entrer le prénom"
+                            class="form-control"
+                            required
+                        >
+                        <div class="error-message" id="prenoms-error">Le prénom est requis</div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dateNaissance">Date de naissance</label>
+                        <input 
+                            type="date" 
+                            id="dateNaissance" 
+                            name="dateNaissance"
+                            class="form-control"
+                            required
+                        >
+                        <div class="error-message" id="dateNaissance-error">La date de naissance est requise</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lieuNaissance">Lieu de Naissance</label>
+                        <input 
+                            type="text" 
+                            id="lieuNaissance" 
+                            name="lieuNaissance" 
+                            placeholder="Entrer le lieu"
+                            class="form-control"
+                            required
+                        >
+                        <div class="error-message" id="lieuNaissance-error">Le lieu de naissance est requis</div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nationalite">Nationalité</label>
+                        <select 
+                            id="nationalite" 
+                            name="nationalite"
+                            class="form-control"
+                            required
+                        >
+                            <option value="">Choisir la nationalité</option>
+                            <option value="francaise">Française</option>
+                            <option value="belge">Belge</option>
+                            <option value="suisse">Suisse</option>
+                            <option value="canadienne">Canadienne</option>
+                            <option value="ivoirienne">Ivoirienne</option>
+                            <option value="senegalaise">Sénégalaise</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                        <div class="error-message" id="nationalite-error">La nationalité est requise</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Sexe</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="sexe" value="masculin" required>
+                                <span>Masculin</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="sexe" value="feminin" required>
+                                <span>Féminin</span>
+                            </label>
+                        </div>
+                        <div class="error-message" id="sexe-error">Le sexe est requis</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Étape 2: Scolarité -->
+            <div class="form-step" id="step-content-2">
+                <h3>Scolarité</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ecoleProvenance">École de provenance</label>
+                        <input 
+                            type="text" 
+                            id="ecoleProvenance" 
+                            name="ecoleProvenance" 
+                            placeholder="Entrer l'école"
+                            class="form-control"
+                            required
+                        >
+                        <div class="error-message" id="ecoleProvenance-error">L'école de provenance est requise</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="classe">Classe</label>
+                        <select 
+                            id="classe" 
+                            name="classe"
+                            class="form-control"
+                            required
+                        >
+                            <option value="">Sélectionner la classe</option>
+                            <option value="cp">CP</option>
+                            <option value="ce1">CE1</option>
+                            <option value="ce2">CE2</option>
+                            <option value="cm1">CM1</option>
+                            <option value="cm2">CM2</option>
+                            <option value="6eme">6ème</option>
+                            <option value="5eme">5ème</option>
+                            <option value="4eme">4ème</option>
+                            <option value="3eme">3ème</option>
+                        </select>
+                        <div class="error-message" id="classe-error">La classe est requise</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="tuteurAssigne">Tuteur assigné</label>
+                    <select 
+                        id="tuteurAssigne" 
+                        name="tuteurAssigne"
+                        class="form-control"
+                        required
+                    >
+                        <option value="">Choisir le tuteur</option>
+                        <option value="tuteur1">M. Dupont Jean</option>
+                        <option value="tuteur2">Mme Martin Claire</option>
+                        <option value="tuteur3">M. Bernard Paul</option>
+                        <option value="tuteur4">Mme Kouassi Aya</option>
+                        <option value="nouveau">ou créer un nouveau tuteur</option>
+                    </select>
+                    <div class="error-message" id="tuteurAssigne-error">Le tuteur assigné est requis</div>
+                </div>
+            </div>
+
+            <!-- Étape 3: Photo et confirmation -->
+            <div class="form-step" id="step-content-3">
+                <h3>Photo de l'élève</h3>
+                
+                <div class="form-group">
+                    <label for="photo">Photo de l'élève (optionnel)</label>
+                    <div class="file-input-wrapper">
+                        <input 
+                            type="file" 
+                            id="photo" 
+                            name="photo"
+                            accept="image/*"
+                            class="file-input"
+                        >
+                        <label for="photo" class="file-input-label">
+                            📷 Cliquer pour sélectionner une photo
+                        </label>
+                    </div>
+                    <div class="help-text">Formats acceptés: JPG, PNG, GIF (max 5MB)</div>
+                    
+                    <div class="file-preview" id="file-preview">
+                        <p id="file-name"></p>
+                        <img id="image-preview" class="image-preview" alt="Aperçu">
+                    </div>
+                </div>
+
+                <!-- Résumé des informations -->
+                <div class="summary">
+                    <h4>📋 Résumé des informations</h4>
+                    <div class="summary-item">
+                        <strong>Nom:</strong> <span id="summary-nom">Non renseigné</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>Prénom:</strong> <span id="summary-prenoms">Non renseigné</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>Date de naissance:</strong> <span id="summary-dateNaissance">Non renseignée</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>Lieu de naissance:</strong> <span id="summary-lieuNaissance">Non renseigné</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>Nationalité:</strong> <span id="summary-nationalite">Non renseignée</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>Sexe:</strong> <span id="summary-sexe">Non renseigné</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>École:</strong> <span id="summary-ecoleProvenance">Non renseignée</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>Classe:</strong> <span id="summary-classe">Non renseignée</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>Tuteur:</strong> <span id="summary-tuteurAssigne">Non renseigné</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation buttons -->
+            <div class="button-container">
+                <button 
+                    type="button" 
+                    class="btn btn-secondary" 
+                    id="prevBtn"
+                    style="display: none;"
+                >
+                    ← Précédent
+                </button>
+                
+                <button 
+                    type="button" 
+                    class="btn btn-primary" 
+                    id="nextBtn"
+                >
+                    Suivant →
+                </button>
+                
+                <button 
+                    type="submit" 
+                    class="btn btn-success"
+                    id="submitBtn"
+                    style="display: none;"
+                >
+                    <span id="submit-text">✅ Enregistrer</span>
+                    <div class="loading" id="loading" style="display: none;"></div>
+                </button>
+            </div>
+        </form>
+    </div>
