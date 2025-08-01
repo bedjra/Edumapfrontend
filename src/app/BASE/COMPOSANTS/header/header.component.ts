@@ -43,6 +43,6 @@ export class HeaderComponent {
   logout(): void {
     console.log('Logout clicked');
     this.userMenuOpen = false;
-    this.router.navigate(['/']); // Redirige vers la racine (http://localhost:4200/)
+    this.router.navigate(['/login']);
   }
 }
