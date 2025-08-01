@@ -6,19 +6,17 @@
                 (menuItemClick)="onMenuItemClick($event)"></app-menu>
         </div>
 
-        <!-- Conteneur principal 
-    <div class="col-lg-10 col-md-8 col-sm-12 d-flex flex-column p-0 main-container"
-         [class.expanded]="sidebarCollapsed">
-      <header class="header">
-        <app-header class="flex-grow-1"
-                   (toggleSidebar)="toggleSidebar()"
-                   (searchQuery)="onSearch($event)"></app-header>
-      </header>
+        <div class="col-lg-10 col-md-8 col-sm-12 d-flex flex-column p-0 main-container"
+            [class.expanded]="sidebarCollapsed">
+            <header class="header">
+                <app-header class="flex-grow-1" (toggleSidebar)="toggleSidebar()"
+                    (searchQuery)="onSearch($event)"></app-header>
+            </header>
 
-      <section class="flex-grow-1 content-area p-3">
-        <router-outlet></router-outlet>
-      </section>
-    </div>
-    -->
+            <section class="flex-grow-1 content-area p-3">
+                <router-outlet></router-outlet>
+            </section>
+        </div>
+
     </div>
 </div>
