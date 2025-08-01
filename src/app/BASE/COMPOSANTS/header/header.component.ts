@@ -18,12 +18,14 @@ export class HeaderComponent implements OnInit {
   searchQuery_internal = '';
   userMenuOpen = false;
   notificationCount = 3;
-  userName = 'Administrateur';
-  userInitials = 'A';
+
+  // 🔧 Ces deux lignes manquaient !
+  userName: string = 'Utilisateur';
+  userInitials: string = '?';
 
   constructor(private router: Router) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     const userString = localStorage.getItem('user');
     if (userString) {
       const user = JSON.parse(userString);
@@ -54,7 +56,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(): void {
-    localStorage.removeItem('user'); // nettoyage au logout
+    localStorage.removeItem('user');
     this.userMenuOpen = false;
     this.router.navigate(['/login']);
   }
