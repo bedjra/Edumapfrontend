@@ -48,7 +48,7 @@ export class Inscription {
     this.loginService.registerUser(data).subscribe({
       next: () => {
         alert('Inscription réussie !');
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/configuration');
       },
       error: (err) => {
         console.error(err);

@@ -1,10 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css',
+  imports: [RouterModule], // ✅ Ajoute ce module ici
 })
 export class MenuComponent {
   @Input() collapsed = false;
@@ -29,6 +31,4 @@ export class MenuComponent {
     this.activeMenuItem = menuItem;
     this.menuItemClick.emit(menuItem);
   }
-
-  
 }

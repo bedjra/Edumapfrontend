@@ -1,5 +1,3 @@
-
-
 <div class="layout-container">
   <!-- Sidebar -->
   <div class="sidebar" [class.collapsed]="sidebarCollapsed">
@@ -8,11 +6,11 @@
 
   <!-- Contenu principal (Header + Page) -->
   <div class="main-wrapper">
-    
+
     <!-- Header -->
-    <header class="header">
-      <app-header (toggleSidebar)="toggleSidebar()" (searchQuery)="onSearch($event)"></app-header>
-    </header>
+    <app-header [currentPage]="currentPage" (toggleSidebar)="toggleSidebar()" (searchQuery)="onSearch($event)">
+    </app-header>
+
 
     <!-- Contenu de la page -->
     <div class="page-content">

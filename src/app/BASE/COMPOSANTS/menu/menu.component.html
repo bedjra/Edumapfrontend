@@ -1,4 +1,3 @@
-<!--
 <div class="sidebar-content">
   <div class="sidebar-header">
     <h3 class="brand">
@@ -6,89 +5,6 @@
       <span class="brand-text" [class.hidden]="collapsed">EDUMAP</span>
     </h3>
   </div>
-  
-  <nav class="sidebar-menu">
-    <a class="menu-item" 
-       [class.active]="activeMenuItem === 'dashboard'"
-       (click)="selectMenuItem('dashboard')">
-      <i class="fas fa-tachometer-alt"></i>
-      <span class="menu-text" [class.hidden]="collapsed">Tableau de bord</span>
-    </a>
-    
-    <div class="menu-group">
-      <button class="menu-item has-submenu" 
-              [class.open]="openSubmenus.includes('students')"
-              (click)="toggleSubmenu('students')"
-              [disabled]="collapsed">
-        <i class="fas fa-users"></i>
-        <span class="menu-text" [class.hidden]="collapsed">Gestion des élèves</span>
-        <i class="fas fa-chevron-right arrow" 
-           [class.hidden]="collapsed"
-           [class.rotated]="openSubmenus.includes('students')"></i>
-      </button>
-      <div class="submenu" 
-           [class.open]="openSubmenus.includes('students') && !collapsed">
-        <a class="menu-item submenu-item" 
-           [class.active]="activeMenuItem === 'add-students'"
-           (click)="selectMenuItem('add-students')">
-          <span class="menu-text">Ajouter des élèves</span>
-        </a>
-        <a class="menu-item submenu-item" 
-           [class.active]="activeMenuItem === 'list-students'"
-           (click)="selectMenuItem('list-students')">
-          <span class="menu-text">Liste des élèves</span>
-        </a>
-      </div>
-    </div>
-    
-    <div class="menu-group">
-      <button class="menu-item has-submenu" 
-              [class.open]="openSubmenus.includes('notes')"
-              (click)="toggleSubmenu('notes')"
-              [disabled]="collapsed">
-        <i class="fas fa-sticky-note"></i>
-        <span class="menu-text" [class.hidden]="collapsed">Notes & Bulletins</span>
-        <i class="fas fa-chevron-right arrow" 
-           [class.hidden]="collapsed"
-           [class.rotated]="openSubmenus.includes('notes')"></i>
-      </button>
-      <div class="submenu" 
-           [class.open]="openSubmenus.includes('notes') && !collapsed">
-        <a class="menu-item submenu-item" 
-           [class.active]="activeMenuItem === 'input-notes'"
-           (click)="selectMenuItem('input-notes')">
-          <span class="menu-text">Saisie des notes</span>
-        </a>
-        <a class="menu-item submenu-item" 
-           [class.active]="activeMenuItem === 'bulletins'"
-           (click)="selectMenuItem('bulletins')">
-          <span class="menu-text">Bulletins</span>
-        </a>
-      </div>
-    </div>
-    
-  
-    
-       <a class="menu-item" 
-       [class.active]="activeMenuItem === 'payments'"
-       (click)="selectMenuItem('payments')">
-        <i class="fas fa-money-bill-wave"></i>
-      <span class="menu-text" [class.hidden]="collapsed">Paiements</span>
-    </a>
-    
-    
-    <a class="menu-item" 
-       [class.active]="activeMenuItem === 'parametre'"
-       (click)="selectMenuItem('parametre')">
-      <i class="fas fa-cog"></i>
-      <span class="menu-text" [class.hidden]="collapsed">Paramètres</span>
-    </a>
-  </nav>
-</div>
-
---------->
-
-
 <nav class="sidebar-menu">
   <a class="menu-item"
      routerLink="/dashboard"
