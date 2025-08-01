@@ -39,6 +39,13 @@
     </div>
   </div>
 
+    <a class="menu-item"
+     routerLink="/paiement"
+     routerLinkActive="active">
+    <i class="fas fa-money-bill-wave"></i>
+    <span class="menu-text" [class.hidden]="collapsed">Paiements</span>
+  </a>
+  
   <div class="menu-group">
     <button class="menu-item has-submenu"
             (click)="toggleSubmenu('notes')"
@@ -64,12 +71,7 @@
     </div>
   </div>
 
-  <a class="menu-item"
-     routerLink="/paiement"
-     routerLinkActive="active">
-    <i class="fas fa-money-bill-wave"></i>
-    <span class="menu-text" [class.hidden]="collapsed">Paiements</span>
-  </a>
+
 
   <a class="menu-item"
      routerLink="/parametre"
