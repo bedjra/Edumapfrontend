@@ -5,78 +5,65 @@
       <span class="brand-text" [class.hidden]="collapsed">EDUMAP</span>
     </h3>
   </div>
-<nav class="sidebar-menu">
-  <a class="menu-item"
-     routerLink="/dashboard"
-     routerLinkActive="active"
-     [routerLinkActiveOptions]="{ exact: true }">
-    <i class="fas fa-tachometer-alt"></i>
-    <span class="menu-text" [class.hidden]="collapsed">Tableau de bord</span>
-  </a>
+  <nav class="sidebar-menu">
+    <a class="menu-item" routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <i class="fas fa-tachometer-alt"></i>
+      <span class="menu-text" [class.hidden]="collapsed">Tableau de bord</span>
+    </a>
 
-  <div class="menu-group">
-    <button class="menu-item has-submenu"
-            (click)="toggleSubmenu('students')"
-            [class.open]="openSubmenus.includes('students')"
-            [disabled]="collapsed">
-      <i class="fas fa-users"></i>
-      <span class="menu-text" [class.hidden]="collapsed">Gestion des élèves</span>
-      <i class="fas fa-chevron-right arrow"
-         [class.hidden]="collapsed"
-         [class.rotated]="openSubmenus.includes('students')"></i>
-    </button>
-    <div class="submenu" [class.open]="openSubmenus.includes('students') && !collapsed">
-      <a class="menu-item submenu-item"
-         routerLink="/ajouter"
-         routerLinkActive="active">
-        <span class="menu-text">Ajouter des élèves</span>
-      </a>
-      <a class="menu-item submenu-item"
-         routerLink="/liste"
-         routerLinkActive="active">
-        <span class="menu-text">Liste des élèves</span>
-      </a>
+    <div class="menu-group">
+      <button class="menu-item has-submenu" (click)="toggleSubmenu('students')"
+        [class.open]="openSubmenus.includes('students')" [disabled]="collapsed">
+        <i class="fas fa-users"></i>
+        <span class="menu-text" [class.hidden]="collapsed">Gestion des élèves</span>
+        <i class="fas fa-chevron-right arrow" [class.hidden]="collapsed"
+          [class.rotated]="openSubmenus.includes('students')"></i>
+      </button>
+      <div class="submenu" [class.open]="openSubmenus.includes('students') && !collapsed">
+        <a class="menu-item submenu-item" routerLink="/ajouter" routerLinkActive="active">
+          <span class="menu-text">Ajouter des élèves</span>
+        </a>
+        <a class="menu-item submenu-item" routerLink="/liste" routerLinkActive="active">
+          <span class="menu-text">Liste des élèves</span>
+        </a>
+      </div>
     </div>
-  </div>
 
-    <a class="menu-item"
-     routerLink="/paiement"
-     routerLinkActive="active">
-    <i class="fas fa-money-bill-wave"></i>
-    <span class="menu-text" [class.hidden]="collapsed">Paiements</span>
-  </a>
-  
-  <div class="menu-group">
-    <button class="menu-item has-submenu"
-            (click)="toggleSubmenu('notes')"
-            [class.open]="openSubmenus.includes('notes')"
-            [disabled]="collapsed">
-      <i class="fas fa-sticky-note"></i>
-      <span class="menu-text" [class.hidden]="collapsed">Notes & Bulletins</span>
-      <i class="fas fa-chevron-right arrow"
-         [class.hidden]="collapsed"
-         [class.rotated]="openSubmenus.includes('notes')"></i>
-    </button>
-    <div class="submenu" [class.open]="openSubmenus.includes('notes') && !collapsed">
-      <a class="menu-item submenu-item"
-         routerLink="/note"
-         routerLinkActive="active">
-        <span class="menu-text">Saisie des notes</span>
-      </a>
-      <a class="menu-item submenu-item"
-         routerLink="/bulletin"
-         routerLinkActive="active">
-        <span class="menu-text">Bulletins</span>
-      </a>
+    <a class="menu-item" routerLink="/paiement" routerLinkActive="active">
+      <i class="fas fa-money-bill-wave"></i>
+      <span class="menu-text" [class.hidden]="collapsed">Paiements</span>
+    </a>
+
+    <div class="menu-group">
+      <button class="menu-item has-submenu" (click)="toggleSubmenu('notes')"
+        [class.open]="openSubmenus.includes('notes')" [disabled]="collapsed">
+        <i class="fas fa-sticky-note"></i>
+        <span class="menu-text" [class.hidden]="collapsed">Notes & Bulletins</span>
+        <i class="fas fa-chevron-right arrow" [class.hidden]="collapsed"
+          [class.rotated]="openSubmenus.includes('notes')"></i>
+      </button>
+      <div class="submenu" [class.open]="openSubmenus.includes('notes') && !collapsed">
+        <a class="menu-item submenu-item" routerLink="/note" routerLinkActive="active">
+          <span class="menu-text">Saisie des notes</span>
+        </a>
+        <a class="menu-item submenu-item" routerLink="/bulletin" routerLinkActive="active">
+          <span class="menu-text">Bulletins</span>
+        </a>
+      </div>
     </div>
-  </div>
 
 
 
-  <a class="menu-item"
-     routerLink="/parametre"
-     routerLinkActive="active">
-    <i class="fas fa-cog"></i>
-    <span class="menu-text" [class.hidden]="collapsed">Paramètres</span>
-  </a>
-</nav>
+    <a class="menu-item" routerLink="/parametre" routerLinkActive="active">
+      <i class="fas fa-cog"></i>
+      <span class="menu-text" [class.hidden]="collapsed">Paramètres</span>
+    </a>
+
+
+
+    <a class="menu-item" href="#" >
+      <i class="fas fa-sign-out-alt" style="color: red;"></i>
+      <span class="menu-text" [class.hidden]="collapsed">Logout</span>
+    </a>
+
+  </nav>

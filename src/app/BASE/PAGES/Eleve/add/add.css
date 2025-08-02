@@ -4,6 +4,13 @@
     box-sizing: border-box;
 }
 
+.form-step {
+  display: none;
+}
+
+.form-step.active {
+  display: block;
+}
 
 
 .container {
@@ -45,6 +52,10 @@ h3 {
     justify-content: center;
     font-weight: bold;
     transition: all 0.3s ease;
+}
+
+.nouveau-tuteur-form input {
+  margin-bottom: 10px;
 }
 
 .step.active {
@@ -173,61 +184,7 @@ label {
     accent-color: #2563eb;
 }
 
-/* File Upload */
-.file-input-wrapper {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-}
 
-.file-input {
-    display: none;
-}
-
-.file-input-label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    border: 2px dashed #d1d5db;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background-color: #fafafa;
-}
-
-.file-input-label:hover {
-    border-color: #2563eb;
-    background-color: #f0f9ff;
-}
-
-.help-text {
-    color: #6b7280;
-    font-size: 14px;
-    margin-top: 8px;
-    text-align: center;
-}
-
-.file-preview {
-    margin-top: 15px;
-    padding: 15px;
-    background-color: #f0fdf4;
-    border: 1px solid #bbf7d0;
-    border-radius: 8px;
-    display: none;
-}
-
-.file-preview.show {
-    display: block;
-}
-
-.image-preview {
-    max-width: 200px;
-    max-height: 200px;
-    margin-top: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
 
 /* Summary */
 .summary {

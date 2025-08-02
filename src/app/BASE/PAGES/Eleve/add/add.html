@@ -3,17 +3,18 @@
 
     <!-- Progress Indicator -->
     <div class="progress-container">
-        <div class="step active" id="step-1">1</div>
-        <div class="line" id="line-1"></div>
-        <div class="step" id="step-2">2</div>
-        <div class="line" id="line-2"></div>
-        <div class="step" id="step-3">3</div>
+        <div class="step" [class.active]="currentStep === 1" [class.completed]="currentStep > 1">1</div>
+        <div class="line" [class.completed]="currentStep > 1"></div>
+        <div class="step" [class.active]="currentStep === 2" [class.completed]="currentStep > 2">2</div>
+        <div class="line" [class.completed]="currentStep > 2"></div>
+        <div class="step" [class.active]="currentStep === 3">3</div>
     </div>
+
 
     <form id="studentForm">
 
         <!-- Étape 1: Informations personnelles -->
-        <div class="form-step active" id="step-content-1">
+        <div class="form-step active" [class.active]="currentStep === 1" id="step-content-1">
 
             <div class="form-row">
                 <div class="form-group">
@@ -79,68 +80,88 @@
         </div>
 
         <!-- Étape 2: Scolarité -->
-        <div class="form-step" id="step-content-2">
-            <h3>Scolarité</h3>
-
+        <div class="form-step" [class.active]="currentStep === 2" id="step-content-2">
             <div class="form-row">
                 <div class="form-group">
                     <label for="ecoleProvenance">École de provenance</label>
                     <input type="text" id="ecoleProvenance" name="ecoleProvenance" placeholder="Entrer l'école"
-                        class="form-control" required>
-                    <div class="error-message" id="ecoleProvenance-error">L'école de provenance est requise</div>
+                        class="form-control" required [(ngModel)]="etudiant.etblProv" />
+                    <div class="error-message" *ngIf="formSoumis && !etudiant.etblProv">L'école de provenance est
+                        requise</div>
                 </div>
 
                 <div class="form-group">
                     <label for="classe">Classe</label>
-                    <select id="classe" name="classe" class="form-control" required>
-                        <option value="">Sélectionner la classe</option>
-                        <option value="cp">CP</option>
-                        <option value="ce1">CE1</option>
-                        <option value="ce2">CE2</option>
-                        <option value="cm1">CM1</option>
-                        <option value="cm2">CM2</option>
-                        <option value="6eme">6ème</option>
-                        <option value="5eme">5ème</option>
-                        <option value="4eme">4ème</option>
+                    <select id="classe" name="classe" class="form-control" required [(ngModel)]="etudiant.classe">
+                        <option value="">-- Sélectionner la classe --</option>
+                        <option value="CP1">CP1</option>
+                        <option value="CP2">CP2</option>
+                        <option value="CE1">CE1</option>
+                        <option value="CE2">CE2</option>
+                        <option value="CM1">CM1</option>
+                        <option value="CM2">CM2</option>
                         <option value="3eme">3ème</option>
                     </select>
-                    <div class="error-message" id="classe-error">La classe est requise</div>
+                    <div class="error-message" *ngIf="formSoumis && !etudiant.classe">La classe est requise</div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="tuteurAssigne">Tuteur assigné</label>
-                <select id="tuteurAssigne" name="tuteurAssigne" class="form-control" required>
-                    <option value="">Choisir le tuteur</option>
-                    <option value="tuteur1">M. Dupont Jean</option>
-                    <option value="tuteur2">Mme Martin Claire</option>
-                    <option value="tuteur3">M. Bernard Paul</option>
-                    <option value="tuteur4">Mme Kouassi Aya</option>
-                    <option value="nouveau">ou créer un nouveau tuteur</option>
-                </select>
-                <div class="error-message" id="tuteurAssigne-error">Le tuteur assigné est requis</div>
+            <div class="form-group d-flex align-items-center gap-2">
+                <div class="flex-grow-1">
+                    <label for="tuteurAssigne">Tuteur assigné</label>
+                    <select id="tuteurAssigne" class="form-control" [(ngModel)]="tuteurSelectionne" name="tuteurAssigne"
+                        required>
+                        <option value="" disabled selected>-- Sélectionner un tuteur --</option>
+                        <option *ngFor="let tuteur of tuteurs" [value]="tuteur.id">
+                            {{ tuteur.nom }} {{ tuteur.prenom }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="mt-4">
+                    <button type="button" class="btn btn-outline-primary btn-sm"
+                        (click)="afficherFormTuteur = !afficherFormTuteur">
+                        ➕ Nouveau tuteur
+                    </button>
+                </div>
+            </div>
+
+            <div class="error-message" *ngIf="formSoumis && !tuteurSelectionne">
+                Le tuteur assigné est requis
+            </div>
+
+            <!-- Formulaire dynamique du nouveau tuteur -->
+            <div *ngIf="afficherFormTuteur" class="nouveau-tuteur-form mt-3 p-3 border rounded bg-light">
+                <h6 class="mb-3">🧾 Nouveau Tuteur</h6>
+
+                <div class="form-group">
+                    <label>Nom</label>
+                    <input type="text" class="form-control" [(ngModel)]="nouveauTuteur.nom" name="nouveauTuteurNom" />
+                </div>
+
+                <div class="form-group">
+                    <label>Prénom</label>
+                    <input type="text" class="form-control" [(ngModel)]="nouveauTuteur.prenom"
+                        name="nouveauTuteurPrenom" />
+                </div>
+
+                <div class="form-group">
+                    <label>Téléphone</label>
+                    <input type="tel" class="form-control" [(ngModel)]="nouveauTuteur.telephone"
+                        name="nouveauTuteurTel" />
+                </div>
+
+                <div class="form-group">
+                    <label>Profession</label>
+                    <input type="text" class="form-control" [(ngModel)]="nouveauTuteur.profession"
+                        name="nouveauTuteurProfession" />
+                </div>
             </div>
         </div>
 
         <!-- Étape 3: Photo et confirmation -->
-        <div class="form-step" id="step-content-3">
-            <h3>Photo de l'élève</h3>
+        <div class="form-step" [class.active]="currentStep === 3" id="step-content-3">
 
-            <div class="form-group">
-                <label for="photo">Photo de l'élève (optionnel)</label>
-                <div class="file-input-wrapper">
-                    <input type="file" id="photo" name="photo" accept="image/*" class="file-input">
-                    <label for="photo" class="file-input-label">
-                        📷 Cliquer pour sélectionner une photo
-                    </label>
-                </div>
-                <div class="help-text">Formats acceptés: JPG, PNG, GIF (max 5MB)</div>
-
-                <div class="file-preview" id="file-preview">
-                    <p id="file-name"></p>
-                    <img id="image-preview" class="image-preview" alt="Aperçu">
-                </div>
-            </div>
 
             <!-- Résumé des informations -->
             <div class="summary">
@@ -175,40 +196,24 @@
             </div>
         </div>
 
-        <!-- Navigation buttons
-        <div class="button-container">
-            <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">
-                ← Précédent
-            </button>
 
-            <button type="button" class="btn btn-primary" id="nextBtn">
-                Suivant →
-            </button>
+        <!-- Boutons de navigation -->
+<div class="button-container">
+  <!-- Précédent visible uniquement si ce n’est pas le premier step -->
+  <button type="button" class="btn btn-secondary" *ngIf="currentStep > 1" (click)="goToPreviousStep()">← Précédent</button>
 
-            <button type="submit" class="btn btn-success" id="submitBtn" style="display: none;">
-                <span id="submit-text">✅ Enregistrer</span>
-                <div class="loading" id="loading" style="display: none;"></div>
-            </button>
-        </div>
+  <!-- Suivant visible uniquement si on n’est pas au dernier step -->
+  <button type="button" class="btn btn-primary" *ngIf="currentStep < totalSteps" 
+    [disabled]="!validateCurrentStep()" (click)="goToNextStep()">Suivant →</button>
 
-        --->
+  <!-- Enregistrer visible uniquement si on est au dernier step -->
+  <button type="submit" class="btn btn-success" *ngIf="currentStep === totalSteps">
+    ✅ Enregistrer
+    <div class="loading" *ngIf="loadingVisible"></div>
+  </button>
+</div>
 
-        <div class="button-container">
-            <button type="button" class="btn btn-secondary" [style.display]="currentStep > 1 ? 'flex' : 'none'"
-                (click)="goToPreviousStep()">
-                ← Précédent
-            </button>
 
-            <button type="button" class="btn btn-primary" [disabled]="!validateCurrentStep()"
-                [style.display]="currentStep < totalSteps ? 'flex' : 'none'" (click)="goToNextStep()">
-                Suivant →
-            </button>
 
-            <button type="submit" class="btn btn-success"
-                [style.display]="currentStep === totalSteps ? 'flex' : 'none'">
-                <span id="submit-text">✅ Enregistrer</span>
-                <div class="loading" id="loading" [style.display]="loadingVisible ? 'inline-block' : 'none'"></div>
-            </button>
-        </div>
     </form>
 </div>
