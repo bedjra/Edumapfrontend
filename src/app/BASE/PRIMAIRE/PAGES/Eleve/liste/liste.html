@@ -2,65 +2,67 @@
     <h4>Choisissez la classe à gérer !</h4>
 
     <div class="classes-grid">
-        <div class="class-card" data-class="CP1" onclick="selectClass(this, 'CP1')">
+        <div class="class-card" [routerLink]="['/CP1']">
             <div class="class-name">CP1</div>
         </div>
 
-        <div class="class-card" data-class="CP2" onclick="selectClass(this, 'CP2')">
+        <div class="class-card" [routerLink]="['/CP2']">
             <div class="class-name">CP2</div>
         </div>
 
-        <div class="class-card" data-class="CE1" onclick="selectClass(this, 'CE1')">
+        <div class="class-card" [routerLink]="['/CE1']">
             <div class="class-name">CE1</div>
         </div>
 
-        <div class="class-card" data-class="CE2" onclick="selectClass(this, 'CE2')">
+        <div class="class-card" [routerLink]="['/CE2']">
             <div class="class-name">CE2</div>
         </div>
 
-        <div class="class-card" data-class="CM1" onclick="selectClass(this, 'CM1')">
+        <div class="class-card" [routerLink]="['/CM1']">
             <div class="class-name">CM1</div>
         </div>
 
-        <div class="class-card" data-class="CM2" onclick="selectClass(this, 'CM2')">
+        <div class="class-card" [routerLink]="['/CM2']">
             <div class="class-name">CM2</div>
         </div>
+
     </div>
 
 
-</div><section class="home-section">
-  <div class="home-content">
-    <div class="sales-boxes position-relative">
-      
-      <!-- Carte contenant le tableau -->
-      <div class="recent-sales box position-relative p-4">
-
-        <!-- Titre superposé à l’intérieur de la carte -->
-        <div class="stat-banner text-white rounded shadow text-center">
-          <span class="h5 mb-0">📊 STATISTIQUES DES ÉTUDIANTS DE LICENCE DU JOUR</span>
-        </div>
-
-        <!-- Tableau -->
-        <div class="sales-details pt-5 mt-5">
-  <div class="table-responsive">
-    <table class="table table-bordered table-hover text-center align-middle w-100">
-      <thead class="table-light">
-        <tr>
-          <th>Classe</th>
-          <th>Effectif total</th>
-          <th>Garçons</th>
-          <th>Filles</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Données dynamiques ici -->
-      </tbody>
-    </table>
-  </div>
 </div>
+<section class="home-section">
+    <div class="home-content">
+        <div class="sales-boxes position-relative">
+
+            <!-- Carte contenant le tableau -->
+            <div class="recent-sales box position-relative p-4">
+
+                <!-- Titre superposé à l’intérieur de la carte -->
+                <div class="stat-banner text-white rounded shadow text-center">
+                    <span class="h5 mb-0">📊 STATISTIQUES DES ÉTUDIANTS DE LICENCE DU JOUR</span>
+                </div>
+
+                <!-- Tableau -->
+                <div class="sales-details pt-5 mt-5">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover text-center align-middle w-100">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Classe</th>
+                                    <th>Effectif total</th>
+                                    <th>Garçons</th>
+                                    <th>Filles</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Données dynamiques ici -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
 
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
