@@ -1,1 +1,80 @@
-<p>liste works!</p>
+<div class="container" style="text-align: center;">
+    <h4>Choisissez la classe à gérer !</h4>
+
+    <div class="classes-grid">
+        <div class="class-card" data-class="CP1" onclick="selectClass(this, 'CP1')">
+            <div class="class-name">CP1</div>
+        </div>
+
+        <div class="class-card" data-class="CP2" onclick="selectClass(this, 'CP2')">
+            <div class="class-name">CP2</div>
+        </div>
+
+        <div class="class-card" data-class="CE1" onclick="selectClass(this, 'CE1')">
+            <div class="class-name">CE1</div>
+        </div>
+
+        <div class="class-card" data-class="CE2" onclick="selectClass(this, 'CE2')">
+            <div class="class-name">CE2</div>
+        </div>
+
+        <div class="class-card" data-class="CM1" onclick="selectClass(this, 'CM1')">
+            <div class="class-name">CM1</div>
+        </div>
+
+        <div class="class-card" data-class="CM2" onclick="selectClass(this, 'CM2')">
+            <div class="class-name">CM2</div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<section class="home-section">
+  <div class="home-content">
+    <div class="sales-boxes position-relative">
+      <!-- Background container -->
+      <div class="recent-sales box">
+        <pre></pre>
+        <div class="sales-details">
+          <table class="table">
+            <thead>
+              <tr>
+                    <th>Filiere</th>
+                    <th>Niveau</th>
+                    <th>Effectif total</th>
+                    <th>Garcons</th>
+                    <th>Filles</th>
+              </tr>
+            </thead>
+            
+            <tbody>
+             
+            </tbody>
+            
+          </table>
+        </div>
+      </div>
+    
+
+    
+      <!-- Superimposed container -->
+      <div class="container bg-primary text-white p-3 rounded position-absolute superimposed-container">
+        <div class="row justify-content-between align-items-center">
+          <div class="col-12 col-md-auto">
+            <span class="h4">STATISTIQUES DES ETUDIANTS DE LICENCE DU JOUR</span>
+          </div>
+          <div class="col-12 col-md-auto mt-3 mt-md-0">
+            <button class="btn btn-light newUser" [routerLink]="['/inscrire-étudiant']" style="color: black;">
+              <i class="fas fa-plus"></i> &nbsp; Ajouter Etudiant
+            </button>
+          </div>
+        </div>
+      </div>
+    
+      
+      
+    </div>
+  </div>
+</section>
