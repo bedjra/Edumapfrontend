@@ -183,10 +183,6 @@ label {
     transform: scale(1.3);
     accent-color: #2563eb;
 }
-
-
-
-/* Summary */
 .summary {
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     padding: 25px;
@@ -201,21 +197,28 @@ label {
     font-size: 18px;
 }
 
-.summary-item {
-    margin-bottom: 12px;
-    color: #374151;
-    padding: 8px 0;
-    border-bottom: 1px solid #e5e7eb;
+/* NEW: Row wrapper to align 3 items */
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 16px;
 }
 
-.summary-item:last-child {
-    border-bottom: none;
+.summary-item {
+    flex: 1;
+    color: #374151;
+    padding: 8px 12px;
+    border-bottom: 1px solid #e5e7eb;
+    background-color: #ffffff;
+    border-radius: 8px;
 }
 
 .summary-item strong {
     color: #1f2937;
-    display: inline-block;
-    min-width: 120px;
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
 }
 
 /* Buttons */

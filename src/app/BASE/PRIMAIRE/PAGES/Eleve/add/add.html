@@ -48,26 +48,18 @@
                     <div class="error-message" *ngIf="formSoumis && !eleve.lieuNais">Le lieu de naissance est requis
                     </div>
                 </div>
+
+
             </div>
 
             <div class="form-row">
-                <div class="form-group">
-                    <label for="nationalite">Nationalité</label>
-                    <select id="nationalite" name="nationalite" class="form-control" required
-                        [(ngModel)]="eleve.nationnalite">
-                        <option value="">Choisir la nationalité</option>
-                        <option value="francaise">Française</option>
-                        <option value="belge">Belge</option>
-                        <option value="suisse">Suisse</option>
-                        <option value="canadienne">Canadienne</option>
-                        <option value="ivoirienne">Ivoirienne</option>
-                        <option value="senegalaise">Sénégalaise</option>
-                        <option value="autre">Autre</option>
-                    </select>
-                    <div class="error-message" *ngIf="formSoumis && !eleve.nationnalite">La nationalité est requise
-                    </div>
-                </div>
 
+                <div class="form-group">
+                    <label for="nom">Adresse</label>
+                    <input type="text" id="nom" name="nom" placeholder="Entrer l'adresse" class="form-control" required
+                        [(ngModel)]="eleve.nom" />
+                    <div class="error-message" *ngIf="formSoumis && !eleve.adresse">L'adresse est requis</div>
+                </div>
                 <div class="form-group">
                     <label>Sexe</label>
                     <div class="radio-group">
@@ -91,6 +83,24 @@
 
             <!-- École & Classe -->
             <div class="form-row">
+
+                <div class="form-group">
+                    <label for="nationalite">Nationalité</label>
+                    <select id="nationalite" name="nationalite" class="form-control" required
+                        [(ngModel)]="eleve.nationnalite">
+                        <option value="">Choisir la nationalité</option>
+                        <option value="francaise">Française</option>
+                        <option value="belge">Belge</option>
+                        <option value="suisse">Suisse</option>
+                        <option value="canadienne">Canadienne</option>
+                        <option value="ivoirienne">Ivoirienne</option>
+                        <option value="senegalaise">Sénégalaise</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                    <div class="error-message" *ngIf="formSoumis && !eleve.nationnalite">La nationalité est requise
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="ecoleProvenance">École de provenance</label>
                     <input type="text" id="ecoleProvenance" name="ecoleProvenance" placeholder="Entrer l'école"
@@ -100,6 +110,12 @@
                     </div>
                 </div>
 
+
+            </div>
+
+            <!-- Tuteur sélectionné -->
+            <div class="form-row align-items-end">
+                <!-- Choix d’un tuteur existant -->
                 <div class="form-group">
                     <label for="classe">Classe</label>
                     <select id="classe" name="classe" class="form-control" required [(ngModel)]="eleve.classe">
@@ -115,11 +131,6 @@
                         La classe est requise
                     </div>
                 </div>
-            </div>
-
-            <!-- Tuteur sélectionné -->
-            <div class="form-row align-items-end">
-                <!-- Choix d’un tuteur existant -->
                 <div class="form-group flex-grow-1">
                     <label for="tuteurAssigne">Tuteur assigné</label>
                     <select id="tuteurAssigne" class="form-control" name="tuteurAssigne" required
@@ -136,6 +147,9 @@
 
                 <!-- Bouton pour afficher/cacher le formulaire de nouveau tuteur -->
                 <div class="form-group mt-4">
+
+                </div>
+                <div class="form-group mt-4" style="margin-top: -80px; ">
                     <br />
                     <button type="button" class="btn btn-outline-primary btn-sm" (click)="basculerFormTuteur()">
                         {{ afficherFormTuteur ? '✖ Annuler' : '➕ Nouveau tuteur' }}
@@ -178,69 +192,58 @@
         <!-- Étape 3: Photo et confirmation -->
         <div class="form-step" [class.active]="currentStep === 3" id="step-content-3">
 
-
-
-            <!-- Résumé des informations -->
             <!-- Résumé des informations -->
             <div class="summary">
                 <h4>📋 Résumé des informations</h4>
 
-                <div class="summary-item">
-                    <strong>Nom :</strong>
-                    <span>{{ eleve.nom || 'Non renseigné' }}</span>
+                <div class="summary-row">
+                    <div class="summary-item">
+                        <strong>Nom :</strong>
+                        <span>{{ eleve.nom || 'Non renseigné' }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>Prénoms :</strong>
+                        <span>{{ eleve.prenom || 'Non renseigné' }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>Date de naissance :</strong>
+                        <span>
+                            {{ eleve.dateNaiss ? (eleve.dateNaiss | date: 'dd/MM/yyyy') : 'Non renseignée' }}
+                        </span>
+                    </div>
                 </div>
 
-                <div class="summary-item">
-                    <strong>Prénoms :</strong>
-                    <span>{{ eleve.prenom || 'Non renseigné' }}</span>
+                <div class="summary-row">
+                    <div class="summary-item">
+                        <strong>Lieu de naissance :</strong>
+                        <span>{{ eleve.lieuNais || 'Non renseigné' }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>Nationalité :</strong>
+                        <span>{{ eleve.nationnalite || 'Non renseignée' }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>Sexe :</strong>
+                        <span>{{ eleve.sexe || 'Non renseigné' }}</span>
+                    </div>
                 </div>
 
-                <div class="summary-item">
-                    <strong>Date de naissance :</strong>
-                    <span>
-                        {{ eleve.dateNaiss ? (eleve.dateNaiss | date: 'dd/MM/yyyy') : 'Non renseignée' }}
-                    </span>
-                </div>
+                <div class="summary-row">
+                    <div class="summary-item">
+                        <strong>École précédente :</strong>
+                        <span>{{ eleve.etblProv || 'Non renseignée' }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>Classe :</strong>
+                        <span>{{ eleve.classe || 'Non renseignée' }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>Tuteur :</strong>
+                        <span>{{ tuteurNomComplet }}</span>
+                    </div>
 
-                <div class="summary-item">
-                    <strong>Lieu de naissance :</strong>
-                    <span>{{ eleve.lieuNais || 'Non renseigné' }}</span>
-                </div>
-
-                <div class="summary-item">
-                    <strong>Nationalité :</strong>
-                    <span>{{ eleve.nationnalite || 'Non renseignée' }}</span>
-                </div>
-
-                <div class="summary-item">
-                    <strong>Sexe :</strong>
-                    <span>{{ eleve.sexe || 'Non renseigné' }}</span>
-                </div>
-
-                <div class="summary-item">
-                    <strong>École précédente :</strong>
-                    <span>{{ eleve.etblProv || 'Non renseignée' }}</span>
-                </div>
-
-                <div class="summary-item">
-                    <strong>Classe :</strong>
-                    <span>{{ eleve.classe || 'Non renseignée' }}</span>
-                </div>
-
-                <div class="summary-item">
-                    <strong>Tuteur :</strong>
-                    <span>
-                        {{
-                        tuteurSelectionne
-                        ? getTuteurNomComplet(tuteurSelectionne)
-                        : (nouveauTuteur?.nom
-                        ? (nouveauTuteur.nom + ' ' + (nouveauTuteur.prenom || '')).trim()
-                        : 'Non renseigné')
-                        }}
-                    </span>
                 </div>
             </div>
-
 
 
         </div>
@@ -257,10 +260,12 @@
                 [disabled]="!validateCurrentStep()" (click)="goToNextStep()">Suivant →</button>
 
             <!-- Enregistrer visible uniquement si on est au dernier step -->
-            <button type="submit" class="btn btn-success" *ngIf="currentStep === totalSteps">
+            <button type="submit" class="btn btn-success" *ngIf="currentStep === totalSteps"
+                [disabled]="loadingVisible">
                 ✅ Enregistrer
                 <div class="loading" *ngIf="loadingVisible"></div>
             </button>
+
         </div>
 
 

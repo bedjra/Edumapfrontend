@@ -4,6 +4,7 @@ import { FormsModule, NgModel } from '@angular/forms';
 import { Eleve } from '../../../Model/Eleve';
 import { HttpClientModule } from '@angular/common/http';
 import { Primaire } from '../../../SERVICE/primaire';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add',
@@ -40,6 +41,7 @@ export class Add implements OnInit {
   tuteurSelectionne: number | null = null;
   nouveauTuteur: any = {};
   tuteurs: Array<{ id: number; nom: string; prenom: string }> = [];
+  tuteurNomComplet: string = 'Non renseigné';
 
   afficherFormTuteur = false;
 
@@ -47,18 +49,22 @@ export class Add implements OnInit {
     this.loadTuteurs();
   }
 
-  constructor(private primaireService: Primaire) {}
+  constructor(private primaireService: Primaire,
+    private router: Router
+  ) {}
 
   loadTuteurs() {
     this.primaireService.getTuteurs().subscribe({
       next: (data) => {
         this.tuteurs = data;
+        this.updateTuteurNom(); // ← ici
       },
       error: (err) => {
         console.error('Erreur lors du chargement des tuteurs', err);
       },
     });
   }
+
   getTuteurNomComplet(id: number | null): string | null {
     if (id === null) return null;
     const tuteur = this.tuteurs.find((t) => t.id === id);
@@ -93,19 +99,40 @@ export class Add implements OnInit {
     }
   }
 
-  submitForm() {
-    this.loadingVisible = true;
-    this.primaireService.enregistrerEleve(this.eleve).subscribe({
-      next: (data) => {
-        this.loadingVisible = false;
-        alert('Élève enregistré avec succès !');
-        // Tu peux ici réinitialiser le formulaire ou naviguer
-      },
-      error: (err) => {
-        this.loadingVisible = false;
-        console.error("Erreur lors de l'enregistrement de l'élève", err);
-        alert("Erreur lors de l'enregistrement.");
-      },
-    });
+  updateTuteurNom() {
+    if (this.tuteurSelectionne !== null) {
+      const tuteur = this.tuteurs.find((t) => t.id === this.tuteurSelectionne);
+      this.tuteurNomComplet = tuteur
+        ? `${tuteur.nom} ${tuteur.prenom}`
+        : 'Non renseigné';
+    } else if (this.nouveauTuteur?.nom) {
+      this.tuteurNomComplet = `${this.nouveauTuteur.nom} ${
+        this.nouveauTuteur.prenom || ''
+      }`.trim();
+    } else {
+      this.tuteurNomComplet = 'Non renseigné';
+    }
+    console.log('updateTuteurNom appelé');
   }
+  onTuteurSelectionChange() {
+    this.updateTuteurNom();
+  }
+
+ submitForm(): void {
+  this.loadingVisible = true;
+
+  this.primaireService.enregistrerEleve(this.eleve).subscribe({
+    next: (data) => {
+      this.loadingVisible = false;
+      alert('Élève enregistré avec succès !');
+      this.router.navigate(['/liste']);
+    },
+    error: (error) => {
+      this.loadingVisible = false;
+      console.error("Erreur lors de l'enregistrement de l'élève :", error);
+      alert("Une erreur s'est produite lors de l'enregistrement. Veuillez réessayer.");
+    }
+  });
+}
+
 }
