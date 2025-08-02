@@ -63,4 +63,18 @@ export class Add implements OnInit {
   validateCurrentStep(): boolean {
     return true;
   }
+
+
+
+  basculerFormTuteur() {
+    this.afficherFormTuteur = !this.afficherFormTuteur;
+
+    if (this.afficherFormTuteur) {
+      // Réinitialiser la sélection d’un tuteur existant si on veut en créer un nouveau
+      this.tuteurSelectionne = null;
+    } else {
+      // Réinitialiser le formulaire de création si on revient à la sélection
+      this.nouveauTuteur = {};
+    }
+  }
 }
