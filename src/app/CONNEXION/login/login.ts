@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { LoginService } from '../../PRIMAIRE/SERVICE/login-service';
+import { LoginService } from '../../BASE/PRIMAIRE/SERVICE/login-service';
 
 @Component({
   selector: 'app-login',

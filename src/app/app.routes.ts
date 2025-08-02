@@ -1,8 +1,5 @@
 import { Routes } from '@angular/router';
-import { Inscription } from './BASE/CONNEXION/inscription/inscription';
-import { Configuration } from './BASE/CONNEXION/configuration/configuration';
-import { LoginComponent } from './BASE/CONNEXION/login/login';
-import { BaseComponent } from './BASE/COMPOSANTS/base/base.component';
+
 import { DashboardComponent } from './BASE/PRIMAIRE/PAGES/dashboard/dashboard.component';
 import { Add } from './BASE/PRIMAIRE/PAGES/Eleve/add/add';
 import { Liste } from './BASE/PRIMAIRE/PAGES/Eleve/liste/liste';
@@ -10,6 +7,10 @@ import { Buletin } from './BASE/PRIMAIRE/PAGES/Note/buletin/buletin';
 import { Note } from './BASE/PRIMAIRE/PAGES/Note/note/note';
 import { Paiement } from './BASE/PRIMAIRE/PAGES/paiement/paiement';
 import { Parametres } from './BASE/PRIMAIRE/PAGES/parametres/parametres';
+import { BaseComponent } from './COMPOSANTS/base/base.component';
+import { Configuration } from './CONNEXION/configuration/configuration';
+import { Inscription } from './CONNEXION/inscription/inscription';
+import { LoginComponent } from './CONNEXION/login/login';
 
 
 export const routes: Routes = [
