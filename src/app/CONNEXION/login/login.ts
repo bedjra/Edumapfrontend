@@ -27,7 +27,7 @@ export class LoginComponent {
     this.passwordVisible = !this.passwordVisible;
   }
 
- onLogin() {
+ onLogin(): void {
   if (!this.credentials.email || !this.credentials.password) {
     alert('Veuillez remplir tous les champs.');
     return;
@@ -38,23 +38,27 @@ export class LoginComponent {
       alert('Connexion réussie !');
 
       const user = {
-        email: response.email,
+        email: this.credentials.email,
         role: response.role,
+        systeme: response.systeme, // Ajout du système
       };
+
+      // Sauvegarder l'utilisateur avec le système dans le localStorage
       localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('systeme', response.systeme); // Important
 
-      const systeme = localStorage.getItem('systeme');
-      console.log('Système récupéré:', systeme);
+      console.log('Système récupéré:', response.systeme);
 
-      if (systeme) {
-        this.router.navigate([`/${systeme}/dashboard`]);
+      if (response.systeme) {
+        this.router.navigate([`/${response.systeme.toLowerCase()}/dashboard`]);
       } else {
         alert("Système introuvable. Veuillez reconfigurer l'application.");
         this.router.navigate(['/configuration']);
       }
     },
     error: (err) => {
-      if (err?.error?.message?.includes('licence est expirée')) {
+      const errorMessage = err?.error?.message || 'Erreur inconnue';
+      if (errorMessage.includes('licence est expirée')) {
         alert('Votre licence est expirée. Veuillez contacter l’administrateur.');
       } else {
         alert('Erreur lors de la connexion. Vérifiez vos identifiants.');
@@ -63,6 +67,7 @@ export class LoginComponent {
     },
   });
 }
+
 
 
 
