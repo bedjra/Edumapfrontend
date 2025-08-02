@@ -49,6 +49,9 @@ export const routes: Routes = [
       { path: 'CM1', component: Cm1 },
       { path: 'CM2', component: Cm2 },
 
+      { path: 'utilisateur', component: User },
+      { path: 'scolarite', component: Scolarite },
+      { path: 'professeur', component: Prof },
     ],
   },
 
