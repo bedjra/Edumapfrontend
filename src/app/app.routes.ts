@@ -23,8 +23,12 @@ export const routes: Routes = [
   // Supprime cette ligne:
   // { path: 'Primaire', component: Primaire },
 
+  { path: '', component: LoginComponent },
+  { path: 'inscription', component: Inscription },
+  { path: 'configuration', component: Configuration },
+
   {
-    path: 'Primaire',
+    path: 'PRIMAIRE',
     component: BaseComponent, // Tous les autres passent par ici
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -43,8 +47,4 @@ export const routes: Routes = [
       { path: 'CM2', component: Cm2 },
     ],
   },
-
-  { path: '', component: LoginComponent },
-  { path: 'inscription', component: Inscription },
-  { path: 'configuration', component: Configuration },
 ];

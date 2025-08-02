@@ -3,7 +3,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { LoginService, Systeme } from '../../BASE/PRIMAIRE/SERVICE/login-service';
+import {
+  LoginService,
+  Systeme,
+} from '../../BASE/PRIMAIRE/SERVICE/login-service';
 
 @Component({
   selector: 'app-login',
@@ -27,49 +30,50 @@ export class LoginComponent {
     this.passwordVisible = !this.passwordVisible;
   }
 
- onLogin(): void {
-  if (!this.credentials.email || !this.credentials.password) {
-    alert('Veuillez remplir tous les champs.');
-    return;
+  onLogin(): void {
+    if (!this.credentials.email || !this.credentials.password) {
+      alert('Veuillez remplir tous les champs.');
+      return;
+    }
+
+    this.loginService.login(this.credentials).subscribe({
+      next: (response: any) => {
+        if (response.success) {
+          alert(response.message || 'Connexion réussie !');
+
+          const user = {
+            email: this.credentials.email,
+            role: response.role,
+            systeme: response.systeme,
+          };
+
+          // Stocker l'utilisateur et le système dans le localStorage
+          localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('systeme', response.systeme);
+
+          console.log('Système récupéré depuis la réponse:', response.systeme);
+
+          if (response.systeme) {
+            this.router.navigate([`/${response.systeme}/dashboard`]);
+          } else {
+            alert("Système introuvable. Veuillez reconfigurer l'application.");
+          }
+        } else {
+          alert(response.message || 'Erreur de connexion.');
+        }
+      },
+
+      error: (err) => {
+        const message = err?.error?.message || 'Erreur serveur';
+        if (message.includes('licence est expirée')) {
+          alert(
+            'Votre licence est expirée. Veuillez contacter l’administrateur.'
+          );
+        } else {
+          alert('Erreur lors de la connexion. Vérifiez vos identifiants.');
+        }
+        console.error(err);
+      },
+    });
   }
-
-  this.loginService.login(this.credentials).subscribe({
-    next: (response: any) => {
-      alert('Connexion réussie !');
-
-      const user = {
-        email: this.credentials.email,
-        role: response.role,
-        systeme: response.systeme, // Ajout du système
-      };
-
-      // Sauvegarder l'utilisateur avec le système dans le localStorage
-      localStorage.setItem('user', JSON.stringify(user));
-      localStorage.setItem('systeme', response.systeme); // Important
-
-      console.log('Système récupéré:', response.systeme);
-
-      if (response.systeme) {
-        this.router.navigate([`/${response.systeme.toLowerCase()}/dashboard`]);
-      } else {
-        alert("Système introuvable. Veuillez reconfigurer l'application.");
-        this.router.navigate(['/configuration']);
-      }
-    },
-    error: (err) => {
-      const errorMessage = err?.error?.message || 'Erreur inconnue';
-      if (errorMessage.includes('licence est expirée')) {
-        alert('Votre licence est expirée. Veuillez contacter l’administrateur.');
-      } else {
-        alert('Erreur lors de la connexion. Vérifiez vos identifiants.');
-      }
-      console.error(err);
-    },
-  });
-}
-
-
-
-
-
 }

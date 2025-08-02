@@ -6,7 +6,7 @@
     </h3>
   </div>
   <nav class="sidebar-menu">
-    <a class="menu-item" routerLink="/Primaire/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <a class="menu-item" routerLink="/PRIMAIRE/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
       <i class="fas fa-tachometer-alt"></i>
       <span class="menu-text" [class.hidden]="collapsed">Tableau de bord</span>
     </a>
@@ -20,16 +20,16 @@
           [class.rotated]="openSubmenus.includes('students')"></i>
       </button>
       <div class="submenu" [class.open]="openSubmenus.includes('students') && !collapsed">
-        <a class="menu-item submenu-item" routerLink="/Primaire/ajouter" routerLinkActive="active">
+        <a class="menu-item submenu-item" routerLink="/PRIMAIRE/ajouter" routerLinkActive="active">
           <span class="menu-text">Ajouter des élèves</span>
         </a>
-        <a class="menu-item submenu-item" routerLink="/Primaire/liste" routerLinkActive="active">
+        <a class="menu-item submenu-item" routerLink="/PRIMAIRE/liste" routerLinkActive="active">
           <span class="menu-text">Liste des élèves</span>
         </a>
       </div>
     </div>
 
-    <a class="menu-item" routerLink="/Primaire/paiement" routerLinkActive="active">
+    <a class="menu-item" routerLink="/PRIMAIRE/paiement" routerLinkActive="active">
       <i class="fas fa-money-bill-wave"></i>
       <span class="menu-text" [class.hidden]="collapsed">Paiements</span>
     </a>
@@ -43,10 +43,10 @@
           [class.rotated]="openSubmenus.includes('notes')"></i>
       </button>
       <div class="submenu" [class.open]="openSubmenus.includes('notes') && !collapsed">
-        <a class="menu-item submenu-item" routerLink="/Primaire/note" routerLinkActive="active">
+        <a class="menu-item submenu-item" routerLink="/PRIMAIRE/note" routerLinkActive="active">
           <span class="menu-text">Saisie des notes</span>
         </a>
-        <a class="menu-item submenu-item" routerLink="/Primaire/bulletin" routerLinkActive="active">
+        <a class="menu-item submenu-item" routerLink="/PRIMAIRE/bulletin" routerLinkActive="active">
           <span class="menu-text">Bulletins</span>
         </a>
       </div>
@@ -54,7 +54,7 @@
 
 
 
-    <a class="menu-item" routerLink="/Primaire/parametre" routerLinkActive="active">
+    <a class="menu-item" routerLink="/PRIMAIRE/parametre" routerLinkActive="active">
       <i class="fas fa-cog"></i>
       <span class="menu-text" [class.hidden]="collapsed">Paramètres</span>
     </a>
