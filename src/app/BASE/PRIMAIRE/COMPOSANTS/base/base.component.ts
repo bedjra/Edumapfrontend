@@ -43,7 +43,6 @@ export class BaseComponent implements OnInit {
         else if (url.includes('/ajouter')) this.currentPage = 'Ajouter un élève';
         else if (url.includes('/liste')) this.currentPage = 'Liste des élèves';
         else if (url.includes('/parametre')) this.currentPage = 'Paramètres';
-        else this.currentPage = 'EDUMAP';
       });
   }
 

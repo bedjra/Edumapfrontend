@@ -10,7 +10,7 @@ import { LoginService } from '../../BASE/PRIMAIRE/SERVICE/login-service';
   standalone: true,
   imports: [FormsModule, CommonModule, HttpClientModule],
   templateUrl: './configuration.html',
-  styleUrl: './configuration.css'
+  styleUrl: './configuration.css',
 })
 export class Configuration {
   configuration = {
@@ -21,7 +21,7 @@ export class Configuration {
     bp: '',
     devise: '',
     systeme: '',
-    image: null as File | null
+    image: null as File | null,
   };
 
   imagePreview: string | ArrayBuffer | null = null;
@@ -65,7 +65,9 @@ export class Configuration {
       error: (err) => {
         console.error("Erreur lors de l'enregistrement", err);
         alert("Erreur lors de l'enregistrement, veuillez réessayer.");
-      }
+      },
     });
+    const chemin = this.configuration.systeme.toLowerCase(); // 'primaire', 'college', etc.
+    this.router.navigate(['/' + chemin]);
   }
 }

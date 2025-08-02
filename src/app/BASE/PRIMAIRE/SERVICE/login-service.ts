@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 
+export type Systeme = 'PRIMAIRE' | 'COLLEGE' | 'LYCEE';
+
+
 @Injectable({ providedIn: 'root' })
 export class LoginService {
   private baseUrl = environment.apiUrl;
@@ -19,5 +22,13 @@ export class LoginService {
 
    saveConfiguration(formData: FormData) {
     return this.http.post(`${this.baseUrl}/ecole`, formData);
+  }
+
+   getCurrentSystem(): Observable<Systeme> {
+    return this.http.get<Systeme>('/api/system'); // adapter selon url
+  }
+
+  selectSystem(systeme: Systeme): Observable<string> {
+    return this.http.post<string>(`/api/system?system=${systeme}`, {});
   }
 }
