@@ -5,12 +5,10 @@ import { environment } from '../../../../environments/environment';
 import { Eleve } from '../Model/Eleve';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-
-
-export class EtudiantService {
-private baseUrl = `${environment.apiUrl}/eleve`;
+export class Primaire {
+  private baseUrl = `${environment.apiUrl}/eleve`;
 
   constructor(private http: HttpClient) {}
 

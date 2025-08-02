@@ -36,13 +36,14 @@ export class Add implements OnInit {
     tuteurProfession: '',
   };
 
-  tuteurSelectionne: string = '';
+  tuteurSelectionne: number | null = null;
   nouveauTuteur: any = {};
+  tuteurs: Array<{ id: number; nom: string; prenom: string }> = [];
+
   afficherFormTuteur = false;
 
-  getTuteurNomComplet(idStr: string): string | null {
-    const id = Number(idStr); // conversion string -> number
-    if (isNaN(id)) return null; // pas un id valide
+  getTuteurNomComplet(id: number | null): string | null {
+    if (id === null) return null;
     const tuteur = this.tuteurs.find((t) => t.id === id);
     return tuteur ? `${tuteur.nom} ${tuteur.prenom}` : null;
   }

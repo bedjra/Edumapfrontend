@@ -75,16 +75,26 @@
             </div>
 
             <div class="form-group d-flex align-items-center gap-2">
+                <!-- Dans ton template -->
                 <div class="flex-grow-1">
                     <label for="tuteurAssigne">Tuteur assigné</label>
                     <select id="tuteurAssigne" class="form-control" [(ngModel)]="tuteurSelectionne" name="tuteurAssigne"
                         required>
-                        <option value="" disabled selected>-- Sélectionner un tuteur --</option>
+                        <option [value]="null" disabled selected>-- Sélectionner un tuteur --</option>
                         <option *ngFor="let tuteur of tuteurs" [value]="tuteur.id">
                             {{ tuteur.nom }} {{ tuteur.prenom }}
                         </option>
                     </select>
                 </div>
+
+                <div class="summary-item"><strong>Tuteur:</strong>
+                    {{
+                    tuteurSelectionne
+                    ? (getTuteurNomComplet(tuteurSelectionne) || 'Non renseigné')
+                    : (nouveauTuteur.nom ? (nouveauTuteur.nom + ' ' + nouveauTuteur.prenom) : 'Non renseigné')
+                    }}
+                </div>
+
 
                 <div class="mt-4">
                     <button type="button" class="btn btn-outline-primary btn-sm"
