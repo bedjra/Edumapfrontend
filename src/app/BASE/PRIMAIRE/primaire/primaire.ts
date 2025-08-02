@@ -6,7 +6,7 @@ import { HeaderComponent } from '../COMPOSANTS/header/header.component';
 
 @Component({
   selector: 'app-primaire',
-  imports: [RouterOutlet, MenuComponent, HeaderComponent],
+  imports: [RouterOutlet],
   templateUrl: './primaire.html',
   styleUrl: './primaire.css'
 })
