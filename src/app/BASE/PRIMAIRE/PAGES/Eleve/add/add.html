@@ -11,7 +11,8 @@
     </div>
 
 
-    <form id="studentForm">
+    <form id="studentForm" (ngSubmit)="submitForm()">
+
 
         <!-- Étape 1: Informations personnelles -->
         <div class="form-step active" [class.active]="currentStep === 1" id="step-content-1">

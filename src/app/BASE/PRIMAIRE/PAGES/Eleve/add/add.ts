@@ -7,7 +7,7 @@ import { Primaire } from '../../../SERVICE/primaire';
 
 @Component({
   selector: 'app-add',
-  imports: [FormsModule, CommonModule ,HttpClientModule],
+  imports: [FormsModule, CommonModule, HttpClientModule],
   templateUrl: './add.html',
   styleUrl: './add.css',
 })
@@ -44,19 +44,19 @@ export class Add implements OnInit {
   afficherFormTuteur = false;
 
   ngOnInit(): void {
-  this.loadTuteurs();
-}
+    this.loadTuteurs();
+  }
 
   constructor(private primaireService: Primaire) {}
 
-loadTuteurs() {
+  loadTuteurs() {
     this.primaireService.getTuteurs().subscribe({
       next: (data) => {
         this.tuteurs = data;
       },
       error: (err) => {
         console.error('Erreur lors du chargement des tuteurs', err);
-      }
+      },
     });
   }
   getTuteurNomComplet(id: number | null): string | null {
@@ -91,5 +91,21 @@ loadTuteurs() {
       // Réinitialiser le formulaire de création si on revient à la sélection
       this.nouveauTuteur = {};
     }
+  }
+
+  submitForm() {
+    this.loadingVisible = true;
+    this.primaireService.enregistrerEleve(this.eleve).subscribe({
+      next: (data) => {
+        this.loadingVisible = false;
+        alert('Élève enregistré avec succès !');
+        // Tu peux ici réinitialiser le formulaire ou naviguer
+      },
+      error: (err) => {
+        this.loadingVisible = false;
+        console.error("Erreur lors de l'enregistrement de l'élève", err);
+        alert("Erreur lors de l'enregistrement.");
+      },
+    });
   }
 }

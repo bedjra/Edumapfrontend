@@ -18,8 +18,8 @@ export class Primaire {
 
   constructor(private http: HttpClient) {}
 
-  enregistrerEtudiant(etudiant: Eleve): Observable<Eleve> {
-    return this.http.post<Eleve>(`${this.baseUrl}/eleve`, etudiant);
+  enregistrerEleve(eleve: Eleve): Observable<Eleve> {
+    return this.http.post<Eleve>(`${this.baseUrl}/eleve`, eleve);
   }
 
   // Nouvelle méthode pour récupérer tous les tuteurs
