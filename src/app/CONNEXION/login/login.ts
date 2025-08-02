@@ -27,52 +27,64 @@ export class LoginComponent {
     this.passwordVisible = !this.passwordVisible;
   }
 
-  onLogin() {
-    if (!this.credentials.email || !this.credentials.password) {
-      alert('Veuillez remplir tous les champs.');
-      return;
-    }
-
-    this.loginService.login(this.credentials).subscribe({
-      next: (response: any) => {
-        alert('Connexion réussie !');
-
-        // Stocker les infos dans le localStorage
-        const user = {
-          email: response.email,
-          role: response.role,
-        };
-        localStorage.setItem('user', JSON.stringify(user));
-
-        // Après login, récupérer le système courant et rediriger
-        this.loginService.getCurrentSystem().subscribe({
-          next: (systeme: Systeme) => {
-            if (systeme === 'PRIMAIRE') {
-              this.router.navigate(['/primaire']);
-            } else if (systeme === 'COLLEGE') {
-              this.router.navigate(['/college']);
-            } else if (systeme === 'LYCEE') {
-              this.router.navigate(['/lycee']);
-            } else {
-              this.router.navigate(['/dashboard']); // fallback
-            }
-          },
-          error: (err) => {
-            console.error('Erreur récupération système:', err);
-            this.router.navigate(['/dashboard']); // fallback si erreur
-          },
-        });
-      },
-      error: (err) => {
-        if (err?.error?.message?.includes('licence est expirée')) {
-          alert(
-            'Votre licence est expirée. Veuillez contacter l’administrateur.'
-          );
-        } else {
-          alert('Erreur lors de la connexion. Vérifiez vos identifiants.');
-        }
-        console.error(err);
-      },
-    });
+ onLogin() {
+  if (!this.credentials.email || !this.credentials.password) {
+    alert('Veuillez remplir tous les champs.');
+    return;
   }
+
+  this.loginService.login(this.credentials).subscribe({
+    next: (response: any) => {
+      alert('Connexion réussie !');
+
+      // Stocker les infos dans le localStorage
+      const user = {
+        email: response.email,
+        role: response.role,
+      };
+      localStorage.setItem('user', JSON.stringify(user));
+
+      // Après login, récupérer le système courant et rediriger vers son dashboard
+      this.loginService.getCurrentSystem().subscribe({
+        next: (systeme: Systeme) => {
+          switch(systeme) {
+            case 'PRIMAIRE':
+              this.router.navigate(['/Primaire/dashboard']);
+              break;
+            case 'COLLEGE':
+              this.router.navigate(['/College/dashboard']);
+              break;
+            case 'LYCEE':
+              this.router.navigate(['/Lycee/dashboard']);
+              break;
+            default:
+              this.router.navigate(['/']); // fallback vers login ou page par défaut
+          }
+        },
+        error: (err) => {
+          console.error('Erreur récupération système:', err);
+          this.router.navigate(['/']); // fallback aussi en cas d’erreur
+        },
+      });
+    },
+    error: (err) => {
+      if (err?.error?.message?.includes('licence est expirée')) {
+        alert(
+          'Votre licence est expirée. Veuillez contacter l’administrateur.'
+        );
+      } else {
+        alert('Erreur lors de la connexion. Vérifiez vos identifiants.');
+      }
+      console.error(err);
+    },
+  });
+
+  next: (systeme: Systeme) => {
+  console.log('Système reçu:', systeme);
+  switch(systeme) {
+  }
+}
+
+}
+
 }

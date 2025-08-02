@@ -17,19 +17,15 @@ import { Cm1 } from './BASE/PRIMAIRE/PAGES/Eleve/cm1/cm1';
 import { Cm2 } from './BASE/PRIMAIRE/PAGES/Eleve/cm2/cm2';
 import { Cp2 } from './BASE/PRIMAIRE/PAGES/Eleve/cp2/cp2';
 import { Primaire } from './BASE/PRIMAIRE/primaire/primaire';
+import { BaseComponent } from './BASE/PRIMAIRE/COMPOSANTS/base/base.component';
 
 export const routes: Routes = [
-  { path: 'Primaire', component: Primaire },
- /* { path: 'College', component: College },
-  { path: 'Lycee', component: Lycee },*/
-
-  { path: '', component: LoginComponent },
-  { path: 'inscription', component: Inscription },
-  { path: 'configuration', component: Configuration },
+  // Supprime cette ligne:
+  // { path: 'Primaire', component: Primaire },
 
   {
     path: 'Primaire',
-    component: Primaire, 
+    component: BaseComponent, // Tous les autres passent par ici
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'parametre', component: Parametres },
@@ -46,4 +42,8 @@ export const routes: Routes = [
       { path: 'CM2', component: Cm2 },
     ],
   },
+
+  { path: '', component: LoginComponent },
+  { path: 'inscription', component: Inscription },
+  { path: 'configuration', component: Configuration },
 ];
