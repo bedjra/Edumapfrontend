@@ -2,15 +2,16 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { Eleve } from '../../../Model/Eleve';
+import { HttpClientModule } from '@angular/common/http';
+import { Primaire } from '../../../SERVICE/primaire';
 
 @Component({
   selector: 'app-add',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule ,HttpClientModule],
   templateUrl: './add.html',
   styleUrl: './add.css',
 })
 export class Add implements OnInit {
-  ngOnInit(): void {}
   currentStep: number = 1;
   totalSteps: number = 3;
   formSoumis: boolean = false;
@@ -42,6 +43,22 @@ export class Add implements OnInit {
 
   afficherFormTuteur = false;
 
+  ngOnInit(): void {
+  this.loadTuteurs();
+}
+
+  constructor(private primaireService: Primaire) {}
+
+loadTuteurs() {
+    this.primaireService.getTuteurs().subscribe({
+      next: (data) => {
+        this.tuteurs = data;
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des tuteurs', err);
+      }
+    });
+  }
   getTuteurNomComplet(id: number | null): string | null {
     if (id === null) return null;
     const tuteur = this.tuteurs.find((t) => t.id === id);
@@ -63,8 +80,6 @@ export class Add implements OnInit {
   validateCurrentStep(): boolean {
     return true;
   }
-
-
 
   basculerFormTuteur() {
     this.afficherFormTuteur = !this.afficherFormTuteur;
