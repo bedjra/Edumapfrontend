@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginService } from '../../SERVICE/login-service';
+import { LoginService } from '../../PRIMAIRE/SERVICE/login-service';
 
 @Component({
   selector: 'app-configuration',

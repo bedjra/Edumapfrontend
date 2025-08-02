@@ -2,14 +2,15 @@ import { Routes } from '@angular/router';
 import { Inscription } from './BASE/CONNEXION/inscription/inscription';
 import { Configuration } from './BASE/CONNEXION/configuration/configuration';
 import { LoginComponent } from './BASE/CONNEXION/login/login';
-import { BaseComponent } from './BASE/PAGES/base/base.component';
-import { DashboardComponent } from './BASE/PAGES/dashboard/dashboard.component';
-import { Parametres } from './BASE/PAGES/parametres/parametres';
-import { Paiement } from './BASE/PAGES/paiement/paiement';
-import { Add } from './BASE/PAGES/Eleve/add/add';
-import { Liste } from './BASE/PAGES/Eleve/liste/liste';
-import { Note } from './BASE/PAGES/Note/note/note';
-import { Buletin } from './BASE/PAGES/Note/buletin/buletin';
+import { BaseComponent } from './BASE/COMPOSANTS/base/base.component';
+import { DashboardComponent } from './BASE/PRIMAIRE/PAGES/dashboard/dashboard.component';
+import { Add } from './BASE/PRIMAIRE/PAGES/Eleve/add/add';
+import { Liste } from './BASE/PRIMAIRE/PAGES/Eleve/liste/liste';
+import { Buletin } from './BASE/PRIMAIRE/PAGES/Note/buletin/buletin';
+import { Note } from './BASE/PRIMAIRE/PAGES/Note/note/note';
+import { Paiement } from './BASE/PRIMAIRE/PAGES/paiement/paiement';
+import { Parametres } from './BASE/PRIMAIRE/PAGES/parametres/parametres';
+
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },

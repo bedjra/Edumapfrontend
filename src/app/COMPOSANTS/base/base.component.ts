@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { HeaderComponent } from '../../../COMPOSANTS/header/header.component';
-import { MenuComponent } from '../../../COMPOSANTS/menu/menu.component';
+import { HeaderComponent } from '../header/header.component';
+import { MenuComponent } from '../menu/menu.component';
 @Component({
   selector: 'app-base',
   imports: [RouterOutlet, MenuComponent, HeaderComponent],
