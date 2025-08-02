@@ -37,54 +37,34 @@ export class LoginComponent {
     next: (response: any) => {
       alert('Connexion réussie !');
 
-      // Stocker les infos dans le localStorage
       const user = {
         email: response.email,
         role: response.role,
       };
       localStorage.setItem('user', JSON.stringify(user));
 
-      // Après login, récupérer le système courant et rediriger vers son dashboard
-      this.loginService.getCurrentSystem().subscribe({
-        next: (systeme: Systeme) => {
-          switch(systeme) {
-            case 'PRIMAIRE':
-              this.router.navigate(['/Primaire/dashboard']);
-              break;
-            case 'COLLEGE':
-              this.router.navigate(['/College/dashboard']);
-              break;
-            case 'LYCEE':
-              this.router.navigate(['/Lycee/dashboard']);
-              break;
-            default:
-              this.router.navigate(['/']); // fallback vers login ou page par défaut
-          }
-        },
-        error: (err) => {
-          console.error('Erreur récupération système:', err);
-          this.router.navigate(['/']); // fallback aussi en cas d’erreur
-        },
-      });
+      const systeme = localStorage.getItem('systeme');
+      console.log('Système récupéré:', systeme);
+
+      if (systeme) {
+        this.router.navigate([`/${systeme}/dashboard`]);
+      } else {
+        alert("Système introuvable. Veuillez reconfigurer l'application.");
+        this.router.navigate(['/configuration']);
+      }
     },
     error: (err) => {
       if (err?.error?.message?.includes('licence est expirée')) {
-        alert(
-          'Votre licence est expirée. Veuillez contacter l’administrateur.'
-        );
+        alert('Votre licence est expirée. Veuillez contacter l’administrateur.');
       } else {
         alert('Erreur lors de la connexion. Vérifiez vos identifiants.');
       }
       console.error(err);
     },
   });
-
-  next: (systeme: Systeme) => {
-  console.log('Système reçu:', systeme);
-  switch(systeme) {
-  }
 }
 
-}
+
+
 
 }

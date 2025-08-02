@@ -27,6 +27,7 @@ export const routes: Routes = [
     path: 'Primaire',
     component: BaseComponent, // Tous les autres passent par ici
     children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'parametre', component: Parametres },
       { path: 'paiement', component: Paiement },

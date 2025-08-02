@@ -25,7 +25,6 @@ export class Configuration {
   };
 
   imagePreview: string | ArrayBuffer | null = null;
-
   systemes = ['PRIMAIRE', 'COLLEGE', 'LYCEE'];
 
   constructor(private configService: LoginService, private router: Router) {}
@@ -44,6 +43,12 @@ export class Configuration {
   }
 
   onSubmit() {
+    // Validation
+    if (!this.configuration.systeme) {
+      alert("Veuillez sélectionner un système.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append('nom', this.configuration.nom);
     formData.append('adresse', this.configuration.adresse);
@@ -60,14 +65,16 @@ export class Configuration {
     this.configService.saveConfiguration(formData).subscribe({
       next: () => {
         alert('Configuration enregistrée avec succès.');
-        this.router.navigateByUrl('/'); // redirection accueil
+
+        const chemin = this.configuration.systeme.toLowerCase();
+        localStorage.setItem('systeme', chemin); // ✅ On stocke le système
+
+        this.router.navigate(['/' + chemin + '/dashboard']); // ✅ Redirection
       },
       error: (err) => {
         console.error("Erreur lors de l'enregistrement", err);
         alert("Erreur lors de l'enregistrement, veuillez réessayer.");
       },
     });
-    const chemin = this.configuration.systeme.toLowerCase(); // 'primaire', 'college', etc.
-    this.router.navigate(['/' + chemin]);
   }
 }
