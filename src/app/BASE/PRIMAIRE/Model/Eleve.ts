@@ -10,7 +10,6 @@ export interface Eleve {
   etblProv: string;
   nationnalite: string;
   dateNaiss: string; // format ISO : 'YYYY-MM-DD'
-  photo?: string | ArrayBuffer | null;
 
   // Tuteur
   tuteurNom: string;
