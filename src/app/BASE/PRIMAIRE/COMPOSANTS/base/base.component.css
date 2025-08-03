@@ -1,8 +1,7 @@
 /* Structure principale en flex */
 .layout-container {
   display: flex;
-  height: 100vh;
-  overflow: hidden;
+  height: 10vh;
 }
 
 /* SIDEBAR */

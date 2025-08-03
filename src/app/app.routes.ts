@@ -18,9 +18,6 @@ import { Cm2 } from './BASE/PRIMAIRE/PAGES/Eleve/cm2/cm2';
 import { Cp2 } from './BASE/PRIMAIRE/PAGES/Eleve/cp2/cp2';
 import { Primaire } from './BASE/PRIMAIRE/primaire/primaire';
 import { BaseComponent } from './BASE/PRIMAIRE/COMPOSANTS/base/base.component';
-import { Prof } from './BASE/PRIMAIRE/PAGES/sous/prof/prof';
-import { Scolarite } from './BASE/PRIMAIRE/PAGES/sous/scolarite/scolarite';
-import { User } from './BASE/PRIMAIRE/PAGES/sous/user/user';
 
 export const routes: Routes = [
   // Supprime cette ligne:
@@ -48,13 +45,6 @@ export const routes: Routes = [
       { path: 'CE2', component: Ce2 },
       { path: 'CM1', component: Cm1 },
       { path: 'CM2', component: Cm2 },
-
-      { path: 'utilisateur', component: User },
-      { path: 'scolarite', component: Scolarite },
-      { path: 'professeur', component: Prof },
     ],
   },
-
-
-
 ];
