@@ -112,7 +112,6 @@ export class Add implements OnInit {
     } else {
       this.tuteurNomComplet = 'Non renseigné';
     }
-    console.log('updateTuteurNom appelé');
   }
   onTuteurSelectionChange() {
     this.updateTuteurNom();

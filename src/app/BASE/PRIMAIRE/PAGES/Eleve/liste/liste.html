@@ -30,39 +30,55 @@
 
 
 </div>
+
+
 <section class="home-section">
-    <div class="home-content">
-        <div class="sales-boxes position-relative">
+  <div class="home-content">
+    <div class="sales-boxes position-relative">
+      <div class="recent-sales box p-4">
 
-            <!-- Carte contenant le tableau -->
-            <div class="recent-sales box position-relative p-4">
-
-                <!-- Titre superposé à l’intérieur de la carte -->
-                <div class="stat-banner text-white rounded shadow text-center">
-                    <span class="h5 mb-0">📊 STATISTIQUES DES ÉTUDIANTS DE LICENCE DU JOUR</span>
-                </div>
-
-                <!-- Tableau -->
-                <div class="sales-details pt-5 mt-5">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover text-center align-middle w-100">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Classe</th>
-                                    <th>Effectif total</th>
-                                    <th>Garçons</th>
-                                    <th>Filles</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Données dynamiques ici -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-
-            </div>
+        <!-- Bannière superposée -->
+        <div class="stat-banner text-white text-center shadow-sm">
+          <span class="h5 mb-0">📊 STATISTIQUES DES ÉLÈVES DU PRIMAIRE</span>
         </div>
+
+        <!-- Tableau -->
+        <div class="sales-details pt-5 mt-5">
+          <div *ngIf="dataLoaded; else loading">
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover text-center align-middle">
+                <thead class="table-light">
+                  <tr>
+                    <th>Classe</th>
+                    <th>Effectif total</th>
+                    <th>Garçons</th>
+                    <th>Filles</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let stat of statsPrimaire">
+                    <td>{{ stat.classe }}</td>
+                    <td>{{ stat.total }}</td>
+                    <td>{{ stat.garcons }}</td>
+                    <td>{{ stat.filles }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Loader -->
+          <ng-template #loading>
+            <div class="text-center py-5">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Chargement...</span>
+              </div>
+              <p>Chargement des statistiques en cours...</p>
+            </div>
+          </ng-template>
+        </div>
+
+      </div>
     </div>
+  </div>
 </section>

@@ -10,11 +10,18 @@ export interface Tuteur {
   prenom: string;
 }
 
+export interface StatPrimaire {
+  classe: string;
+  total: number;
+  garcons: number;
+  filles: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class Primaire {
-  private baseUrl = environment.primaireUrl; // ex: https://tonapi.com/api
+  private baseUrl = environment.primaireUrl; 
 
   constructor(private http: HttpClient) {}
 
@@ -22,8 +29,13 @@ export class Primaire {
     return this.http.post<Eleve>(`${this.baseUrl}/eleve`, eleve);
   }
 
-  // Nouvelle méthode pour récupérer tous les tuteurs
   getTuteurs(): Observable<Tuteur[]> {
     return this.http.get<Tuteur[]>(`${this.baseUrl}/tuteur`);
   }
+
+  /** méthode pour récupérer les stats des élèves du primaire */
+ getStats(): Observable<StatPrimaire[]> {
+  return this.http.get<StatPrimaire[]>(`${this.baseUrl}/stats`);
+}
+
 }
