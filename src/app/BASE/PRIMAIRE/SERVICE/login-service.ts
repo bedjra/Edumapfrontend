@@ -30,4 +30,12 @@ export class LoginService {
   selectSystem(systeme: Systeme): Observable<string> {
     return this.http.post<string>(`${this.baseUrl}/system?system=${systeme}`, {});
   }
+
+
+
+    getRoles(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.baseUrl}/roles`);
+  }
+
+
 }
