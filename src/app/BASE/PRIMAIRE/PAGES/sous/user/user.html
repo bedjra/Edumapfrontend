@@ -6,19 +6,19 @@
         <h4>Ajouter un utilisateur </h4>
         <div class="input-group">
             <span> Droit </span>
-            <select id="role" [(ngModel)]="credentials.role" name="role" required>
+            <select id="role"  name="role" required>
                 <option value="" disabled selected>Sélectionnez un rôle</option>
                 <option *ngFor="let r of roles" [value]="r">{{ r | titlecase }}</option>
             </select>
         </div>
         <div class="input-group">
             <span class="details">Identifiant :</span>
-            <input type="text" [(ngModel)]="credentials.email" name="email" required style="text-align: left;">
+            <input type="text" name="email" required style="text-align: left;">
         </div>
 
         <div class="input-group">
             <span class="details">Mot de passe :</span>
-            <input type="password" [(ngModel)]="credentials.password" name="password" required autocomplete="off"
+            <input type="password" name="password" required autocomplete="off"
                 style="padding: 12px; width: 380px; border: 3px solid #ddd; border-radius: 5px; font-family: 'Roboto', sans-serif;">
         </div>
 

@@ -1,5 +1,21 @@
-<nav class="flex items-center space-x-6 p-4 border-b">
-  <a routerLink="/PRIMAIRE/utilisateur" routerLinkActive="text-blue-600 font-semibold">Utilisateur</a>
-  <a routerLink="/PRIMAIRE/scolarite" routerLinkActive="text-blue-600 font-semibold">Scolarité</a>
-  <a routerLink="/PRIMAIRE/professeur" routerLinkActive="text-blue-600 font-semibold">Professeur</a>
+<nav class="navbar">
+  <a href="#utilisateur" class="nav-link">Utilisateur</a>
+  <a href="#scolarite" class="nav-link">Scolarité</a>
+  <a href="#professeur" class="nav-link">Professeur</a>
 </nav>
+
+
+<section id="utilisateur" class="section-block">
+  <h2>Utilisateur</h2>
+  <app-user></app-user>
+</section>
+
+<section id="scolarite" class="section-block">
+  <h2>Scolarité</h2>
+  <app-scolarite></app-scolarite>
+</section>
+
+<section id="professeur" class="section-block">
+  <h2>Professeur</h2>
+  <app-prof></app-prof>
+</section>
