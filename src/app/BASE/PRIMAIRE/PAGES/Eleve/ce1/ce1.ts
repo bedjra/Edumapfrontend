@@ -83,6 +83,6 @@ export class Ce1 implements OnInit {
 
   // Impression
   redirectToDefitech(): void {
-    this.router.navigate(['/PRIMAIRE/print']);
+    this.router.navigate(['/print']);
   }
 }

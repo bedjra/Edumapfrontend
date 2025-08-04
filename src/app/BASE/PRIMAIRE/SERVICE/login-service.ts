@@ -15,7 +15,11 @@ export class LoginService {
     return this.http.post(`${this.baseUrl}/user/login`, credentials);
   }
 
-  registerUser(data: { email: string; password: string; role: string }): Observable<any> {
+  registerUser(data: {
+    email: string;
+    password: string;
+    role: string;
+  }): Observable<any> {
     return this.http.post(`${this.baseUrl}/user/save`, data);
   }
 
@@ -23,19 +27,25 @@ export class LoginService {
     return this.http.post(`${this.baseUrl}/ecole`, formData);
   }
 
+  // 📷 Récupération du logo de l'école
+  getLogoImage(): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/ecole/image`, {
+      responseType: 'blob'  // ici, juste 'blob', pas 'blob' as 'json'
+    });
+  }
+  
   getCurrentSystem(): Observable<Systeme> {
     return this.http.get<Systeme>(`${this.baseUrl}/system`);
   }
 
   selectSystem(systeme: Systeme): Observable<string> {
-    return this.http.post<string>(`${this.baseUrl}/system?system=${systeme}`, {});
+    return this.http.post<string>(
+      `${this.baseUrl}/system?system=${systeme}`,
+      {}
+    );
   }
 
-
-
-    getRoles(): Observable<string[]> {
+  getRoles(): Observable<string[]> {
     return this.http.get<string[]>(`${this.baseUrl}/roles`);
   }
-
-
 }

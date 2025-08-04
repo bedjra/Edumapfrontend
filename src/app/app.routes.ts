@@ -37,6 +37,9 @@ export const routes: Routes = [
   { path: 'inscription', component: Inscription },
   { path: 'configuration', component: Configuration },
 
+
+  { path: 'print/classe', component: DefitechComponent },
+
   {
     path: 'PRIMAIRE',
     component: BaseComponent, // Tous les autres passent par ici
@@ -64,7 +67,6 @@ export const routes: Routes = [
       { path: 'paiement/CE2', component: Ce2paie },
       { path: 'paiement/CM1', component: Cm1paie },
       { path: 'paiement/CM2', component: Cm2paie },
-      { path: 'print', component: DefitechComponent },
 
       { path: 'utilisateur', component: User },
       { path: 'scolarite', component: Scolarite },

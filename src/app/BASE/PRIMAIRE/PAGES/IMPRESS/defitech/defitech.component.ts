@@ -1,40 +1,70 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Primaire } from '../../../SERVICE/primaire';
+import { LoginService } from '../../../SERVICE/login-service';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-defitech',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './defitech.component.html',
-  styleUrl: './defitech.component.css'
+  styleUrls: ['./defitech.component.css'],
 })
 export class DefitechComponent implements OnInit {
-  currentYear: number = new Date().getFullYear(); // Année actuelle
-  previousYear: number = this.currentYear - 1; // Année précédente
- eleves: any[] = [];
-  imageUrl: string = 'assets/img/logo.png';
+  currentYear: number = new Date().getFullYear();
+  previousYear: number = this.currentYear - 1;
+  eleves: any[] = [];  // à remplacer par Eleve[] si possible
+  imageUrl?: SafeUrl;
+  classe: string = 'CP1'; // valeur par défaut
 
-  classe: string = 'CE1'; // ou récupérer dynamiquement via route ou service
-
-  constructor(private eleveService: Primaire) {}
+  constructor(
+    private eleveService: Primaire,
+    private http: HttpClient,
+    private sanitizer: DomSanitizer,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    const currentDate = new Date();
-    this.currentYear = currentDate.getFullYear();
-    this.previousYear = this.currentYear - 1;
+    // Si tu souhaites récupérer la classe depuis un paramètre de requête URL
+    this.route.queryParams.subscribe(params => {
+      if (params['classe']) {
+        this.classe = params['classe'];
+      }
+      this.loadEleves(); // charger après récupération de la classe
+    });
 
-    this.eleveService.getElevesByClasse(this.classe).subscribe(data => {
-      this.eleves = data;
+    this.loadLogoImage();
+  }
+
+  loadEleves(): void {
+    this.eleveService.getElevesByClasse(this.classe).subscribe({
+      next: (data) => {
+        this.eleves = data;
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération des élèves:', err);
+      },
     });
   }
 
+  loadLogoImage(): void {
+  const url = 'http://localhost:8060/api/ecole/image';
+  this.http.get(url, { responseType: 'blob' }).subscribe({
+    next: (blob: Blob) => {
+      const objectURL = URL.createObjectURL(blob);
+      this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+    },
+    error: (error) => {
+      console.error('Erreur lors du chargement du logo:', error);
+    }
+  });
+}
+
+
   print(): void {
-    window.print(); // Fonction d'impression
+    window.print();
   }
-
-
-  
 }
