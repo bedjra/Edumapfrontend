@@ -6,16 +6,16 @@ import { RouterLink } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { Primaire } from '../../../SERVICE/primaire';
 import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cp1',
   standalone: true,
-  imports: [CommonModule, FormsModule,NgbModule, HttpClientModule, RouterLink],
+  imports: [CommonModule, FormsModule, NgbModule, HttpClientModule, RouterLink],
   templateUrl: './cp1.html',
-  styleUrls: ['./cp1.css']
+  styleUrls: ['./cp1.css'],
 })
 export class Cp1 implements OnInit {
-
   eleves: Eleve[] = [];
   selectedEleve?: Eleve;
   isLoading = true;
@@ -23,8 +23,8 @@ export class Cp1 implements OnInit {
   constructor(
     private primaireService: Primaire,
     private cdr: ChangeDetectorRef,
-      private modalService: NgbModal
-
+    private modalService: NgbModal,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -38,51 +38,44 @@ export class Cp1 implements OnInit {
 
   private loadEleves(): void {
     console.log('🔄 Chargement des élèves CP1...');
-    
+
     this.primaireService.getElevesByClasse('CP1').subscribe({
       next: (data) => {
         console.log('✅ Données reçues du serveur:', data);
-        
+
         // ✅ Assignation avec copie complète
         this.eleves = JSON.parse(JSON.stringify(data));
         this.isLoading = false;
-        
+
         // ✅ Force la mise à jour de la vue
         this.cdr.detectChanges();
-        
-        console.log('✅ eleves final:', this.eleves);
-        console.log('✅ Longueur du tableau:', this.eleves.length);
       },
       error: (err) => {
         console.error('❌ Erreur lors du chargement des élèves :', err);
         this.isLoading = false;
         this.cdr.detectChanges();
-      }
+      },
     });
   }
 
-openEleveModal(id: string | number, content: any) {
-  const idString = id.toString(); // Convertir en string toujours
-  this.primaireService.getEleveById(idString).subscribe({
-    next: (eleve) => {
-      this.selectedEleve = eleve;
-      this.modalService.open(content, { size: 'lg' });
-    },
-    error: (err) => {
-      console.error('Erreur lors du chargement de l\'élève', err);
-      alert('Impossible de charger les détails de l\'élève');
-    }
-  });
-}
-
-
-
-  editEleve(matricule: string): void {
-    console.log('Modifier élève avec matricule:', matricule);
-    // TODO: Navigation vers le formulaire d'édition
+  openEleveModal(id: string | number, content: any) {
+    const idString = id.toString(); // Convertir en string toujours
+    this.primaireService.getEleveById(idString).subscribe({
+      next: (eleve) => {
+        console.log('Élève récupéré:', eleve); // <-- Affiche dans la console l'élève reçu
+        this.selectedEleve = eleve;
+        this.modalService.open(content, { size: 'lg' });
+      },
+      error: (err) => {
+        alert("Impossible de charger les détails de l'élève");
+      },
+    });
   }
 
- 
+editEleve(matricule: string) {
+  this.router.navigate(['/modifier', matricule]);
+}
+
 
   searchEleves(nom: string, prenom: string): void {
     // Filtrage local ou appel API selon votre implémentation

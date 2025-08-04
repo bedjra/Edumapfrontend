@@ -31,7 +31,6 @@
 
 </div>
 
-
 <section class="home-section">
   <div class="home-content">
     <div class="sales-boxes position-relative">
@@ -42,10 +41,10 @@
           <span class="h5 mb-0">📊 STATISTIQUES DES ÉLÈVES</span>
         </div>
 
-        <!-- Tableau -->
+        <!-- Tableau sans bordures -->
         <div class="sales-details pt-5 mt-5">
           <div class="table-responsive">
-            <table class="table table-bordered table-hover text-center align-middle">
+            <table class="table table-hover text-center align-middle">
               <thead class="table-light">
                 <tr>
                   <th>Classe</th>
@@ -55,7 +54,6 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- ✅ Utiliser statsPrimaire() avec les parenthèses pour les signals -->
                 <tr *ngFor="let stat of statsPrimaire">
                   <td>{{ stat.classe }}</td>
                   <td>{{ stat.total }}</td>
