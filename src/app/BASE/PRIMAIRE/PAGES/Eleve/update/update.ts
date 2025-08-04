@@ -15,7 +15,7 @@ import { Primaire } from '../../../SERVICE/primaire';
 export class UpdateComponent implements OnInit {
 
   eleve: Eleve = {
-  id: 0,
+    id: 0,
     nom: '',
     prenom: '',
     adresse: '',
@@ -26,7 +26,6 @@ export class UpdateComponent implements OnInit {
     etblProv: '',
     nationnalite: '',
     dateNaiss: '',
-
     tuteurNom: '',
     tuteurPrenom: '',
     tuteurTelephone: '',
@@ -41,18 +40,23 @@ export class UpdateComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private eleveService: Primaire
+    private primaireService: Primaire
   ) {}
 
-  ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.loadEleve(id);
+  ngOnInit(): void {
+    const eleveFromService = this.primaireService.getSelectedEleve();
+    if (eleveFromService) {
+      this.eleve = { ...eleveFromService }; // ✅ on copie les données
+    } else {
+      const id = this.route.snapshot.paramMap.get('id');
+      if (id) {
+        this.loadEleve(id);
+      }
     }
   }
 
   loadEleve(id: string) {
-    this.eleveService.getEleveById(id).subscribe({
+    this.primaireService.getEleveById(id).subscribe({
       next: (data) => {
         this.eleve = data;
       },
@@ -68,12 +72,13 @@ export class UpdateComponent implements OnInit {
     if (!this.validateCurrentStep()) {
       return;
     }
+
     this.loadingVisible = true;
-    this.eleveService.updateEleve(this.eleve).subscribe({
+    this.primaireService.updateEleve(this.eleve).subscribe({
       next: () => {
         this.loadingVisible = false;
         alert('Élève mis à jour avec succès');
-        this.router.navigate(['/liste-eleves']);
+      this.router.navigate(['/PRIMAIRE/liste']);
       },
       error: () => {
         this.loadingVisible = false;
@@ -96,12 +101,25 @@ export class UpdateComponent implements OnInit {
 
   validateCurrentStep(): boolean {
     if (this.currentStep === 1) {
-      return !!(this.eleve.nom && this.eleve.prenom && this.eleve.dateNaiss && this.eleve.lieuNais && this.eleve.adresse && this.eleve.sexe);
+      return !!(
+        this.eleve.nom &&
+        this.eleve.prenom &&
+        this.eleve.dateNaiss &&
+        this.eleve.lieuNais &&
+        this.eleve.adresse &&
+        this.eleve.sexe
+      );
     }
     if (this.currentStep === 2) {
-      return !!(this.eleve.nationnalite && this.eleve.classe && this.eleve.tuteurNom && this.eleve.tuteurPrenom && this.eleve.tuteurTelephone && this.eleve.tuteurProfession);
+      return !!(
+        this.eleve.nationnalite &&
+        this.eleve.classe &&
+        this.eleve.tuteurNom &&
+        this.eleve.tuteurPrenom &&
+        this.eleve.tuteurTelephone &&
+        this.eleve.tuteurProfession
+      );
     }
     return true;
   }
-
 }

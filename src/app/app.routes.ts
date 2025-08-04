@@ -26,8 +26,8 @@ import { Cm1paie } from './BASE/PRIMAIRE/PAGES/PAIE/cm1paie/cm1paie';
 import { Cm2paie } from './BASE/PRIMAIRE/PAGES/PAIE/cm2paie/cm2paie';
 import { Ce2paie } from './BASE/PRIMAIRE/PAGES/PAIE/ce2paie/ce2paie';
 import { Ce1paie } from './BASE/PRIMAIRE/PAGES/PAIE/ce1paie/ce1paie';
-import { Update } from './BASE/PRIMAIRE/PAGES/Eleve/update/update';
 import { DefitechComponent } from './BASE/PRIMAIRE/PAGES/IMPRESS/defitech/defitech.component';
+import { UpdateComponent } from './BASE/PRIMAIRE/PAGES/Eleve/update/update';
 
 export const routes: Routes = [
   // Supprime cette ligne:
@@ -48,7 +48,7 @@ export const routes: Routes = [
       { path: 'parametre', component: Parametres },
       { path: 'paiement', component: Paiement },
       { path: 'ajouter', component: Add },
-      { path: 'modifier/:id', component: Update },
+      { path: 'modifier/:id', component: UpdateComponent },
       { path: 'liste', component: Liste },
       { path: 'note', component: Note },
       { path: 'bulletin', component: Buletin },

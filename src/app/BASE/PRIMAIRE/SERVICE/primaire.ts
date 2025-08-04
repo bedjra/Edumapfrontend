@@ -67,4 +67,16 @@ export class Primaire {
     return this.http.put<Eleve>(`${this.baseUrl}/eleve/${eleve.id}`, eleve);
   }
 
+
+
+  private selectedEleve: Eleve | null = null;
+
+setSelectedEleve(eleve: Eleve) {
+  this.selectedEleve = eleve;
+}
+
+getSelectedEleve(): Eleve | null {
+  return this.selectedEleve;
+}
+
 }

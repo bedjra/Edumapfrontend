@@ -76,10 +76,16 @@ private loadEleves(): void {
     });
   }
 
-
 editEleve(id: string) {
-  this.router.navigate(['/modifier', id]);
+  const eleve = this.eleves.find(e => e.matricule === id);
+  if (eleve) {
+    this.primaireService.setSelectedEleve(eleve); // ✅ stocke l’élève
+  }
+  console.log('Redirection vers /modifier/', id);
+  this.router.navigate(['PRIMAIRE', 'modifier', id]);
 }
+
+
 
   searchEleves(nom: string, prenom: string): void {
     // Filtrage local ou appel API selon votre implémentation
