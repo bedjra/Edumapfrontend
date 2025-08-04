@@ -47,7 +47,7 @@ body {
 form {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 23px;
   /* entre les groupes */
   flex: 1;
 }
