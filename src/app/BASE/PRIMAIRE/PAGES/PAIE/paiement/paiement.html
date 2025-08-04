@@ -1,38 +1,28 @@
 <header>
   <div class="container">
-    <div class="row align-items-center d-flex">
-      <div class="col-auto">
+    <div class="filter-bar">
+      <div class="filter-icon">
         <i class="fas fa-filter"></i>
       </div>
-      <div class="col-auto" style="color: blue;">
-        <span>Filtre par :</span>
+      <div class="filter-text">
+        Filtre par :
       </div>
-      <form (ngSubmit)="onSearch()" #searchForm="ngForm" class="col d-flex align-items-center">
-        <div class="row w-100">
-          <div class="col">
-            <div class="d-flex align-items-center search-field">
-              <label for="classe" class="me-2">Classe :</label>
-              <select id="classe" name="classe" class="form-control" required [(ngModel)]="eleve.classe">
-                <option value="" disabled selected>-- Sélectionner la classe --</option>
-                <option value="CP1">CP1</option>
-                <option value="CP2">CP2</option>
-                <option value="CE1">CE1</option>
-                <option value="CE2">CE2</option>
-                <option value="CM1">CM1</option>
-                <option value="CM2">CM2</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-auto">
-            <button type="submit" class="btn btn-primary">CHERCHER</button>
-          </div>
-        </div>
+      <form (ngSubmit)="onSearch()" #searchForm="ngForm" class="filter-form">
+        <label for="classe">Classe :</label>
+        <select id="classe" name="classe" required [(ngModel)]="eleve.classe">
+          <option value="" disabled selected>-- Sélectionner la classe --</option>
+          <option value="CP1">CP1</option>
+          <option value="CP2">CP2</option>
+          <option value="CE1">CE1</option>
+          <option value="CE2">CE2</option>
+          <option value="CM1">CM1</option>
+          <option value="CM2">CM2</option>
+        </select>
+        <button type="submit" class="btn btn-primary">CHERCHER</button>
       </form>
-      <div class="col-auto ms-2">
-        <button (click)="printEtudiant()" class="print-button" aria-label="Imprimer">
-          <i class="fas fa-print"></i>
-        </button>
-      </div>
+      <button (click)="printEtudiant()" class="print-button" aria-label="Imprimer">
+        <i class="fas fa-print"></i>
+      </button>
     </div>
   </div>
 </header>
