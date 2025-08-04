@@ -43,11 +43,16 @@ export class Cm2 implements OnInit {
       next: (data) => {
         console.log('✅ Données reçues du serveur:', data);
 
-        // ✅ Assignation avec copie complète
+      
+        // Stockage dans le service pour partage entre composants
+        this.primaireService.setEleves(data);
+
+        // Assignation locale (copie profonde si tu veux vraiment, mais pas obligatoire)
         this.eleves = JSON.parse(JSON.stringify(data));
+
         this.isLoading = false;
 
-        // ✅ Force la mise à jour de la vue
+        // Forcer la détection des changements si besoin
         this.cdr.detectChanges();
       },
       error: (err) => {
