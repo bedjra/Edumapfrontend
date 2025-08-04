@@ -21,6 +21,7 @@ export class Add implements OnInit {
   // Valeurs de l’étudiant et du tuteur
 
   eleve: Eleve = {
+  id: 0,
     nom: '',
     prenom: '',
     adresse: '',

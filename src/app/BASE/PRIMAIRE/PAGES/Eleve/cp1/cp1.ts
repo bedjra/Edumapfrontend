@@ -61,9 +61,20 @@ export class Cp1 implements OnInit {
     });
   }
 
-openDetails(eleve: Eleve): void {
- 
+openEleveModal(id: string | number, content: any) {
+  const idString = id.toString(); // Convertir en string toujours
+  this.primaireService.getEleveById(idString).subscribe({
+    next: (eleve) => {
+      this.selectedEleve = eleve;
+      this.modalService.open(content, { size: 'lg' });
+    },
+    error: (err) => {
+      console.error('Erreur lors du chargement de l\'élève', err);
+      alert('Impossible de charger les détails de l\'élève');
+    }
+  });
 }
+
 
 
   editEleve(matricule: string): void {

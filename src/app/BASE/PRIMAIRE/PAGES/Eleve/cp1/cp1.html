@@ -41,13 +41,17 @@
                   <td>{{ eleve.sexe }}</td>
                   <td>{{ eleve.adresse }}</td>
                   <td>
-                    <button  type="button" class="btn btn-info btn-sm me-1" title="Voir détails">
+                    <button type="button" class="btn btn-info btn-sm me-1" title="Voir détails"
+                      (click)="openEleveModal(eleve.id, eleveModal)">
                       <i class="fas fa-eye"></i>
                     </button>
-                    <button (click)="editEleve(eleve.matricule)" type="button" class="btn btn-warning btn-sm me-1" title="Modifier">
+
+
+                    <button (click)="editEleve(eleve.matricule)" type="button" class="btn btn-warning btn-sm me-1"
+                      title="Modifier">
                       <i class="fas fa-pencil-alt"></i>
                     </button>
-                  
+
                   </td>
                 </tr>
                 <!-- Message si aucun élève -->
