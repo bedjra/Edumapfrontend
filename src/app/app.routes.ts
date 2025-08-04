@@ -66,5 +66,7 @@ export const routes: Routes = [
       { path: 'scolarite', component: Scolarite },
       { path: 'professeur', component: Prof },
     ],
+
+    
   },
 ];

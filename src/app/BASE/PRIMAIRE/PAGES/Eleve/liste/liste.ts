@@ -8,24 +8,25 @@ import { StatPrimaire, Primaire } from '../../../SERVICE/primaire';
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './liste.html',
-  styleUrls: ['./liste.css'] // ✅ au pluriel
+  styleUrls: ['./liste.css']
 })
 export class Liste implements OnInit {
   statsPrimaire: StatPrimaire[] = [];
-  dataLoaded: boolean = true
+  
   constructor(private primaireService: Primaire) {}
 
   ngOnInit(): void {
-    this.primaireService.getStats().subscribe({
-      next: (data) => {
-        console.log('✅ Statistiques récupérées :', data);
-        this.statsPrimaire = data;
-        this.dataLoaded = true;
-      },
-      error: (err) => {
-        console.error('❌ Erreur lors du chargement des statistiques:', err);
-        this.dataLoaded = true; // même en cas d’erreur pour ne pas bloquer
-      }
-    });
+    // ✅ Attendre que l'hydration soit terminée
+    setTimeout(() => {
+      this.primaireService.getStats().subscribe({
+        next: (data) => {
+          console.log('✅ Données chargées après hydration:', data);
+          this.statsPrimaire = data;
+        },
+        error: (err) => {
+          console.error('❌ Erreur:', err);
+        }
+      });
+    }, 100); // Petit délai pour laisser l'hydration se terminer
   }
 }

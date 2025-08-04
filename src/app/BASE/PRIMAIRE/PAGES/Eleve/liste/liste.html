@@ -31,7 +31,6 @@
 
 </div>
 
-
 <section class="home-section">
   <div class="home-content">
     <div class="sales-boxes position-relative">
@@ -44,38 +43,26 @@
 
         <!-- Tableau -->
         <div class="sales-details pt-5 mt-5">
-          <div *ngIf="dataLoaded; else loading">
-            <div class="table-responsive">
-              <table class="table table-bordered table-hover text-center align-middle">
-                <thead class="table-light">
-                  <tr>
-                    <th>Classe</th>
-                    <th>Effectif total</th>
-                    <th>Garçons</th>
-                    <th>Filles</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let stat of statsPrimaire">
-                    <td>{{ stat.classe }}</td>
-                    <td>{{ stat.total }}</td>
-                    <td>{{ stat.garcons }}</td>
-                    <td>{{ stat.filles }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover text-center align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>Classe</th>
+                  <th>Effectif total</th>
+                  <th>Garçons</th>
+                  <th>Filles</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let stat of statsPrimaire">
+                  <td>{{ stat.classe }}</td>
+                  <td>{{ stat.total }}</td>
+                  <td>{{ stat.garcons }}</td>
+                  <td>{{ stat.filles }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-
-          <!-- Loader -->
-          <ng-template #loading>
-            <div class="text-center py-5">
-              <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Chargement...</span>
-              </div>
-              <p>Chargement des statistiques en cours...</p>
-            </div>
-          </ng-template>
         </div>
 
       </div>
