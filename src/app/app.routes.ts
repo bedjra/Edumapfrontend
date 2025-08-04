@@ -28,6 +28,7 @@ import { Parametres } from './BASE/PRIMAIRE/PAGES/parametres/parametres';
 import { User } from './BASE/PRIMAIRE/PAGES/sous/user/user';
 import { Scolarite } from './BASE/PRIMAIRE/PAGES/sous/scolarite/scolarite';
 import { Prof } from './BASE/PRIMAIRE/PAGES/sous/prof/prof';
+import { Config } from './BASE/PRIMAIRE/PAGES/sous/config/config';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -69,6 +70,7 @@ export const routes: Routes = [
           { path: 'utilisateur', component: User },
           { path: 'scolarite', component: Scolarite },
           { path: 'professeur', component: Prof },
+          { path: 'config', component: Config },
         ]
       }
     ]
