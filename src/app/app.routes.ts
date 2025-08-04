@@ -16,7 +16,6 @@ import { Ce2 } from './BASE/PRIMAIRE/PAGES/Eleve/ce2/ce2';
 import { Cm1 } from './BASE/PRIMAIRE/PAGES/Eleve/cm1/cm1';
 import { Cm2 } from './BASE/PRIMAIRE/PAGES/Eleve/cm2/cm2';
 import { Cp2 } from './BASE/PRIMAIRE/PAGES/Eleve/cp2/cp2';
-import { Primaire } from './BASE/PRIMAIRE/primaire/primaire';
 import { BaseComponent } from './BASE/PRIMAIRE/COMPOSANTS/base/base.component';
 import { Prof } from './BASE/PRIMAIRE/PAGES/sous/prof/prof';
 import { Scolarite } from './BASE/PRIMAIRE/PAGES/sous/scolarite/scolarite';

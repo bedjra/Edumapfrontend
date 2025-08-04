@@ -9,13 +9,13 @@ import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-cp2',
+  selector: 'app-cm2',
   standalone: true,
   imports: [CommonModule, FormsModule, NgbModule, HttpClientModule, RouterLink],
   templateUrl: './cm2.html',
   styleUrls: ['./cm2.css'],
 })
-export class Cp2 implements OnInit {
+export class Cm2 implements OnInit {
   eleves: Eleve[] = [];
   selectedEleve?: Eleve;
   isLoading = true;

@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
   templateUrl: './ce2.html',
   styleUrls: ['./ce2.css'],
 })
-export class Cp2 implements OnInit {
+export class Ce2 implements OnInit {
   eleves: Eleve[] = [];
   selectedEleve?: Eleve;
   isLoading = true;
