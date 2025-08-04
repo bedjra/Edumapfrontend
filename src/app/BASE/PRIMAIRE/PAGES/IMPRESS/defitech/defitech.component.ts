@@ -17,7 +17,7 @@ export class DefitechComponent implements OnInit {
   previousYear: number = this.currentYear - 1;
   eleves: any[] = [];
   imageUrl?: SafeUrl;
-  classe: string = 'CP1';
+  classe: string = '';
   isLoading = true;  // indicateur de chargement
 isLoadingImage = true;
 
@@ -29,16 +29,22 @@ isLoadingImage = true;
     private cdr: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      if (params['classe']) {
-        this.classe = params['classe'];
-      }
+ngOnInit(): void {
+  this.route.queryParams.subscribe(params => {
+    if (params['classe']) {
+      this.classe = params['classe'];
       this.loadEleves();
-    });
+    } else {
+      console.warn('Aucune classe spécifiée dans les paramètres de requête. Aucun élève chargé.');
+      this.eleves = [];
+      this.isLoading = false;
+      this.cdr.detectChanges();
+    }
+  });
 
-    this.loadLogoImage();
-  }
+  this.loadLogoImage();
+}
+
 
   loadEleves(): void {
     this.isLoading = true;

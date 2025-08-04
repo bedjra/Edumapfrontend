@@ -11,9 +11,11 @@
 
           <!-- Au centre : Bouton print -->
           <!-- CENTRE -->
-          <button class="btn btn-link text-dark p-0" aria-label="Imprimer" [routerLink]="['/print/classe']">
+          <button class="btn btn-link text-dark p-0" aria-label="Imprimer" [routerLink]="['/print/classe']"
+            [queryParams]="{ classe: 'CP1' }">
             <i class="fas fa-print fa-lg"></i>
           </button>
+
 
 
 

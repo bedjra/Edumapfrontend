@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Primaire } from '../../../SERVICE/primaire';
 import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { Input } from '@angular/core';
 
 @Component({
   selector: 'app-cp2',
@@ -16,6 +17,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./cp2.css'],
 })
 export class Cp2 implements OnInit {
+  @Input() classe: string = '';
+
   eleves: Eleve[] = [];
   selectedEleve?: Eleve;
   isLoading = true;
@@ -34,6 +37,9 @@ export class Cp2 implements OnInit {
         this.loadEleves();
       }, 200);
     }
+    if (this.classe) {
+      this.loadEleves();
+    }
   }
 
   private loadEleves(): void {
@@ -43,11 +49,15 @@ export class Cp2 implements OnInit {
       next: (data) => {
         console.log('✅ Données reçues du serveur:', data);
 
-        // ✅ Assignation avec copie complète
+        // Stockage dans le service pour partage entre composants
+        this.primaireService.setEleves(data);
+
+        // Assignation locale (copie profonde si tu veux vraiment, mais pas obligatoire)
         this.eleves = JSON.parse(JSON.stringify(data));
+
         this.isLoading = false;
 
-        // ✅ Force la mise à jour de la vue
+        // Forcer la détection des changements si besoin
         this.cdr.detectChanges();
       },
       error: (err) => {
@@ -72,10 +82,9 @@ export class Cp2 implements OnInit {
     });
   }
 
-editEleve(matricule: string) {
-  this.router.navigate(['/modifier', matricule]);
-}
-
+  editEleve(matricule: string) {
+    this.router.navigate(['/modifier', matricule]);
+  }
 
   searchEleves(nom: string, prenom: string): void {
     // Filtrage local ou appel API selon votre implémentation
