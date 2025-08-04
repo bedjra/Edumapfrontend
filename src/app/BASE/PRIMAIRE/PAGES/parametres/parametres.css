@@ -2,7 +2,7 @@
 .navbar {
   display: flex;
   gap: 32px;
-  padding: 16px 24px;
+  padding: 6px 24px;
   background-color: #f9fafb;
   border-bottom: 2px solid #e5e7eb;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
@@ -29,13 +29,4 @@
   border-bottom: 2px solid #1d4ed8;
   padding-bottom: 4px;
 }
-.section-block {
-  margin-top: 60px;
-  padding: 20px;
-  border-top: 1px solid #ccc;
-  scroll-margin-top: 80px; /* Pour éviter que la nav cache le titre */
-}
 
-html {
-  scroll-behavior: smooth;
-}
