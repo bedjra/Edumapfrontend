@@ -22,6 +22,8 @@ body {
   justify-content: center;
   align-items: center;
   padding: 30px;
+  padding-left: 210px;
+
 }
 
 /* Box */
@@ -61,7 +63,7 @@ body {
 
 /* Partie droite */
 .right {
-  width: 60%;
+  width: 70%;
   padding: 25px 20px;
   display: flex;
   flex-direction: column;
@@ -96,7 +98,7 @@ form label {
 form input,
 form select {
   width: 520px;
-  padding: 12px;
+  padding: 8px;
   border: 3px solid #ddd;
   border-radius: 5px;
   font-family: 'Roboto', sans-serif;
@@ -109,9 +111,9 @@ form select {
   background-color: rgb(117, 170, 244);
   color: white;
   border-radius: 50px;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-left: 200px;
-  padding: 10px 30px;
+  padding: 5px 30px;
   border: none;
   font-size: medium;
   font-weight: bold;
@@ -127,7 +129,8 @@ form select {
 }
 
 .form-group {
-  margin-bottom: 15px; /* Ajuste à ton goût (10px, 15px, etc.) */
+  margin-bottom: 15px;
+  /* Ajuste à ton goût (10px, 15px, etc.) */
 }
 
 /* Footer */
