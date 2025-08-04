@@ -36,27 +36,31 @@ export class Cp1 implements OnInit {
     }
   }
 
-  private loadEleves(): void {
-    console.log('🔄 Chargement des élèves CP1...');
+private loadEleves(): void {
+  console.log('🔄 Chargement des élèves CP1...');
 
-    this.primaireService.getElevesByClasse('CP1').subscribe({
-      next: (data) => {
-        console.log('✅ Données reçues du serveur:', data);
+  this.primaireService.getElevesByClasse('CP1').subscribe({
+    next: (data) => {
+      console.log('✅ Données reçues du serveur:', data);
 
-        // ✅ Assignation avec copie complète
-        this.eleves = JSON.parse(JSON.stringify(data));
-        this.isLoading = false;
+      // Stockage dans le service pour partage entre composants
+      this.primaireService.setEleves(data);
 
-        // ✅ Force la mise à jour de la vue
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error('❌ Erreur lors du chargement des élèves :', err);
-        this.isLoading = false;
-        this.cdr.detectChanges();
-      },
-    });
-  }
+      // Assignation locale (copie profonde si tu veux vraiment, mais pas obligatoire)
+      this.eleves = JSON.parse(JSON.stringify(data));
+
+      this.isLoading = false;
+
+      // Forcer la détection des changements si besoin
+      this.cdr.detectChanges();
+    },
+    error: (err) => {
+      console.error('❌ Erreur lors du chargement des élèves :', err);
+      this.isLoading = false;
+      this.cdr.detectChanges();
+    },
+  });
+}
 
   openEleveModal(id: string | number, content: any) {
     const idString = id.toString(); // Convertir en string toujours

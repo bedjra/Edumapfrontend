@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Primaire } from '../../../SERVICE/primaire';
-import { LoginService } from '../../../SERVICE/login-service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
@@ -16,49 +15,64 @@ import { HttpClient } from '@angular/common/http';
 export class DefitechComponent implements OnInit {
   currentYear: number = new Date().getFullYear();
   previousYear: number = this.currentYear - 1;
-  eleves: any[] = [];  // à remplacer par Eleve[] si possible
+  eleves: any[] = [];
   imageUrl?: SafeUrl;
-  classe: string = 'CP1'; // valeur par défaut
+  classe: string = 'CP1';
+  isLoading = true;  // indicateur de chargement
+isLoadingImage = true;
 
   constructor(
-    private eleveService: Primaire,
+    private primaireService: Primaire,
     private http: HttpClient,
     private sanitizer: DomSanitizer,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    // Si tu souhaites récupérer la classe depuis un paramètre de requête URL
     this.route.queryParams.subscribe(params => {
       if (params['classe']) {
         this.classe = params['classe'];
       }
-      this.loadEleves(); // charger après récupération de la classe
+      this.loadEleves();
     });
 
     this.loadLogoImage();
   }
 
   loadEleves(): void {
-    this.eleveService.getElevesByClasse(this.classe).subscribe({
+    this.isLoading = true;
+    console.log('🔄 Chargement des élèves...');
+    
+    this.primaireService.getElevesByClasse(this.classe).subscribe({
       next: (data) => {
-        this.eleves = data;
+        console.log('✅ Élèves reçus:', data);
+        this.eleves = JSON.parse(JSON.stringify(data)); // copie profonde
+        this.isLoading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('Erreur lors de la récupération des élèves:', err);
-      },
+        console.error('❌ Erreur chargement élèves:', err);
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      }
     });
   }
 
-  loadLogoImage(): void {
+loadLogoImage(): void {
   const url = 'http://localhost:8060/api/ecole/image';
+  this.isLoadingImage = true;
   this.http.get(url, { responseType: 'blob' }).subscribe({
     next: (blob: Blob) => {
       const objectURL = URL.createObjectURL(blob);
       this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      this.isLoadingImage = false;
+      this.cdr.detectChanges();
     },
     error: (error) => {
       console.error('Erreur lors du chargement du logo:', error);
+      this.isLoadingImage = false;
+      this.cdr.detectChanges();
     }
   });
 }

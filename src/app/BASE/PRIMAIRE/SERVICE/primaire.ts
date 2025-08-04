@@ -48,4 +48,19 @@ export class Primaire {
   return this.http.get<Eleve>(`${this.baseUrl}/eleve/${id}`);
 }
 
+
+ private eleves: Eleve[] = [];
+
+  setEleves(eleves: Eleve[]) {
+    this.eleves = eleves;
+  }
+
+  getEleves(): Eleve[] {
+    return this.eleves;
+  }
+
+  clear() {
+    this.eleves = [];
+  }
+
 }
