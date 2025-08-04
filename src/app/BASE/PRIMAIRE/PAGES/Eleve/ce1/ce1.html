@@ -8,14 +8,11 @@
                     <!-- À gauche : Titre -->
                     <span class="h4 mb-0 text-black">📚 LISTE DES ÉLÈVES - CE1</span>
 
-                    <!-- Au centre : Bouton print -->
-                    <!-- CENTRE -->
-                    <div class="flex-grow-1 d-flex justify-content-center">
-                        <button class="btn btn-link text-dark p-0" aria-label="Imprimer"
-                            [routerLink]="['/print']">
-                            <i class="fas fa-print fa-lg"></i>
-                        </button>
-                    </div>
+                    <button class="btn btn-link text-dark p-0" aria-label="Imprimer" [routerLink]="['/print/classe']"
+                        [queryParams]="{ classe: 'CE1' }">
+                        <i class="fas fa-print fa-lg"></i>
+                    </button>
+
 
 
                     <!-- À droite : Bouton retour -->
