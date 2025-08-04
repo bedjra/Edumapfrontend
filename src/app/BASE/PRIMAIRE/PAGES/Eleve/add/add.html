@@ -113,47 +113,27 @@
             </div>
 
             <!-- Tuteur sélectionné -->
-            <div class="form-row align-items-end">
-                <!-- Choix d’un tuteur existant -->
+            <!-- Nouveau tuteur affiché directement -->
+            <div class="nouveau-tuteur-form mt-3 p-3 border rounded bg-light">
+                <h5>Informations du tuteur</h5>
 
-                <div class="form-group flex-grow-1">
-                    <label for="tuteurAssigne">Tuteur assigné</label>
-                    <select id="tuteurAssigne" class="form-control" name="tuteurAssigne" required
-                        [(ngModel)]="tuteurSelectionne" [disabled]="afficherFormTuteur">
-                        <option value="" disabled selected>-- Sélectionner un tuteur --</option>
-                        <option *ngFor="let tuteur of tuteurs" [value]="tuteur.id">
-                            {{ tuteur.nom }} {{ tuteur.prenom }}
-                        </option>
-                    </select>
-                    <div class="error-message" *ngIf="formSoumis && !tuteurSelectionne && !afficherFormTuteur">
-                        Le tuteur assigné est requis
-                    </div>
-                </div>
-
-                <!-- Bouton pour afficher/cacher le formulaire de nouveau tuteur -->
-                <div class="form-group mt-4">
-
-                </div>
-                <div class="form-group mt-4" style="margin-top: -80px; ">
-                    <br />
-                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="basculerFormTuteur()">
-                        {{ afficherFormTuteur ? '✖ Annuler' : '➕ Nouveau tuteur' }}
-                    </button>
-                </div>
-            </div>
-
-            <!-- Nouveau tuteur -->
-            <div *ngIf="afficherFormTuteur" class="nouveau-tuteur-form mt-3 p-3 border rounded bg-light">
                 <div class="form-row">
                     <div class="form-group">
                         <label>Nom</label>
-                        <input type="text" class="form-control" [(ngModel)]="eleve.tuteurNom" name="nouveauTuteurNom" />
+                        <input type="text" class="form-control" [(ngModel)]="eleve.tuteurNom" name="nouveauTuteurNom"
+                            required (ngModelChange)="updateTuteurNom()" />
+                        <div class="error-message" *ngIf="formSoumis && !eleve.tuteurNom">
+                            Le nom du tuteur est requis
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label>Prénom</label>
                         <input type="text" class="form-control" [(ngModel)]="eleve.tuteurPrenom"
-                            name="nouveauTuteurPrenom" />
+                            name="nouveauTuteurPrenom" required (ngModelChange)="updateTuteurNom()" />
+                        <div class="error-message" *ngIf="formSoumis && !eleve.tuteurPrenom">
+                            Le prénom du tuteur est requis
+                        </div>
                     </div>
                 </div>
 
@@ -161,16 +141,23 @@
                     <div class="form-group">
                         <label>Téléphone</label>
                         <input type="tel" class="form-control" [(ngModel)]="eleve.tuteurTelephone"
-                            name="nouveauTuteurTel" />
+                            name="nouveauTuteurTel" required />
+                        <div class="error-message" *ngIf="formSoumis && !eleve.tuteurTelephone">
+                            Le téléphone du tuteur est requis
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label>Profession</label>
                         <input type="text" class="form-control" [(ngModel)]="eleve.tuteurProfession"
-                            name="nouveauTuteurProfession" />
+                            name="nouveauTuteurProfession" required />
+                        <div class="error-message" *ngIf="formSoumis && !eleve.tuteurProfession">
+                            La profession du tuteur est requise
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
 
@@ -214,15 +201,28 @@
                 </div>
 
                 <div class="summary-row">
-                   
+
                     <div class="summary-item">
                         <strong>Classe :</strong>
                         <span>{{ eleve.classe || 'Non renseignée' }}</span>
                     </div>
                     <div class="summary-item">
-                        <strong>Tuteur :</strong>
-                        <span>{{ tuteurNomComplet }}</span>
+                        <strong>Nom du tuteur :</strong>
+                        <span>{{ eleve.tuteurNom || 'Non renseigné' }}</span>
                     </div>
+                    <div class="summary-item">
+                        <strong>Prénom du tuteur :</strong>
+                        <span>{{ eleve.tuteurPrenom || 'Non renseigné' }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>Téléphone du tuteur :</strong>
+                        <span>{{ eleve.tuteurTelephone || 'Non renseigné' }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>Profession du tuteur :</strong>
+                        <span>{{ eleve.tuteurProfession || 'Non renseignée' }}</span>
+                    </div>
+
 
                 </div>
             </div>
