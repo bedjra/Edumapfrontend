@@ -72,13 +72,17 @@ export class Ce1 implements OnInit {
     });
   }
 
-editEleve(matricule: string) {
-  this.router.navigate(['/modifier', matricule]);
-}
-
+  editEleve(matricule: string) {
+    this.router.navigate(['/modifier', matricule]);
+  }
 
   searchEleves(nom: string, prenom: string): void {
     // Filtrage local ou appel API selon votre implémentation
     console.log('Recherche élèves:', nom, prenom);
+  }
+
+  // Impression
+  redirectToDefitech(): void {
+    this.router.navigate(['/PRIMAIRE/print']);
   }
 }

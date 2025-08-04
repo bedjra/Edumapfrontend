@@ -1,0 +1,43 @@
+<body>
+
+  <div class="container">
+    <div class="header">
+      <div class="logo" *ngIf="imageUrl">
+        <img [src]="imageUrl" alt="Configuration Image" class="img-fluid">
+      </div>
+
+      <div class="title">
+        <h2>MINISTERE DE L'ENSEIGNEMENT <br>SUPERIEUR ET DE LA RECHERCHE </h2>
+        <p>Année-scolaire : {{ previousYear }} - {{ currentYear }} </p>
+      </div>
+    </div>
+    <pre></pre>
+    <h6>LISTE DE CLASSE </h6>
+
+    <h6>Classe : {{ classe }}</h6>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th >Matricule</th>
+          <th>Nom</th>
+          <th>Prénoms</th>
+          <th>Adresse</th>
+          <th>Sexe</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let eleve of eleves; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td class="matricule">{{ eleve.eleveMatricule }}</td>
+          <td>{{ eleve.eleveNom }}</td>
+          <td>{{ eleve.elevePrenom }}</td>
+          <td>{{ eleve.eleveAdresse }}</td>
+          <td>{{ eleve.eleveSexe }}</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</body>

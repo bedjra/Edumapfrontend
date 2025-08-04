@@ -1,0 +1,79 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.container {
+    border: 2px solid black;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid black;
+    padding: 10px;
+}
+
+.logo img {
+    height: 80px;
+}
+
+.title {
+    text-align:center;
+    margin-top: 0; /* Supprime la marge supérieure du conteneur */
+    
+    
+}
+
+.title h2 {
+    text-align: center;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-top: -7px; /* Supprime la marge supérieure */
+}
+
+.title p {
+    margin: 5px 0; /* Garde la marge de 5px, mais tu peux ajuster si nécessaire */
+    font-size: 14px;
+    justify-content: center;
+}
+
+
+h6 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.matricule{
+  font-size: 12px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    border-top: 2px solid #ddd;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    
+  }
+  
+  th{
+    font-size: 1rem;
+    color: rgb(71, 71, 73);
+    font-weight: bold;
+  }
+  tr {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+  }
+
+  
+  td {
+    white-space: nowrap;
+  }
