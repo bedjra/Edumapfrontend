@@ -63,8 +63,9 @@
 
 /* CONTENU PRINCIPAL */
 .page-content {
-  margin-top: 70px; /* pour ne pas passer sous le header */
+  margin-top: 50px; /* pour ne pas passer sous le header */
   padding: 20px;
+  margin-left: 80px;
   min-height: calc(100vh - 70px);
   overflow-y: auto;
 }

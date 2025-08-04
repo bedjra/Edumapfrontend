@@ -1,18 +1,15 @@
+
 <div class="layout-container">
-  <!-- Sidebar -->
   <div class="sidebar" [class.collapsed]="sidebarCollapsed">
     <app-menu [collapsed]="sidebarCollapsed" (menuItemClick)="onMenuItemClick($event)"></app-menu>
   </div>
 
-  <!-- Contenu principal (Header + Page) -->
   <div class="main-wrapper">
 
-    <!-- Header -->
     <app-header [currentPage]="currentPage" (toggleSidebar)="toggleSidebar()" (searchQuery)="onSearch($event)">
     </app-header>
 
 
-    <!-- Contenu de la page -->
     <div class="page-content">
       <router-outlet></router-outlet>
     </div>
