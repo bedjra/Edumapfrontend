@@ -63,4 +63,8 @@ export class Primaire {
     this.eleves = [];
   }
 
+  updateEleve(eleve: Eleve): Observable<Eleve> {
+    return this.http.put<Eleve>(`${this.baseUrl}/eleve/${eleve.id}`, eleve);
+  }
+
 }

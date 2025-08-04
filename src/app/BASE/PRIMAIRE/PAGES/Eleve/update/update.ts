@@ -1,104 +1,107 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Eleve } from '../../../Model/Eleve';
+import { Primaire } from '../../../SERVICE/primaire';
 
 @Component({
   selector: 'app-update',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './update.html',
-  styleUrl: './update.css',
+  styleUrls: ['./update.css'],
 })
-export class Update {
+export class UpdateComponent implements OnInit {
+
+  eleve: Eleve = {
+  id: 0,
+    nom: '',
+    prenom: '',
+    adresse: '',
+    matricule: '',
+    classe: '' as any, 
+    sexe: '' as any,
+    lieuNais: '',
+    etblProv: '',
+    nationnalite: '',
+    dateNaiss: '',
+
+    tuteurNom: '',
+    tuteurPrenom: '',
+    tuteurTelephone: '',
+    tuteurProfession: '',
+  };
+
+  formSoumis = false;
   currentStep = 1;
-formSoumis = false;
-afficherFormTuteur = false;
+  totalSteps = 3;
+  loadingVisible = false;
 
-eleve = {
-  nom: '',
-  prenom: '',
-  dateNaiss: '',
-  lieuNais: '',
-  adresse: '',
-  sexe: '',
-  nationalite: '',
-  classe: '',
-  tuteurNom: '',
-  tuteurPrenom: '',
-  tuteurTelephone: '',
-  tuteurProfession: '',
-};
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private eleveService: Primaire
+  ) {}
 
-tuteurSelectionne: any = null;
-
-tuteurs = [
-  { id: 1, nom: 'Dupont', prenom: 'Jean' },
-  { id: 2, nom: 'Martin', prenom: 'Claire' },
-  // liste des tuteurs existants
-];
-
-nextStep() {
-  this.formSoumis = true;
-
-  // Par exemple, vérifier que les champs requis de l'étape sont valides
-  if (this.currentStep === 1) {
-    if (
-      !this.eleve.nom ||
-      !this.eleve.prenom ||
-      !this.eleve.dateNaiss ||
-      !this.eleve.lieuNais ||
-      !this.eleve.adresse ||
-      !this.eleve.sexe
-    ) {
-      return; // ne pas avancer si invalides
+  ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.loadEleve(id);
     }
-  } else if (this.currentStep === 2) {
-    if (
-      !this.eleve.nationalite ||
-      !this.eleve.classe ||
-      (!this.tuteurSelectionne && !this.afficherFormTuteur)
-    ) {
+  }
+
+  loadEleve(id: string) {
+    this.eleveService.getEleveById(id).subscribe({
+      next: (data) => {
+        this.eleve = data;
+      },
+      error: (err) => {
+        alert('Erreur lors du chargement de l\'élève');
+        console.error(err);
+      }
+    });
+  }
+
+  submitUpdate() {
+    this.formSoumis = true;
+    if (!this.validateCurrentStep()) {
       return;
     }
+    this.loadingVisible = true;
+    this.eleveService.updateEleve(this.eleve).subscribe({
+      next: () => {
+        this.loadingVisible = false;
+        alert('Élève mis à jour avec succès');
+        this.router.navigate(['/liste-eleves']);
+      },
+      error: () => {
+        this.loadingVisible = false;
+        alert('Erreur lors de la mise à jour');
+      }
+    });
   }
 
-  this.formSoumis = false;
-  this.currentStep++;
-}
-
-prevStep() {
-  if (this.currentStep > 1) {
-    this.currentStep--;
-    this.formSoumis = false;
-  }
-}
-
-basculerFormTuteur() {
-  this.afficherFormTuteur = !this.afficherFormTuteur;
-  if (this.afficherFormTuteur) {
-    this.tuteurSelectionne = null;
-  }
-}
-
-submitForm() {
-  this.formSoumis = true;
-
-  // Ici validation finale, puis traitement
-  if (
-    !this.eleve.nom ||
-    !this.eleve.prenom ||
-    !this.eleve.dateNaiss ||
-    !this.eleve.lieuNais ||
-    !this.eleve.adresse ||
-    !this.eleve.sexe ||
-    !this.eleve.nationalite ||
-    !this.eleve.classe ||
-    (!this.tuteurSelectionne && !this.afficherFormTuteur)
-  ) {
-    return;
+  goToNextStep() {
+    if (this.validateCurrentStep() && this.currentStep < this.totalSteps) {
+      this.currentStep++;
+    }
   }
 
-  // Envoi des données, affichage message, etc.
-  alert('Formulaire soumis avec succès !');
-}
+  goToPreviousStep() {
+    if (this.currentStep > 1) {
+      this.currentStep--;
+    }
+  }
+
+  validateCurrentStep(): boolean {
+    if (this.currentStep === 1) {
+      return !!(this.eleve.nom && this.eleve.prenom && this.eleve.dateNaiss && this.eleve.lieuNais && this.eleve.adresse && this.eleve.sexe);
+    }
+    if (this.currentStep === 2) {
+      return !!(this.eleve.nationnalite && this.eleve.classe && this.eleve.tuteurNom && this.eleve.tuteurPrenom && this.eleve.tuteurTelephone && this.eleve.tuteurProfession);
+    }
+    return true;
+  }
 
 }

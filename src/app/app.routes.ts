@@ -37,7 +37,6 @@ export const routes: Routes = [
   { path: 'inscription', component: Inscription },
   { path: 'configuration', component: Configuration },
 
-
   { path: 'print/classe', component: DefitechComponent },
 
   {
@@ -49,8 +48,7 @@ export const routes: Routes = [
       { path: 'parametre', component: Parametres },
       { path: 'paiement', component: Paiement },
       { path: 'ajouter', component: Add },
-   { path: 'modifier/:matricule', component: Update }
-,
+      { path: 'modifier/:id', component: Update },
       { path: 'liste', component: Liste },
       { path: 'note', component: Note },
       { path: 'bulletin', component: Buletin },
@@ -60,8 +58,8 @@ export const routes: Routes = [
       { path: 'CE2', component: Ce2 },
       { path: 'CM1', component: Cm1 },
       { path: 'CM2', component: Cm2 },
- 
-      { path: 'paiement/CP1', component: Cp1paie  },
+
+      { path: 'paiement/CP1', component: Cp1paie },
       { path: 'paiement/CP2', component: Cp2paie },
       { path: 'paiement/CE1', component: Ce1paie },
       { path: 'paiement/CE2', component: Ce2paie },
@@ -72,9 +70,5 @@ export const routes: Routes = [
       { path: 'scolarite', component: Scolarite },
       { path: 'professeur', component: Prof },
     ],
-
-    
   },
-
-
 ];

@@ -76,10 +76,10 @@ private loadEleves(): void {
     });
   }
 
-editEleve(matricule: string) {
-  this.router.navigate(['/modifier', matricule]);
-}
 
+editEleve(id: string) {
+  this.router.navigate(['/modifier', id]);
+}
 
   searchEleves(nom: string, prenom: string): void {
     // Filtrage local ou appel API selon votre implémentation
