@@ -63,6 +63,39 @@
     /* vertical */
 }
 
+td button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: none;         /* Pas de fond */
+  border: none;             /* Pas de bordure */
+  color: inherit;           /* Garde la couleur de l'icône */
+  cursor: pointer;
+}
+
+td button i {
+  font-size: 16px;
+  color: #555;              /* Couleur des icônes (modifie si besoin) */
+}
+
+/* Effet au survol (facultatif) */
+td button:hover i {
+  color: #000;              /* Icône plus foncée au survol */
+  transform: scale(1.1);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Gère l'espacement entre les boutons dans le <td> */
+td {
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
 
 
 /* Responsive adjustments */

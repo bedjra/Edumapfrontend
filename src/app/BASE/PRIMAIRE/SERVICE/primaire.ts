@@ -40,9 +40,12 @@ export class Primaire {
   return this.http.get<StatPrimaire[]>(`${this.baseUrl}/stats`);
 }
 
-
-  private apiUrl = 'http://localhost:8060/api/Primaire/cp1';
- getEleves(): Observable<Eleve[]> {
-    return this.http.get<Eleve[]>(this.apiUrl);
+  getElevesByClasse(classe: string): Observable<Eleve[]> {
+    return this.http.get<Eleve[]>(`${this.baseUrl}/${classe}`);
   }
+
+  getEleveById(id: string): Observable<Eleve> {
+  return this.http.get<Eleve>(`${this.baseUrl}/eleve/${id}`);
+}
+
 }

@@ -1,58 +1,80 @@
-import { Component, OnInit } from '@angular/core';  // ajout de OnInit
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Eleve } from '../../../Model/Eleve';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { Primaire } from '../../../SERVICE/primaire';
+import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-cp1',
-  standalone: true,                      // si tu utilises Angular standalone components
-  imports: [CommonModule, FormsModule, HttpClientModule, RouterLink],
+  standalone: true,
+  imports: [CommonModule, FormsModule,NgbModule, HttpClientModule, RouterLink],
   templateUrl: './cp1.html',
-  styleUrls: ['./cp1.css']               // correction: styleUrls (pas styleUrl)
+  styleUrls: ['./cp1.css']
 })
 export class Cp1 implements OnInit {
 
   eleves: Eleve[] = [];
   selectedEleve?: Eleve;
+  isLoading = true;
 
-  // Injection du service dans le constructeur
-  constructor(private primaireService: Primaire) {}
+  constructor(
+    private primaireService: Primaire,
+    private cdr: ChangeDetectorRef,
+      private modalService: NgbModal
 
+  ) {}
 
-  // Appelé automatiquement au chargement du composant
   ngOnInit(): void {
-    this.primaireService.getEleves().subscribe({
+    // ✅ Solution garantie pour l'hydration (comme dans votre exemple Liste)
+    if (typeof window !== 'undefined') {
+      setTimeout(() => {
+        this.loadEleves();
+      }, 200);
+    }
+  }
+
+  private loadEleves(): void {
+    console.log('🔄 Chargement des élèves CP1...');
+    
+    this.primaireService.getElevesByClasse('CP1').subscribe({
       next: (data) => {
-        this.eleves = data;
+        console.log('✅ Données reçues du serveur:', data);
+        
+        // ✅ Assignation avec copie complète
+        this.eleves = JSON.parse(JSON.stringify(data));
+        this.isLoading = false;
+        
+        // ✅ Force la mise à jour de la vue
+        this.cdr.detectChanges();
+        
+        console.log('✅ eleves final:', this.eleves);
+        console.log('✅ Longueur du tableau:', this.eleves.length);
       },
       error: (err) => {
-        console.error('Erreur lors du chargement des élèves :', err);
+        console.error('❌ Erreur lors du chargement des élèves :', err);
+        this.isLoading = false;
+        this.cdr.detectChanges();
       }
     });
   }
 
-  openDetails(modal: any, eleve: Eleve): void {
-    this.selectedEleve = eleve;
-    // Ouvrir la modale, par ex avec NgbModal (à adapter si tu utilises un autre modal)
-    // this.modalService.open(modal);
-  }
+openDetails(eleve: Eleve): void {
+ 
+}
+
 
   editEleve(matricule: string): void {
-    // Code d’édition (navigation, affichage formulaire, etc.)
     console.log('Modifier élève avec matricule:', matricule);
+    // TODO: Navigation vers le formulaire d'édition
   }
 
-  deleteEleve(matricule: string): void {
-    // Code de suppression (appel API, confirmation, etc.)
-    console.log('Supprimer élève avec matricule:', matricule);
-  }
+ 
 
   searchEleves(nom: string, prenom: string): void {
-    // Code de recherche si tu veux filtrer localement ou via API
+    // Filtrage local ou appel API selon votre implémentation
     console.log('Recherche élèves:', nom, prenom);
   }
-
 }

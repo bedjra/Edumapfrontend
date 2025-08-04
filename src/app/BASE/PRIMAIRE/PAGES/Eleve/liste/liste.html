@@ -31,6 +31,7 @@
 
 </div>
 
+
 <section class="home-section">
   <div class="home-content">
     <div class="sales-boxes position-relative">
@@ -54,6 +55,7 @@
                 </tr>
               </thead>
               <tbody>
+                <!-- ✅ Utiliser statsPrimaire() avec les parenthèses pour les signals -->
                 <tr *ngFor="let stat of statsPrimaire">
                   <td>{{ stat.classe }}</td>
                   <td>{{ stat.total }}</td>
