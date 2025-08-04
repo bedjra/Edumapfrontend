@@ -21,6 +21,12 @@ import { BaseComponent } from './BASE/PRIMAIRE/COMPOSANTS/base/base.component';
 import { Prof } from './BASE/PRIMAIRE/PAGES/sous/prof/prof';
 import { Scolarite } from './BASE/PRIMAIRE/PAGES/sous/scolarite/scolarite';
 import { User } from './BASE/PRIMAIRE/PAGES/sous/user/user';
+import { Cp1paie } from './BASE/PRIMAIRE/PAGES/PAIE/cp1paie/cp1paie';
+import { Cp2paie } from './BASE/PRIMAIRE/PAGES/PAIE/cp2paie/cp2paie';
+import { Cm1paie } from './BASE/PRIMAIRE/PAGES/PAIE/cm1paie/cm1paie';
+import { Cm2paie } from './BASE/PRIMAIRE/PAGES/PAIE/cm2paie/cm2paie';
+import { Ce2paie } from './BASE/PRIMAIRE/PAGES/PAIE/ce2paie/ce2paie';
+import { Ce1paie } from './BASE/PRIMAIRE/PAGES/PAIE/ce1paie/ce1paie';
 
 export const routes: Routes = [
   // Supprime cette ligne:
@@ -48,14 +54,17 @@ export const routes: Routes = [
       { path: 'CE2', component: Ce2 },
       { path: 'CM1', component: Cm1 },
       { path: 'CM2', component: Cm2 },
+ 
+      { path: 'paiement/CP1', component: Cp1paie  },
+      { path: 'paiement/CP2', component: Cp2paie },
+      { path: 'paiement/CE1', component: Ce1paie },
+      { path: 'paiement/CE2', component: Ce2paie },
+      { path: 'paiement/CM1', component: Cm1paie },
+      { path: 'paiement/CM2', component: Cm2paie },
 
-      
       { path: 'utilisateur', component: User },
       { path: 'scolarite', component: Scolarite },
       { path: 'professeur', component: Prof },
     ],
   },
-
-
-
 ];

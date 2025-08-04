@@ -1,28 +1,32 @@
-<header>
-  <div class="container">
-    <div class="filter-bar">
-      <div class="filter-icon">
-        <i class="fas fa-filter"></i>
-      </div>
-      <div class="filter-text">
-        Filtre par :
-      </div>
-      <form (ngSubmit)="onSearch()" #searchForm="ngForm" class="filter-form">
-        <label for="classe">Classe :</label>
-        <select id="classe" name="classe" required [(ngModel)]="eleve.classe">
-          <option value="" disabled selected>-- Sélectionner la classe --</option>
-          <option value="CP1">CP1</option>
-          <option value="CP2">CP2</option>
-          <option value="CE1">CE1</option>
-          <option value="CE2">CE2</option>
-          <option value="CM1">CM1</option>
-          <option value="CM2">CM2</option>
-        </select>
-        <button type="submit" class="btn btn-primary">CHERCHER</button>
-      </form>
-      <button (click)="printEtudiant()" class="print-button" aria-label="Imprimer">
-        <i class="fas fa-print"></i>
-      </button>
+<div class="container" style="text-align: center;">
+    <h4>Choisissez la classe à gérer !</h4>
+
+    <div class="classes-grid">
+        <div class="class-card" [routerLink]="['/PRIMAIRE/paiement/CP1']">
+            <div class="class-name">CP1</div>
+        </div>
+
+        <div class="class-card" [routerLink]="['/PRIMAIRE/paiement/CP2']">
+            <div class="class-name">CP2</div>
+        </div>
+
+        <div class="class-card" [routerLink]="['/PRIMAIRE/paiement/CE1']">
+            <div class="class-name">CE1</div>
+        </div>
+
+        <div class="class-card" [routerLink]="['/PRIMAIRE/paiement/CE2']">
+            <div class="class-name">CE2</div>
+        </div>
+
+        <div class="class-card" [routerLink]="['/PRIMAIRE/paiement/CM1']">
+            <div class="class-name">CM1</div>
+        </div>
+
+        <div class="class-card" [routerLink]="['/PRIMAIRE/paiement/CM2']">
+            <div class="class-name">CM2</div>
+        </div>
+
     </div>
-  </div>
-</header>
+
+
+</div>

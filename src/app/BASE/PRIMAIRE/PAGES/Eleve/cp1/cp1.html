@@ -1,1 +1,84 @@
-<p>cp1 works!</p>
+<section class="home-section">
+  <div class="home-content">
+    <div class="sales-boxes position-relative">
+      <div class="recent-sales box p-4 position-relative">
+
+        <!-- Bannière superposée -->
+        <div class="stat-banner d-flex justify-content-between align-items-center px-3">
+          <span class="h4 mb-0 text-white">LISTE DES ÉLÈVES</span>
+          <button class="btn btn-light btn-sm" [routerLink]="['/PRIMAIRE/liste']" style="color: black;">
+            <i class="fas fa-arrow-left"></i>&nbsp; retour
+          </button>
+        </div>
+
+        <!-- Tableau -->
+        <div class="sales-details pt-5 mt-4">
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover text-center align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>Matricule</th>
+                  <th>Nom</th>
+                  <th>Prénom</th>
+                  <th>Sexe</th>
+                  <th>Adresse</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let eleve of eleves">
+                  <td>{{ eleve.matricule }}</td>
+                  <td>{{ eleve.nom }}</td>
+                  <td>{{ eleve.prenom }}</td>
+                  <td>{{ eleve.sexe }}</td>
+                  <td>{{ eleve.adresse }}</td>
+                  <td>
+                    <button (click)="openDetails(eleveModal, eleve)" type="button" class="btn btn-info btn-sm me-1">
+                      <i class="fas fa-list-alt"></i>
+                    </button>
+                    <button (click)="editEleve(eleve.matricule)" type="button" class="btn btn-warning btn-sm me-1">
+                      <i class="fas fa-pencil-alt"></i>
+                    </button>
+                  
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ✅ Modal pour les détails -->
+<ng-template #eleveModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Détails de l'élève</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <h5>Informations personnelles</h5>
+    <p><strong>Matricule:</strong> {{ selectedEleve?.matricule }}</p>
+    <p><strong>Nom:</strong> {{ selectedEleve?.nom }}</p>
+    <p><strong>Prénom:</strong> {{ selectedEleve?.prenom }}</p>
+    <p><strong>Sexe:</strong> {{ selectedEleve?.sexe }}</p>
+    <p><strong>Date de naissance:</strong> {{ selectedEleve?.dateNaiss }}</p>
+    <p><strong>Lieu de naissance:</strong> {{ selectedEleve?.lieuNais }}</p>
+    <p><strong>Nationalité:</strong> {{ selectedEleve?.nationnalite }}</p>
+    <p><strong>Adresse:</strong> {{ selectedEleve?.adresse }}</p>
+    <p><strong>Classe:</strong> {{ selectedEleve?.classe }}</p>
+    <p><strong>Établissement de provenance:</strong> {{ selectedEleve?.etblProv }}</p>
+
+    <h5>Informations du tuteur</h5>
+    <p><strong>Nom:</strong> {{ selectedEleve?.tuteurNom }}</p>
+    <p><strong>Prénom:</strong> {{ selectedEleve?.tuteurPrenom }}</p>
+    <p><strong>Profession:</strong> {{ selectedEleve?.tuteurProfession }}</p>
+    <p><strong>Téléphone:</strong> {{ selectedEleve?.tuteurTelephone }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Close click')">Fermer</button>
+  </div>
+</ng-template>

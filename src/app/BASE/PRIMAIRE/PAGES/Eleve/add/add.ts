@@ -124,7 +124,7 @@ export class Add implements OnInit {
     next: (data) => {
       this.loadingVisible = false;
       alert('Élève enregistré avec succès !');
-      this.router.navigate(['/liste']);
+      this.router.navigate(['/PRIMAIRE/liste']);
     },
     error: (error) => {
       this.loadingVisible = false;

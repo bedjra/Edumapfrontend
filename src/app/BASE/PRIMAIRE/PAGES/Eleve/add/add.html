@@ -56,19 +56,19 @@
 
                 <div class="form-group">
                     <label for="nom">Adresse</label>
-                    <input type="text" id="nom" name="nom" placeholder="Entrer l'adresse" class="form-control" required
-                        [(ngModel)]="eleve.nom" />
+                    <input type="text" id="adresse" name="adresse" placeholder="Entrer l'adresse" class="form-control"
+                        required [(ngModel)]="eleve.adresse" />
                     <div class="error-message" *ngIf="formSoumis && !eleve.adresse">L'adresse est requis</div>
                 </div>
                 <div class="form-group">
                     <label>Sexe</label>
                     <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="sexe" value="masculin" required [(ngModel)]="eleve.sexe" />
+                            <input type="radio" name="sexe" value="M" required [(ngModel)]="eleve.sexe" />
                             <span>Masculin</span>
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="sexe" value="feminin" required [(ngModel)]="eleve.sexe" />
+                            <input type="radio" name="sexe" value="F" required [(ngModel)]="eleve.sexe" />
                             <span>Féminin</span>
                         </label>
                     </div>
@@ -86,36 +86,14 @@
 
                 <div class="form-group">
                     <label for="nationalite">Nationalité</label>
-                    <select id="nationalite" name="nationalite" class="form-control" required
-                        [(ngModel)]="eleve.nationnalite">
-                        <option value="">Choisir la nationalité</option>
-                        <option value="francaise">Française</option>
-                        <option value="belge">Belge</option>
-                        <option value="suisse">Suisse</option>
-                        <option value="canadienne">Canadienne</option>
-                        <option value="ivoirienne">Ivoirienne</option>
-                        <option value="senegalaise">Sénégalaise</option>
-                        <option value="autre">Autre</option>
-                    </select>
-                    <div class="error-message" *ngIf="formSoumis && !eleve.nationnalite">La nationalité est requise
-                    </div>
-                </div>
+                    <input type="text" id="nationalite" name="nationalite" class="form-control"
+                        placeholder="Ex. : Togolaise, Sénégalaise, Française..." [(ngModel)]="eleve.nationnalite"
+                        required />
 
-                <div class="form-group">
-                    <label for="ecoleProvenance">École de provenance</label>
-                    <input type="text" id="ecoleProvenance" name="ecoleProvenance" placeholder="Entrer l'école"
-                        class="form-control" required [(ngModel)]="eleve.etblProv" />
-                    <div class="error-message" *ngIf="formSoumis && !eleve.etblProv">
-                        L'école de provenance est requise
-                    </div>
                 </div>
 
 
-            </div>
 
-            <!-- Tuteur sélectionné -->
-            <div class="form-row align-items-end">
-                <!-- Choix d’un tuteur existant -->
                 <div class="form-group">
                     <label for="classe">Classe</label>
                     <select id="classe" name="classe" class="form-control" required [(ngModel)]="eleve.classe">
@@ -131,6 +109,13 @@
                         La classe est requise
                     </div>
                 </div>
+
+            </div>
+
+            <!-- Tuteur sélectionné -->
+            <div class="form-row align-items-end">
+                <!-- Choix d’un tuteur existant -->
+
                 <div class="form-group flex-grow-1">
                     <label for="tuteurAssigne">Tuteur assigné</label>
                     <select id="tuteurAssigne" class="form-control" name="tuteurAssigne" required
@@ -229,10 +214,7 @@
                 </div>
 
                 <div class="summary-row">
-                    <div class="summary-item">
-                        <strong>École précédente :</strong>
-                        <span>{{ eleve.etblProv || 'Non renseignée' }}</span>
-                    </div>
+                   
                     <div class="summary-item">
                         <strong>Classe :</strong>
                         <span>{{ eleve.classe || 'Non renseignée' }}</span>
