@@ -5,7 +5,7 @@ import { Add } from './BASE/PRIMAIRE/PAGES/Eleve/add/add';
 import { Liste } from './BASE/PRIMAIRE/PAGES/Eleve/liste/liste';
 import { Buletin } from './BASE/PRIMAIRE/PAGES/Note/buletin/buletin';
 import { Note } from './BASE/PRIMAIRE/PAGES/Note/note/note';
-import { Paiement } from './BASE/PRIMAIRE/PAGES/paiement/paiement';
+import { Paiement } from './BASE/PRIMAIRE/PAGES/PAIE/paiement/paiement';
 import { Parametres } from './BASE/PRIMAIRE/PAGES/parametres/parametres';
 import { Configuration } from './CONNEXION/configuration/configuration';
 import { Inscription } from './CONNEXION/inscription/inscription';
@@ -49,6 +49,7 @@ export const routes: Routes = [
       { path: 'CM1', component: Cm1 },
       { path: 'CM2', component: Cm2 },
 
+      
       { path: 'utilisateur', component: User },
       { path: 'scolarite', component: Scolarite },
       { path: 'professeur', component: Prof },
