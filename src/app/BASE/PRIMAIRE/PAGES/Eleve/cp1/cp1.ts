@@ -76,15 +76,20 @@ private loadEleves(): void {
     });
   }
 
-editEleve(id: string) {
-  const eleve = this.eleves.find(e => e.matricule === id);
-  if (eleve) {
-    this.primaireService.setSelectedEleve(eleve); // ✅ stocke l’élève
+  editEleve(matricule: string) {
+    this.primaireService.getEleveByMatricule(matricule).subscribe({
+      next: (eleve) => {
+        this.selectedEleve = eleve;
+        this.primaireService.setSelectedEleve(eleve);
+        this.router.navigate(['PRIMAIRE', 'modifier', matricule]);
+      },
+      error: (err) => {
+        alert('Erreur lors de la récupération de l’élève pour modification');
+        console.error(err);
+      },
+    });
   }
-  console.log('Redirection vers /modifier/', id);
-  this.router.navigate(['PRIMAIRE', 'modifier', id]);
-}
-
+  
 
 
   searchEleves(nom: string, prenom: string): void {

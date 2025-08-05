@@ -77,9 +77,19 @@ export class Ce1 implements OnInit {
   }
 
   editEleve(matricule: string) {
-    this.router.navigate(['/modifier', matricule]);
+    this.primaireService.getEleveByMatricule(matricule).subscribe({
+      next: (eleve) => {
+        this.selectedEleve = eleve;
+        this.primaireService.setSelectedEleve(eleve);
+        this.router.navigate(['PRIMAIRE', 'modifier', matricule]);
+      },
+      error: (err) => {
+        alert('Erreur lors de la récupération de l’élève pour modification');
+        console.error(err);
+      },
+    });
   }
-
+  
   searchEleves(nom: string, prenom: string): void {
     // Filtrage local ou appel API selon votre implémentation
     console.log('Recherche élèves:', nom, prenom);

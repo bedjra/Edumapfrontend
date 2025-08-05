@@ -48,6 +48,10 @@ export class Primaire {
   return this.http.get<Eleve>(`${this.baseUrl}/eleve/${id}`);
 }
 
+  // Récupérer un élève par matricule (DTO)
+  getEleveByMatricule(matricule: string): Observable<Eleve> {
+    return this.http.get<Eleve>(`${this.baseUrl}/eleve/matricule/${matricule}`);
+  }
 
  private eleves: Eleve[] = [];
 

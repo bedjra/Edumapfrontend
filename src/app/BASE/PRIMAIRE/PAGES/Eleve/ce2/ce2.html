@@ -1,12 +1,10 @@
-
-
 <section class="home-section">
   <div class="home-content">
     <div class="sales-boxes position-relative">
       <div class="recent-sales box p-4 position-relative">
 
         <!-- Bannière superposée -->
-              <div class="stat-banner d-flex align-items-center justify-content-between px-3" style="border: none;">
+        <div class="stat-banner d-flex align-items-center justify-content-between px-3" style="border: none;">
 
           <!-- À gauche : Titre -->
           <span class="h4 mb-0 text-black">📚 LISTE DES ÉLÈVES - CE2</span>
@@ -61,17 +59,15 @@
                       <i class="fas fa-eye"></i>
                     </button>
 
-                    <!-- Message si aucun élève 
                     <button (click)="editEleve(eleve.matricule)" type="button" class="btn btn-warning btn-sm me-1"
                       title="Modifier">
                       <i class="fas fa-pencil-alt"></i>
                     </button>
-------->
                   </td>
                 </tr>
                 <tr *ngIf="eleves.length === 0">
                   <td colspan="6" class="text-muted">
-                    <i class="fas fa-info-circle"></i> Aucun élève trouvé en CP1
+                    <i class="fas fa-info-circle"></i> Aucun élève trouvé en CE2
                   </td>
                 </tr>
               </tbody>
