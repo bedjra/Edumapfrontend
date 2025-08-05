@@ -20,7 +20,7 @@ export class Inscription {
     role: ''
   };
 
-  roles = ['admin', 'secretaire', 'enseignant'];
+  roles = ['admin', 'secretaire'];
 
   passwordVisible = false;
 

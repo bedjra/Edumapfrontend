@@ -72,4 +72,10 @@ export class LoginService {
   getRoles(): Observable<string[]> {
     return this.http.get<string[]>(`${this.baseUrl}/roles`);
   }
+
+
+  getAllUsers(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.baseUrl}/user/utilisateur`);
+}
+l
 }
