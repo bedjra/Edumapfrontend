@@ -1,28 +1,79 @@
 <!-- Onglets de navigation -->
-<a (click)="ongletActif = 'utilisateur'" class="nav-link">Utilisateur</a>
-<a (click)="ongletActif = 'scolarite'" class="nav-link">Scolarité</a>
-<a (click)="ongletActif = 'professeur'" class="nav-link">Professeur</a>
-<a (click)="ongletActif = 'config'" class="nav-link">Configuration</a>
+<nav class="onglets">
+    <a (click)="ongletActif = 'utilisateur'" [ngClass]="{'active': ongletActif === 'utilisateur'}"
+        class="nav-link">Utilisateur</a>
+    <a (click)="ongletActif = 'scolarite'" [ngClass]="{'active': ongletActif === 'scolarite'}"
+        class="nav-link">Scolarité</a>
+    <a (click)="ongletActif = 'professeur'" [ngClass]="{'active': ongletActif === 'professeur'}"
+        class="nav-link">Professeur</a>
+    <a (click)="ongletActif = 'config'" [ngClass]="{'active': ongletActif === 'config'}"
+        class="nav-link">Configuration</a>
+</nav>
 
-<!-- Contenus dynamiques -->
-<div *ngIf="ongletActif === 'utilisateur'">
-  <!-- Contenu de la section Utilisateur -->
-  <app-user></app-user>
+<!-- Contenu affiché selon l'onglet actif -->
+<!-- Onglet Utilisateur -->
+<div class="container" *ngIf="ongletActif === 'utilisateur'">
+  <div class="left-box">
+    <h4>Ajouter un utilisateur</h4>
+
+    <div class="input-group">
+      <span>Role</span>
+      <select id="role" name="role" required [(ngModel)]="credentials.role">
+        <option value="" disabled selected>Sélectionnez un rôle</option>
+        <option *ngFor="let r of roles" [value]="r">{{ r | titlecase }}</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <span class="details">E-mail :</span>
+      <input type="text" name="email" required [(ngModel)]="credentials.email" />
+    </div>
+
+    <div class="input-group">
+      <span class="details">Mot de passe :</span>
+      <input
+        type="password"
+        name="password"
+        required
+        autocomplete="off"
+        [(ngModel)]="credentials.password"
+        style="padding: 12px; width: 380px; border: 3px solid #ddd; border-radius: 5px; font-family: 'Roboto', sans-serif;"
+      />
+    </div>
+
+    <div class="but">
+      <button
+        class="save"
+        (click)="ajouterUtilisateur()"
+        [disabled]="!credentials.role || !credentials.email || !credentials.password"
+      >
+        Enregistrer
+      </button>
+    </div>
+  </div>
+
+  <div class="right-box">
+    <h4 style="margin-bottom: 10px;">Gestion des Utilisateurs</h4>
+
+    <table *ngIf="utilisateurs.length > 0">
+      <thead>
+        <tr>
+          <th class="new">Id</th>
+          <th class="new">Role</th>
+          <th class="new">Email</th>
+          <th class="new">Password</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let credentials of utilisateurs; let i = index">
+          <td class="new">{{ i + 1 }}</td>
+          <td class="new">{{ credentials.role }}</td>
+          <td class="new">{{ credentials.email }}</td>
+          <td class="new">{{ credentials.password }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p *ngIf="utilisateurs.length === 0">Aucun utilisateur trouvé.</p>
+  </div>
 </div>
-
-<div *ngIf="ongletActif === 'scolarite'">
-  <!-- Contenu de la section Scolarité -->
-  <app-scolarite></app-scolarite>
-</div>
-
-<div *ngIf="ongletActif === 'professeur'">
-  <!-- Contenu de la section Professeur -->
-  <app-prof></app-prof>
-</div>
-
-<div *ngIf="ongletActif === 'config'">
-  <!-- Contenu de la section Configuration -->
-  <app-config></app-config>
-</div>
-
-<a (click)="ongletActif = 'utilisateur'" [ngClass]="{'active': ongletActif === 'utilisateur'}" class="nav-link">Utilisateur</a>

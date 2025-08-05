@@ -1,32 +1,198 @@
-/* Barre de navigation */
-.navbar {
+/* Onglets de navigation */
+.onglets {
   display: flex;
-  gap: 32px;
+  gap: 170px;
+  margin-top: -10px;
   padding: 6px 24px;
   background-color: #f9fafb;
   border-bottom: 2px solid #e5e7eb;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-/* Liens de navigation */
-.navbar .nav-link {
+/* Lien de chaque onglet */
+.nav-link {
   text-decoration: none;
   color: #374151; /* Gris foncé */
   font-size: 16px;
   font-weight: 500;
-  transition: color 0.3s ease, transform 0.2s ease;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: color 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
 }
 
-.navbar .nav-link:hover {
-  color: #1d4ed8; /* Bleu */
+/* Effet au survol */
+.nav-link:hover {
+  color: #1d4ed8;
+  background-color: #e0e7ff; /* Bleu clair */
   transform: translateY(-1px);
 }
 
-/* Lien actif */
-.navbar .active {
+/* Onglet actif */
+.nav-link.active {
   color: #1d4ed8;
   font-weight: 700;
   border-bottom: 2px solid #1d4ed8;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
+  background-color: #e0e7ff;
 }
+
+/* Contenu dynamique affiché */
+.contenu {
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background-color: #ffffff;
+  margin: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+
+
+
+
+header {
+  width: 100%;
+  background-color: #c4d1df;
+  padding: 7px;
+  text-align: center;
+  color: rgb(14, 13, 13);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  gap: 50px;
+
+}
+
+.container h4 {
+  font-size: 1.2rem;
+  color: rgb(71, 71, 73);
+  font-weight: bold;
+
+}
+
+.left-box {
+  width: 30%;
+  background-color: #f3f4f6;
+  color: black;
+  border-radius: 10px;
+  padding: 20px;
+  margin-left: 10px;
+  min-width: 370px;
+  height: auto;
+}
+
+
+
+.right-box {
+  min-width: 390px;
+  width: 70%;
+  background-color: #f3f4f6;
+  color: black;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.menuLeft,
+.menuRight {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+
+
+.input-group {
+  margin-top: 20px;
+}
+
+.input-group span {
+  display: block;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.input-group select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.save {
+  background: linear-gradient(#23a2f6, #23a2f6);
+  padding: 10px 15px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: rgb(17, 17, 17);
+  font-weight: inherit;
+
+
+}
+.but{
+  padding-top: 30px;
+  padding-bottom: 5px;
+}
+
+.button-group {
+  text-align: center;
+}
+
+.btn {
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+}
+
+
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 2px solid #ddd;
+}
+
+th, td {
+  padding: 3px;
+  text-align: left;
+  
+}
+.new  {
+  padding: 15px;
+
+}
+th{
+  font-size: 1rem;
+  color: rgb(71, 71, 73);
+  font-weight: bold;
+}
+tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+
+
+
+
+
+
 

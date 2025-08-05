@@ -6,12 +6,13 @@ import { LoginService } from '../../../SERVICE/login-service';
 
 @Component({
   selector: 'app-config',
-  imports: [CommonModule,FormsModule],
+  standalone: true, // ✅ OBLIGATOIRE pour les composants standalone
+  imports: [CommonModule, FormsModule],
   templateUrl: './config.html',
-  styleUrl: './config.css'
+  styleUrl: './config.css',
 })
 export class Config {
- configuration = {
+  configuration = {
     nom: '',
     adresse: '',
     tel: '',
@@ -43,7 +44,7 @@ export class Config {
   onSubmit() {
     // Validation
     if (!this.configuration.systeme) {
-      alert("Veuillez sélectionner un système.");
+      alert('Veuillez sélectionner un système.');
       return;
     }
 
@@ -66,7 +67,6 @@ export class Config {
 
         const chemin = this.configuration.systeme.toLowerCase();
         localStorage.setItem('systeme', chemin); // ✅ On stocke le système
-
       },
       error: (err) => {
         console.error("Erreur lors de l'enregistrement", err);

@@ -25,10 +25,7 @@ import { Ce1paie } from './BASE/PRIMAIRE/PAGES/PAIE/ce1paie/ce1paie';
 import { DefitechComponent } from './BASE/PRIMAIRE/PAGES/IMPRESS/defitech/defitech.component';
 import { UpdateComponent } from './BASE/PRIMAIRE/PAGES/Eleve/update/update';
 import { Parametres } from './BASE/PRIMAIRE/PAGES/parametres/parametres';
-import { User } from './BASE/PRIMAIRE/PAGES/sous/user/user';
-import { Scolarite } from './BASE/PRIMAIRE/PAGES/sous/scolarite/scolarite';
-import { Prof } from './BASE/PRIMAIRE/PAGES/sous/prof/prof';
-import { Config } from './BASE/PRIMAIRE/PAGES/sous/config/config';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // 🔁 redirection claire
