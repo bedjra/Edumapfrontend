@@ -13,11 +13,11 @@
 <!-- Contenu affiché selon l'onglet actif -->
 
 <!-- Onglet Utilisateur -->
+<!-- Onglet Utilisateur -->
 <div class="container" *ngIf="ongletActif === 'utilisateur'">
   <div class="left-box">
-    <h4>Ajouter un utilisateur</h4>
-    <form #formUser="ngForm" (ngSubmit)="ajouterUtilisateur()">
-      <!-- Formulaire utilisateur (comme avant) -->
+    <h4>{{ isEditMode ? 'Modifier un utilisateur' : 'Ajouter un utilisateur' }}</h4>
+    <form #formUser="ngForm" (ngSubmit)="isEditMode ? modifierUtilisateur() : ajouterUtilisateur()">
       <div class="form-group">
         <label for="roleUser">Rôle :</label>
         <select id="roleUser" [(ngModel)]="credentials.role" name="role" required>
@@ -62,7 +62,7 @@
         class="submit-btn"
         [disabled]="!formUser.valid || credentials.password !== credentials.confirmPassword"
       >
-        S'inscrire
+        {{ isEditMode ? 'Mettre à jour' : 'S\'inscrire' }}
       </button>
 
       <div *ngIf="credentials.password && credentials.confirmPassword && credentials.password !== credentials.confirmPassword" style="color: red;">
@@ -76,7 +76,7 @@
     <table *ngIf="utilisateurs.length > 0">
       <thead>
         <tr>
-          <th>Id</th><th>Rôle</th><th>Email</th><th>Mot de passe</th>
+          <th>Id</th><th>Rôle</th><th>Email</th><th>Mot de passe</th><th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -85,6 +85,10 @@
           <td>{{ u.role }}</td>
           <td>{{ u.email }}</td>
           <td>{{ u.password }}</td>
+          <td>
+            <button (click)="remplirFormulairePourModification(u, i)">Modifier</button>
+            <button (click)="supprimerUtilisateur(i)">Supprimer</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -92,41 +96,8 @@
   </div>
 </div>
 
+
 <!-- Onglet Scolarité -->
 <div class="container" *ngIf="ongletActif === 'scolarite'">
-  <div class="left-box">
-    <h4>Ajouter une inscription</h4>
-    <form >
-      <div class="form-group">
-        <label for="nomEtudiant">Nom de l'étudiant :</label>
-        <input type="text" id="nomEtudiant" name="nomEtudiant" required>
-      </div>
-
-      <div class="form-group">
-        <label for="filiere">Filière :</label>
-        <input type="text" id="filiere"  name="filiere" required>
-      </div>
-
-      <button type="submit" class="submit-btn" >
-        Ajouter inscription
-      </button>
-    </form>
-  </div>
-
-  <div class="right-box">
-    <h4>Inscriptions</h4>
-    <table *ngIf="inscriptions.length > 0">
-      <thead>
-        <tr><th>Id</th><th>Nom</th><th>Filière</th></tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let insc of inscriptions; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ insc.nom }}</td>
-          <td>{{ insc.filiere }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <p *ngIf="inscriptions.length === 0">Aucune inscription trouvée.</p>
-  </div>
+ scolarite
 </div>

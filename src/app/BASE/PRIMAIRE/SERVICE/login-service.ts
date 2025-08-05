@@ -18,9 +18,7 @@ export class LoginService {
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post<{ token: string; role: string }>(`${this.baseUrl}/user/login`, credentials).pipe(
       tap(response => {
-        // Après connexion, stocker le rôle dans BehaviorSubject
         this.userRoleSubject.next(response.role);
-        // Ici tu peux aussi stocker le token dans localStorage/sessionStorage si besoin
         localStorage.setItem('userRole', response.role);
       })
     );
@@ -77,5 +75,20 @@ export class LoginService {
   getAllUsers(): Observable<any[]> {
   return this.http.get<any[]>(`${this.baseUrl}/user/utilisateur`);
 }
-l
+
+
+// ✅ Modifier un utilisateur
+updateUser(id: number, data: {
+  email: string;
+  password: string;
+  role: string;
+}): Observable<any> {
+  return this.http.put(`${this.baseUrl}/user/${id}`, data);
+}
+
+// ✅ Supprimer un utilisateur
+deleteUser(id: number): Observable<void> {
+  return this.http.delete<void>(`${this.baseUrl}/user/${id}`);
+}
+
 }
