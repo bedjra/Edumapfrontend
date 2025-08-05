@@ -15,46 +15,52 @@ import { RouterModule } from '@angular/router';
 export class Parametres implements OnInit {
   ongletActif: string = 'utilisateur';
 
-  // Partie Utilisateur
+  // Formulaire
   credentials = {
     email: '',
     password: '',
     confirmPassword: '',
     role: '',
   };
-  roles = ['admin', 'secretaire'];
-  passwordVisible = false;
+
+  roles: string[] = ['admin', 'secretaire'];
+  passwordVisible: boolean = false;
   utilisateurs: any[] = [];
 
-  isEditMode = false;
-  editIndex = -1;
+  // Edition
+  isEditMode: boolean = false;
+  editIndex: number = -1;
 
-  // Partie Scolarité
-  inscription = {
-    nom: '',
-    filiere: '',
-  };
-  inscriptions: any[] = [];
+  // Chargement
+  loading: boolean = false;
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(
+    private loginService: LoginService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.chargerUtilisateurs();
   }
 
+  // 🔄 Charger les utilisateurs
   chargerUtilisateurs(): void {
+    this.loading = true;
+
     this.loginService.getAllUsers().subscribe({
       next: (data) => {
-        console.log('Utilisateurs récupérés :', data);
         this.utilisateurs = data;
+        this.loading = false;
       },
       error: (err) => {
         console.error('Erreur lors du chargement des utilisateurs :', err);
-      },
+        this.loading = false;
+      }
     });
   }
 
-  ajouterUtilisateur() {
+  // ➕ Ajouter un nouvel utilisateur
+  ajouterUtilisateur(): void {
     const { email, password, confirmPassword, role } = this.credentials;
 
     if (!email.trim() || !password.trim() || !confirmPassword.trim() || !role.trim()) {
@@ -86,7 +92,7 @@ export class Parametres implements OnInit {
     });
   }
 
-  // ✅ Préparer les données pour modification
+  // ✏️ Préparer pour modification
   remplirFormulairePourModification(user: any, index: number): void {
     this.credentials = {
       email: user.email,
@@ -98,7 +104,7 @@ export class Parametres implements OnInit {
     this.editIndex = index;
   }
 
-  // ✅ Modifier l'utilisateur existant
+  // ✏️ Modifier l'utilisateur existant
   modifierUtilisateur(): void {
     if (this.editIndex === -1) return;
 
@@ -135,7 +141,7 @@ export class Parametres implements OnInit {
     });
   }
 
-  // ✅ Supprimer un utilisateur
+  // 🗑️ Supprimer un utilisateur
   supprimerUtilisateur(index: number): void {
     const userId = this.utilisateurs[index].id;
 
@@ -157,7 +163,7 @@ export class Parametres implements OnInit {
     }
   }
 
-  // ✅ Réinitialiser le formulaire
+  // ♻️ Réinitialiser le formulaire
   resetForm(): void {
     this.credentials = {
       email: '',
