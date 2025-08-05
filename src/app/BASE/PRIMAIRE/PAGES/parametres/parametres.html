@@ -11,69 +11,122 @@
 </nav>
 
 <!-- Contenu affiché selon l'onglet actif -->
+
 <!-- Onglet Utilisateur -->
 <div class="container" *ngIf="ongletActif === 'utilisateur'">
   <div class="left-box">
     <h4>Ajouter un utilisateur</h4>
+    <form #formUser="ngForm" (ngSubmit)="ajouterUtilisateur()">
+      <!-- Formulaire utilisateur (comme avant) -->
+      <div class="form-group">
+        <label for="roleUser">Rôle :</label>
+        <select id="roleUser" [(ngModel)]="credentials.role" name="role" required>
+          <option value="" disabled selected>Sélectionnez un rôle</option>
+          <option *ngFor="let r of roles" [value]="r">{{ r | titlecase }}</option>
+        </select>
+      </div>
 
-    <div class="input-group">
-      <span>Role</span>
-      <select id="role" name="role" required [(ngModel)]="credentials.role">
-        <option value="" disabled selected>Sélectionnez un rôle</option>
-        <option *ngFor="let r of roles" [value]="r">{{ r | titlecase }}</option>
-      </select>
-    </div>
+      <div class="form-group">
+        <label for="emailUser">Email :</label>
+        <input type="email" id="emailUser" [(ngModel)]="credentials.email" name="email" required>
+      </div>
 
-    <div class="input-group">
-      <span class="details">E-mail :</span>
-      <input type="text" name="email" required [(ngModel)]="credentials.email" />
-    </div>
+      <div class="form-group">
+        <label for="passwordUser">Mot de passe :</label>
+        <input
+          [type]="passwordVisible ? 'text' : 'password'"
+          id="passwordUser"
+          [(ngModel)]="credentials.password"
+          name="password"
+          required autocomplete="off"
+        >
+      </div>
 
-    <div class="input-group">
-      <span class="details">Mot de passe :</span>
-      <input
-        type="password"
-        name="password"
-        required
-        autocomplete="off"
-        [(ngModel)]="credentials.password"
-        style="padding: 12px; width: 380px; border: 3px solid #ddd; border-radius: 5px; font-family: 'Roboto', sans-serif;"
-      />
-    </div>
+      <div class="form-group">
+        <label for="confirmPasswordUser">Confirmer le mot de passe :</label>
+        <input
+          [type]="passwordVisible ? 'text' : 'password'"
+          id="confirmPasswordUser"
+          [(ngModel)]="credentials.confirmPassword"
+          name="confirmPassword"
+          required autocomplete="off"
+        >
+      </div>
 
-    <div class="but">
+      <div class="form-group">
+        <input type="checkbox" (change)="passwordVisible = !passwordVisible"> Afficher les mots de passe
+      </div>
+
       <button
-        class="save"
-        (click)="ajouterUtilisateur()"
-        [disabled]="!credentials.role || !credentials.email || !credentials.password"
+        type="submit"
+        class="submit-btn"
+        [disabled]="!formUser.valid || credentials.password !== credentials.confirmPassword"
       >
-        Enregistrer
+        S'inscrire
       </button>
-    </div>
+
+      <div *ngIf="credentials.password && credentials.confirmPassword && credentials.password !== credentials.confirmPassword" style="color: red;">
+        Les mots de passe ne correspondent pas.
+      </div>
+    </form>
   </div>
 
   <div class="right-box">
-    <h4 style="margin-bottom: 10px;">Gestion des Utilisateurs</h4>
-
+    <h4>Gestion des Utilisateurs</h4>
     <table *ngIf="utilisateurs.length > 0">
       <thead>
         <tr>
-          <th class="new">Id</th>
-          <th class="new">Role</th>
-          <th class="new">Email</th>
-          <th class="new">Password</th>
+          <th>Id</th><th>Rôle</th><th>Email</th><th>Mot de passe</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let credentials of utilisateurs; let i = index">
-          <td class="new">{{ i + 1 }}</td>
-          <td class="new">{{ credentials.role }}</td>
-          <td class="new">{{ credentials.email }}</td>
-          <td class="new">{{ credentials.password }}</td>
+        <tr *ngFor="let u of utilisateurs; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ u.role }}</td>
+          <td>{{ u.email }}</td>
+          <td>{{ u.password }}</td>
         </tr>
       </tbody>
     </table>
-
     <p *ngIf="utilisateurs.length === 0">Aucun utilisateur trouvé.</p>
+  </div>
+</div>
+
+<!-- Onglet Scolarité -->
+<div class="container" *ngIf="ongletActif === 'scolarite'">
+  <div class="left-box">
+    <h4>Ajouter une inscription</h4>
+    <form #formScolarite="ngForm" (ngSubmit)="ajouterInscription()">
+      <div class="form-group">
+        <label for="nomEtudiant">Nom de l'étudiant :</label>
+        <input type="text" id="nomEtudiant" [(ngModel)]="inscription.nom" name="nomEtudiant" required>
+      </div>
+
+      <div class="form-group">
+        <label for="filiere">Filière :</label>
+        <input type="text" id="filiere" [(ngModel)]="inscription.filiere" name="filiere" required>
+      </div>
+
+      <button type="submit" class="submit-btn" [disabled]="!formScolarite.valid">
+        Ajouter inscription
+      </button>
+    </form>
+  </div>
+
+  <div class="right-box">
+    <h4>Inscriptions</h4>
+    <table *ngIf="inscriptions.length > 0">
+      <thead>
+        <tr><th>Id</th><th>Nom</th><th>Filière</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let insc of inscriptions; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ insc.nom }}</td>
+          <td>{{ insc.filiere }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="inscriptions.length === 0">Aucune inscription trouvée.</p>
   </div>
 </div>

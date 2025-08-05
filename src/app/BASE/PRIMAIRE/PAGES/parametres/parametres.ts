@@ -1,12 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { User } from "../sous/user/user";
-import { Scolarite } from "../sous/scolarite/scolarite";
-import { Prof } from "../sous/prof/prof";
-import { Config } from "../sous/config/config";
-import { UserCredentials } from '../../Model/UserCredentials';
-import { LoginService } from '../../SERVICE/login-service';
+
 
 @Component({
   selector: 'app-parametres',
@@ -18,55 +13,55 @@ import { LoginService } from '../../SERVICE/login-service';
 export class Parametres {
   ongletActif: string = 'utilisateur'; // onglet par défaut
 
+// Partie Utilisateur
+credentials = {
+  email: '',
+  password: '',
+  confirmPassword: '',
+  role: ''
+};
+roles = ['admin', 'secretaire', 'enseignant'];
+passwordVisible = false;
+utilisateurs: any[] = [];
 
-  utilisateurs: UserCredentials[] = []; // S'assurer que c'est bien un tableau
-    credentials: UserCredentials = {
-      email: '',
-      password: '',
-      role: ''
-    };
-    roles: string[] = []; // Liste des rôles récupérée du backend
-  
-    
-  
-    constructor(
-      private loginService: LoginService,
-  
-    ) { }
-     ngOnInit(): void {
-      this.reset();
-      this.fetchRoles();
-      this.getAllUtilisateur();
-  
-    }
-  
-  
-    ajouterUtilisateur(): void {
-     
-    }
-    
-  
-    fetchRoles() {
-      this.loginService.getRoles().subscribe(
-        (data) => {
-          this.roles = data;
-        },
-        (error) => {
-          console.error('Erreur lors du chargement des rôles', error);
-        }
-      );
-    }
-  
-    getAllUtilisateur(): void {
-     
-    }
-    
-  
-    reset(): void {
-      this.credentials = {
-        email: '',
-        password: '',
-        role: ''
-      };
-    }
- }
+// Partie Scolarité
+inscription = {
+  nom: '',
+  filiere: ''
+};
+inscriptions: any[] = [];
+
+ajouterUtilisateur() {
+  if (!this.credentials.email.trim() || !this.credentials.password.trim() || !this.credentials.confirmPassword.trim() || !this.credentials.role.trim()) {
+    alert('Tous les champs sont obligatoires.');
+    return;
+  }
+  if (this.credentials.password !== this.credentials.confirmPassword) {
+    alert('Les mots de passe ne correspondent pas.');
+    return;
+  }
+
+  const user = {
+    email: this.credentials.email.trim(),
+    password: this.credentials.password.trim(),
+    role: this.credentials.role.trim()
+  };
+
+  this.utilisateurs.push(user);
+
+  // Réinitialiser le formulaire
+  this.credentials = { email: '', password: '', confirmPassword: '', role: '' };
+}
+
+ajouterInscription() {
+  if (!this.inscription.nom.trim() || !this.inscription.filiere.trim()) {
+    alert('Tous les champs sont obligatoires.');
+    return;
+  }
+
+  this.inscriptions.push({ nom: this.inscription.nom.trim(), filiere: this.inscription.filiere.trim() });
+
+  // Réinitialiser le formulaire
+  this.inscription = { nom: '', filiere: '' };
+}
+}
