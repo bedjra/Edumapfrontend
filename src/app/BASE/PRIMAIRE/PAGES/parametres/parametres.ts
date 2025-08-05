@@ -26,6 +26,7 @@ export class Parametres implements OnInit {
   roles: string[] = ['admin', 'secretaire'];
   passwordVisible: boolean = false;
   utilisateurs: any[] = [];
+  roleConnecte: string | null = null;
 
   // Edition
   isEditMode: boolean = false;
@@ -34,12 +35,11 @@ export class Parametres implements OnInit {
   // Chargement
   loading: boolean = false;
 
-  constructor(
-    private loginService: LoginService,
-    private router: Router
-  ) {}
+  constructor(private loginService: LoginService, private router: Router) {}
 
   ngOnInit(): void {
+
+    this.roleConnecte = this.loginService.getUserRole();
     this.chargerUtilisateurs();
   }
 
@@ -55,7 +55,7 @@ export class Parametres implements OnInit {
       error: (err) => {
         console.error('Erreur lors du chargement des utilisateurs :', err);
         this.loading = false;
-      }
+      },
     });
   }
 
@@ -63,7 +63,12 @@ export class Parametres implements OnInit {
   ajouterUtilisateur(): void {
     const { email, password, confirmPassword, role } = this.credentials;
 
-    if (!email.trim() || !password.trim() || !confirmPassword.trim() || !role.trim()) {
+    if (
+      !email.trim() ||
+      !password.trim() ||
+      !confirmPassword.trim() ||
+      !role.trim()
+    ) {
       alert('Tous les champs sont obligatoires.');
       return;
     }
@@ -110,7 +115,12 @@ export class Parametres implements OnInit {
 
     const { email, password, confirmPassword, role } = this.credentials;
 
-    if (!email.trim() || !password.trim() || !confirmPassword.trim() || !role.trim()) {
+    if (
+      !email.trim() ||
+      !password.trim() ||
+      !confirmPassword.trim() ||
+      !role.trim()
+    ) {
       alert('Tous les champs sont obligatoires.');
       return;
     }
