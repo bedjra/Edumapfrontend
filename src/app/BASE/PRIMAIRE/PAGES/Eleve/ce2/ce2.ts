@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Primaire } from '../../../SERVICE/primaire';
 import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { LoginService } from '../../../SERVICE/login-service';
 
 @Component({
   selector: 'app-cp2',
@@ -20,13 +21,16 @@ export class Ce2 implements OnInit {
   selectedEleve?: Eleve;
   isLoading = true;
 
-  constructor(
-    private primaireService: Primaire,
-    private cdr: ChangeDetectorRef,
-    private modalService: NgbModal,
-    private router: Router
-  ) {}
-
+   constructor(
+     private primaireService: Primaire,
+     private cdr: ChangeDetectorRef,
+     private authService: LoginService,
+     private modalService: NgbModal,
+     private router: Router
+   ) {}
+   get isAdmin(): boolean {
+     return this.authService.isAdmin();
+   }
   ngOnInit(): void {
     // ✅ Solution garantie pour l'hydration (comme dans votre exemple Liste)
     if (typeof window !== 'undefined') {
@@ -96,4 +100,25 @@ export class Ce2 implements OnInit {
     // Filtrage local ou appel API selon votre implémentation
     console.log('Recherche élèves:', nom, prenom);
   }
+
+  
+  confirmDelete(id: number) {
+  if (confirm("Êtes-vous sûr de vouloir supprimer cet élève ? Cette action est irréversible.")) {
+    this.deleteEleve(id);
+  }
+}
+
+deleteEleve(id: number) {
+  this.primaireService.supprimerEleve(id).subscribe({
+    next: (response) => {
+      console.log("Réponse du serveur :", response);
+      alert("Élève supprimé avec succès.");
+      this.loadEleves();
+    },
+    error: (err) => {
+      console.error("Erreur lors de la suppression:", err);
+    }
+  });
+}
+
 }

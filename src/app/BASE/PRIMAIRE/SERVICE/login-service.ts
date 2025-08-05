@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 
 export type Systeme = 'PRIMAIRE' | 'COLLEGE' | 'LYCEE';
@@ -9,10 +9,35 @@ export type Systeme = 'PRIMAIRE' | 'COLLEGE' | 'LYCEE';
 export class LoginService {
   private baseUrl = environment.apiUrl;
 
+  // Stockage local du rôle (ici avec BehaviorSubject pour être réactif)
+  private userRoleSubject = new BehaviorSubject<string | null>(null);
+  userRole$ = this.userRoleSubject.asObservable();
+
   constructor(private http: HttpClient) {}
 
   login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/user/login`, credentials);
+    return this.http.post<{ token: string; role: string }>(`${this.baseUrl}/user/login`, credentials).pipe(
+      tap(response => {
+        // Après connexion, stocker le rôle dans BehaviorSubject
+        this.userRoleSubject.next(response.role);
+        // Ici tu peux aussi stocker le token dans localStorage/sessionStorage si besoin
+        localStorage.setItem('userRole', response.role);
+      })
+    );
+  }
+
+  // Méthode pour récupérer le rôle courant depuis le BehaviorSubject ou localStorage
+  getUserRole(): string | null {
+    if (!this.userRoleSubject.value) {
+      const storedRole = localStorage.getItem('userRole');
+      this.userRoleSubject.next(storedRole);
+    }
+    return this.userRoleSubject.value;
+  }
+
+  // Méthode pour savoir si l'utilisateur est admin
+  isAdmin(): boolean {
+    return this.getUserRole() === 'ADMIN';
   }
 
   registerUser(data: {
@@ -27,13 +52,12 @@ export class LoginService {
     return this.http.post(`${this.baseUrl}/ecole`, formData);
   }
 
-  // 📷 Récupération du logo de l'école
   getLogoImage(): Observable<Blob> {
     return this.http.get(`${this.baseUrl}/ecole/image`, {
-      responseType: 'blob'  // ici, juste 'blob', pas 'blob' as 'json'
+      responseType: 'blob'
     });
   }
-  
+
   getCurrentSystem(): Observable<Systeme> {
     return this.http.get<Systeme>(`${this.baseUrl}/system`);
   }

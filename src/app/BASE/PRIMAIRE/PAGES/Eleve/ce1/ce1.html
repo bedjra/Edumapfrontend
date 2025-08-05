@@ -63,11 +63,11 @@
                                             <i class="fas fa-pencil-alt"></i>
                                         </button>
 
-                                        <button (click)="deleteEleve(eleve.id)" type="button"
-                                            class="btn btn-danger btn-sm" title="Supprimer"
-                                            (click)="confirmDelete(eleve.id)">
-                                            <i class="fas fa-trash-alt"></i>
-                                    </button>
+                                        <button *ngIf="isAdmin" (click)="confirmDelete(eleve.id)" type="button"
+                                            class="btn btn-danger btn-sm" title="Supprimer">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+
                                     </td>
                                 </tr>
                                 <tr *ngIf="eleves.length === 0">

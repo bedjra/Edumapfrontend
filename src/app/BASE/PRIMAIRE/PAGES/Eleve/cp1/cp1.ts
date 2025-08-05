@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Primaire } from '../../../SERVICE/primaire';
 import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { LoginService } from '../../../SERVICE/login-service';
 
 @Component({
   selector: 'app-cp1',
@@ -23,9 +24,13 @@ export class Cp1 implements OnInit {
   constructor(
     private primaireService: Primaire,
     private cdr: ChangeDetectorRef,
+    private authService: LoginService,
     private modalService: NgbModal,
     private router: Router
   ) {}
+  get isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
 
   ngOnInit(): void {
     // ✅ Solution garantie pour l'hydration (comme dans votre exemple Liste)
@@ -36,31 +41,31 @@ export class Cp1 implements OnInit {
     }
   }
 
-private loadEleves(): void {
-  console.log('🔄 Chargement des élèves CP1...');
+  private loadEleves(): void {
+    console.log('🔄 Chargement des élèves CP1...');
 
-  this.primaireService.getElevesByClasse('CP1').subscribe({
-    next: (data) => {
-      console.log('✅ Données reçues du serveur:', data);
+    this.primaireService.getElevesByClasse('CP1').subscribe({
+      next: (data) => {
+        console.log('✅ Données reçues du serveur:', data);
 
-      // Stockage dans le service pour partage entre composants
-      this.primaireService.setEleves(data);
+        // Stockage dans le service pour partage entre composants
+        this.primaireService.setEleves(data);
 
-      // Assignation locale (copie profonde si tu veux vraiment, mais pas obligatoire)
-      this.eleves = JSON.parse(JSON.stringify(data));
+        // Assignation locale (copie profonde si tu veux vraiment, mais pas obligatoire)
+        this.eleves = JSON.parse(JSON.stringify(data));
 
-      this.isLoading = false;
+        this.isLoading = false;
 
-      // Forcer la détection des changements si besoin
-      this.cdr.detectChanges();
-    },
-    error: (err) => {
-      console.error('❌ Erreur lors du chargement des élèves :', err);
-      this.isLoading = false;
-      this.cdr.detectChanges();
-    },
-  });
-}
+        // Forcer la détection des changements si besoin
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('❌ Erreur lors du chargement des élèves :', err);
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      },
+    });
+  }
 
   openEleveModal(id: string | number, content: any) {
     const idString = id.toString(); // Convertir en string toujours
@@ -89,11 +94,32 @@ private loadEleves(): void {
       },
     });
   }
-  
-
 
   searchEleves(nom: string, prenom: string): void {
     // Filtrage local ou appel API selon votre implémentation
     console.log('Recherche élèves:', nom, prenom);
+  }
+
+  confirmDelete(id: number) {
+    if (
+      confirm(
+        'Êtes-vous sûr de vouloir supprimer cet élève ? Cette action est irréversible.'
+      )
+    ) {
+      this.deleteEleve(id);
+    }
+  }
+
+  deleteEleve(id: number) {
+    this.primaireService.supprimerEleve(id).subscribe({
+      next: (response) => {
+        console.log('Réponse du serveur :', response);
+        alert('Élève supprimé avec succès.');
+        this.loadEleves();
+      },
+      error: (err) => {
+        console.error('Erreur lors de la suppression:', err);
+      },
+    });
   }
 }

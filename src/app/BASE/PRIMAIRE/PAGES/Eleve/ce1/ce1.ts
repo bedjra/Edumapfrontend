@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Primaire } from '../../../SERVICE/primaire';
 import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { LoginService } from '../../../SERVICE/login-service';
 
 @Component({
   selector: 'app-cp1',
@@ -24,6 +25,7 @@ export class Ce1 implements OnInit {
     private primaireService: Primaire,
     private cdr: ChangeDetectorRef,
     private modalService: NgbModal,
+    private authService: LoginService,
     private router: Router
   ) {}
 
@@ -118,6 +120,10 @@ deleteEleve(id: number) {
       console.error("Erreur lors de la suppression:", err);
     }
   });
+}
+
+get isAdmin(): boolean {
+  return this.authService.isAdmin();
 }
 
 

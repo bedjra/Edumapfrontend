@@ -8,6 +8,7 @@ import { Primaire } from '../../../SERVICE/primaire';
 import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { Input } from '@angular/core';
+import { LoginService } from '../../../SERVICE/login-service';
 
 @Component({
   selector: 'app-cp2',
@@ -24,6 +25,7 @@ export class Cp2 implements OnInit {
   isLoading = true;
 
   constructor(
+    private authService: LoginService,
     private primaireService: Primaire,
     private cdr: ChangeDetectorRef,
     private modalService: NgbModal,
@@ -95,10 +97,35 @@ export class Cp2 implements OnInit {
       },
     });
   }
-  
 
   searchEleves(nom: string, prenom: string): void {
     // Filtrage local ou appel API selon votre implémentation
     console.log('Recherche élèves:', nom, prenom);
+  }
+
+  confirmDelete(id: number) {
+    if (
+      confirm(
+        'Êtes-vous sûr de vouloir supprimer cet élève ? Cette action est irréversible.'
+      )
+    ) {
+      this.deleteEleve(id);
+    }
+  }
+
+  deleteEleve(id: number) {
+    this.primaireService.supprimerEleve(id).subscribe({
+      next: (response) => {
+        console.log('Réponse du serveur :', response);
+        alert('Élève supprimé avec succès.');
+        this.loadEleves();
+      },
+      error: (err) => {
+        console.error('Erreur lors de la suppression:', err);
+      },
+    });
+  }
+  get isAdmin(): boolean {
+    return this.authService.isAdmin();
   }
 }
