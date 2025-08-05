@@ -96,18 +96,18 @@
 <div class="container" *ngIf="ongletActif === 'scolarite'">
   <div class="left-box">
     <h4>Ajouter une inscription</h4>
-    <form #formScolarite="ngForm" (ngSubmit)="ajouterInscription()">
+    <form >
       <div class="form-group">
         <label for="nomEtudiant">Nom de l'étudiant :</label>
-        <input type="text" id="nomEtudiant" [(ngModel)]="inscription.nom" name="nomEtudiant" required>
+        <input type="text" id="nomEtudiant" name="nomEtudiant" required>
       </div>
 
       <div class="form-group">
         <label for="filiere">Filière :</label>
-        <input type="text" id="filiere" [(ngModel)]="inscription.filiere" name="filiere" required>
+        <input type="text" id="filiere"  name="filiere" required>
       </div>
 
-      <button type="submit" class="submit-btn" [disabled]="!formScolarite.valid">
+      <button type="submit" class="submit-btn" >
         Ajouter inscription
       </button>
     </form>
