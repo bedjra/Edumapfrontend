@@ -1,1 +1,72 @@
 <p>config works!</p>
+
+<menu>
+  <div class="body">
+    <form class="col formcontainer">
+
+      <div class="menu-Right">
+        <div class="details" style="color: rgb(9, 1, 1);">
+
+          <div class="arrangement">
+            <div class="formcontainer">
+
+              <div class="searchfield">
+                <span class="details">Nom &nbsp;&nbsp;</span>
+                <input type="text" [(ngModel)]="configuration.nom" name="nom" required readonly class="readonly-input">
+              </div>
+
+              <div class="searchfield">
+                <span class="details">Adresse &nbsp;&nbsp;</span>
+                <input type="text" [(ngModel)]="configuration.adresse" name="adresse" required readonly class="readonly-input">
+              </div>
+
+              <div class="searchfield">
+                <span class="details">Devise &nbsp;&nbsp;</span>
+                <input type="text" [(ngModel)]="configuration.devise" name="devise" required readonly class="readonly-input">
+              </div>
+
+            </div>
+          </div>
+
+          <div class="arrangement">
+            <div class="formcontainer">
+
+              <div class="searchfield">
+                <span class="details">Tel</span> &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text" [(ngModel)]="configuration.tel" name="tel" required readonly class="readonly-input">
+              </div>
+
+              <div class="searchfield">
+                <span class="details">Cel</span> &nbsp;
+                <input type="text" [(ngModel)]="configuration.cel" name="cel" required readonly class="readonly-input">
+              </div>
+
+              <div class="searchfield">
+                <span class="details">BP &nbsp;</span>
+                <input type="text" [(ngModel)]="configuration.bp" name="bp" required readonly class="readonly-input">
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="menu-Left">
+        <div class="salesdetails" style="color: rgb(9, 1, 1);">
+          <div class="paratouch">
+            <div class="arrangement">
+              <div class="formcontainer">
+                <div class="searchfield">
+                  <span class="details">Logo<br></span>
+                  <img *ngIf="imagePreview" [src]="imagePreview" alt="Logo" style="max-width: 100px;">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</menu>

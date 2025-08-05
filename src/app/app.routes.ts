@@ -31,7 +31,8 @@ import { Prof } from './BASE/PRIMAIRE/PAGES/sous/prof/prof';
 import { Config } from './BASE/PRIMAIRE/PAGES/sous/config/config';
 
 export const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' }, // 🔁 redirection claire
+  { path: 'login', component: LoginComponent },
   { path: 'inscription', component: Inscription },
   { path: 'configuration', component: Configuration },
   { path: 'print/classe', component: DefitechComponent },
@@ -39,6 +40,7 @@ export const routes: Routes = [
   {
     path: 'PRIMAIRE',
     component: BaseComponent,
+
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
@@ -71,8 +73,11 @@ export const routes: Routes = [
           { path: 'scolarite', component: Scolarite },
           { path: 'professeur', component: Prof },
           { path: 'config', component: Config },
-        ]
-      }
-    ]
-  }
+        ],
+      },
+    ],
+  },
+
+  // 🔒 route inconnue = redirection vers login
+  { path: '**', redirectTo: 'login' },
 ];

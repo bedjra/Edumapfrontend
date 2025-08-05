@@ -1,29 +1,16 @@
-<p>scolarite works!</p>
-<div class="stat-banner d-flex align-items-center justify-content-between px-3" style="border: none;">
-
-    <!-- À gauche : Titre -->
-    <span class="h4 mb-0 text-black">📚 LISTE DES ÉLÈVES - CE1</span>
-
-
-
-    <!-- À droite : Bouton retour -->
-    <button class="btn btn-light btn-sm" [routerLink]="['/PRIMAIRE/liste']" style="color: black;">
-        <i class="fas fa-arrow-left"></i>&nbsp; retour
-    </button>
-
-</div>
+<!--------
 <div class="container">
     <div class="left-box">
         <h4>Ajouter un utilisateur </h4>
         <div class="input-group">
-            <span> Droit </span>
+            <span> Role </span>
             <select id="role"  name="role" required>
                 <option value="" disabled selected>Sélectionnez un rôle</option>
                 <option *ngFor="let r of roles" [value]="r">{{ r | titlecase }}</option>
             </select>
         </div>
         <div class="input-group">
-            <span class="details">Identifiant :</span>
+            <span class="details">E-mail :</span>
             <input type="text" name="email" required style="text-align: left;">
         </div>
 
@@ -48,7 +35,7 @@
             <thead>
                 <tr>
                     <th class="new">Id</th>
-                    <th class="new">Droit</th>
+                    <th class="new">Role</th>
                     <th class="new">Email</th>
                     <th class="new">Password</th>
                 </tr>
@@ -70,3 +57,6 @@
 
 <PRE></PRE>
 <PRE></PRE>
+
+
+----->
