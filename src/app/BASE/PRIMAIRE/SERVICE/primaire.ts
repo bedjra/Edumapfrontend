@@ -17,7 +17,11 @@ export interface StatPrimaire {
   filles: number;
 }
 
-
+export interface Scolarite {
+  id?: number;
+  classe: string;
+  montant: number;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -87,6 +91,20 @@ supprimerEleve(id: number): Observable<any> {
   return this.http.delete(`${this.baseUrl}/eleve/${id}`);
 }
 
+
+
+/////////scolarite
+ajouterScolarite(scolarite: Scolarite): Observable<Scolarite> {
+  return this.http.post<Scolarite>(`${this.baseUrl}/scolarite`, scolarite);
+}
+
+getScolarites(): Observable<Scolarite[]> {
+  return this.http.get<Scolarite[]>(`${this.baseUrl}/scolarite`);
+}
+
+updateScolarite(id: number, montant: number): Observable<Scolarite> {
+  return this.http.put<Scolarite>(`${this.baseUrl}/scolarite/${id}?montant=${montant}`, {});
+}
 
 
 }

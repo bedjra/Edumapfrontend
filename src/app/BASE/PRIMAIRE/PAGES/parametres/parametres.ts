@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from '../../SERVICE/login-service';
 import { RouterModule } from '@angular/router';
+import { Primaire } from '../../SERVICE/primaire';
 
 @Component({
   selector: 'app-parametres',
@@ -13,7 +14,7 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./parametres.css'],
 })
 export class Parametres implements OnInit {
-  ongletActif: string = 'utilisateur';
+  ongletActif: string = 'scolarite';
 
   // Formulaire
   credentials = {
@@ -35,12 +36,16 @@ export class Parametres implements OnInit {
   // Chargement
   loading: boolean = false;
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(private loginService: LoginService, 
+        private primaireService: Primaire,
+    
+    private router: Router) {}
 
   ngOnInit(): void {
-
     this.roleConnecte = this.loginService.getUserRole();
     this.chargerUtilisateurs();
+
+    this.chargerScolarites();
   }
 
   // 🔄 Charger les utilisateurs
@@ -184,5 +189,32 @@ export class Parametres implements OnInit {
     this.isEditMode = false;
     this.editIndex = -1;
     this.passwordVisible = false;
+  }
+
+  //////Scolarite
+  nouvelleScolarite = {
+    classe: '',
+    montant: 0,
+  };
+
+  listeScolarites: any[] = [];
+
+  ajouterScolarite() {
+    this.primaireService.ajouterScolarite(this.nouvelleScolarite).subscribe({
+      next: (res) => {
+        this.nouvelleScolarite = { classe: '', montant: 0 };
+        this.chargerScolarites();
+      },
+      error: (err) => {
+        console.error('Erreur ajout scolarité', err);
+      },
+    });
+  }
+
+  chargerScolarites() {
+    this.primaireService.getScolarites().subscribe({
+      next: (data) => (this.listeScolarites = data),
+      error: (err) => console.error('Erreur chargement scolarités', err),
+    });
   }
 }

@@ -1,22 +1,19 @@
 <nav class="onglets">
-  <!-- Onglet Utilisateur uniquement pour les NON-secrétaires -->
-  <a *ngIf="roleConnecte !== 'SECRETAIRE'"
-     (click)="ongletActif = 'utilisateur'"
-     [ngClass]="{ 'active': ongletActif === 'utilisateur' }"
-     class="nav-link">Utilisateur</a>
 
-  <!-- Ces onglets sont visibles pour tout le monde -->
-  <a (click)="ongletActif = 'scolarite'"
-     [ngClass]="{ 'active': ongletActif === 'scolarite' }"
-     class="nav-link">Scolarité</a>
 
-  <a (click)="ongletActif = 'professeur'"
-     [ngClass]="{ 'active': ongletActif === 'professeur' }"
-     class="nav-link">Professeur</a>
+    <!-- Ces onglets sont visibles pour tout le monde -->
+    <a (click)="ongletActif = 'scolarite'" [ngClass]="{ 'active': ongletActif === 'scolarite' }"
+        class="nav-link">Scolarité</a>
 
-  <a (click)="ongletActif = 'config'"
-     [ngClass]="{ 'active': ongletActif === 'config' }"
-     class="nav-link">Configuration</a>
+    <a (click)="ongletActif = 'professeur'" [ngClass]="{ 'active': ongletActif === 'professeur' }"
+        class="nav-link">Professeur</a>
+
+    <a (click)="ongletActif = 'config'" [ngClass]="{ 'active': ongletActif === 'config' }"
+        class="nav-link">Configuration</a>
+
+    <!-- Onglet Utilisateur uniquement pour les NON-secrétaires -->
+    <a *ngIf="roleConnecte !== 'SECRETAIRE'" (click)="ongletActif = 'utilisateur'"
+        [ngClass]="{ 'active': ongletActif === 'utilisateur' }" class="nav-link">Utilisateur</a>
 </nav>
 
 
@@ -88,7 +85,7 @@
                     <td>{{ u.password }}</td>
 
                     <!-- 
-                                        <th>Actions</th>
+             <th>Actions</th>
 
                     <td>
             <button (click)="remplirFormulairePourModification(u, i)">Modifier</button>
@@ -104,9 +101,45 @@
 
 
 <!-- Onglet Scolarité -->
-<div class="container" *ngIf="ongletActif === 'scolarite'">
-    scolarite
+<!-- Bloc scolarité -->
+<div class="container" *ngIf="ongletActif === 'scolarite' ">
+    <h4>Gestion de la scolarité</h4>
+
+    <form (ngSubmit)="ajouterScolarite()">
+        <div class="form-group">
+            <label for="classe">Classe :</label>
+            <input type="text" id="classe" [(ngModel)]="nouvelleScolarite.classe" name="classe" required />
+        </div>
+
+        <div class="form-group">
+            <label for="montant">Montant :</label>
+            <input type="number" id="montant" [(ngModel)]="nouvelleScolarite.montant" name="montant" required />
+        </div>
+
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <hr />
+
+    <h5>Liste des scolarités</h5>
+    <table *ngIf="listeScolarites.length > 0">
+        <thead>
+            <tr>
+                <th>Classe</th>
+                <th>Montant</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let sc of listeScolarites">
+                <td>{{ sc.classe }}</td>
+                <td>{{ sc.montant }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p *ngIf="listeScolarites.length === 0">Aucune scolarité enregistrée.</p>
 </div>
+
 
 <div class="container" *ngIf="ongletActif === 'professeur'">
     prof

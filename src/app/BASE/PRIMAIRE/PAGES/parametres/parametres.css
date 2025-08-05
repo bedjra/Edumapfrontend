@@ -37,16 +37,6 @@
   background-color: #e0e7ff;
 }
 
-/* Contenu dynamique affiché */
-.contenu {
-  padding: 20px;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  background-color: #ffffff;
-  margin: 16px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
 
 
 
@@ -193,5 +183,146 @@ p {
   header {
     font-size: 1.5rem;
     padding: 12px 0;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/********************SCOLARITE**************************************/
+/* Section Scolarité */
+.scolarite-section {
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.scolarite-header {
+  background-color: #c4d1df;
+  color: #0e0d0d;
+  font-weight: bold;
+  font-size: 1.3rem;
+  text-align: center;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.scolarite-form {
+  background-color: #f3f4f6;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.scolarite-form .form-group {
+  margin-bottom: 15px;
+}
+
+.scolarite-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #474949;
+}
+
+.scolarite-form input {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.scolarite-form button {
+  background: linear-gradient(to right, #23a2f6, #1e90ff);
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.scolarite-form button:disabled {
+  background-color: #a0c8f8;
+  cursor: not-allowed;
+}
+
+/* Table des scolarités */
+.scolarite-table {
+  background-color: #f3f4f6;
+  border-radius: 10px;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.scolarite-table table {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 2px solid #ddd;
+  margin-top: 10px;
+}
+
+.scolarite-table th,
+.scolarite-table td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.95rem;
+}
+
+.scolarite-table th {
+  font-weight: 700;
+  color: rgb(71, 71, 73);
+  background-color: #e7eaf0;
+}
+
+.scolarite-table tr:hover {
+  background-color: #f0f4f9;
+}
+
+.scolarite-table p {
+  font-style: italic;
+  color: #666;
+  margin-top: 15px;
+}
+
+/* Responsive */
+@media screen and (min-width: 1440px) {
+  .scolarite-section {
+    max-width: 1400px;
+    margin: auto;
+  }
+
+  .scolarite-form,
+  .scolarite-table {
+    padding: 30px;
+  }
+
+  .scolarite-header {
+    font-size: 1.5rem;
+    padding: 14px;
   }
 }
