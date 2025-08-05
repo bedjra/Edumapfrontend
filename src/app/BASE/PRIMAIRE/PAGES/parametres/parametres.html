@@ -24,7 +24,7 @@
 <!-- Contenu affiché selon l'onglet actif -->
 
 <!-- Onglet Utilisateur -->
-<div class="container" *ngIf="ongletActif === 'utilisateur'">
+<div class="container" *ngIf="ongletActif === 'utilisateur' && roleConnecte !== 'SECRETAIRE'">
     <div class="left-box">
         <h4>{{ isEditMode ? 'Modifier un utilisateur' : 'Ajouter un utilisateur' }}</h4>
         <form #formUser="ngForm" (ngSubmit)="isEditMode ? modifierUtilisateur() : ajouterUtilisateur()">
