@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from '../../SERVICE/login-service';
 import { RouterModule } from '@angular/router';
-import { Primaire, Professeur } from '../../SERVICE/primaire';
+import { Matiere, Primaire, Professeur } from '../../SERVICE/primaire';
 
 @Component({
   selector: 'app-parametres',
@@ -36,10 +36,12 @@ export class Parametres implements OnInit {
   // Chargement
   loading: boolean = false;
 
-  constructor(private loginService: LoginService, 
-        private primaireService: Primaire,
-    
-    private router: Router) {}
+  constructor(
+    private loginService: LoginService,
+    private primaireService: Primaire,
+
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.roleConnecte = this.loginService.getUserRole();
@@ -49,6 +51,7 @@ export class Parametres implements OnInit {
 
     this.chargerProfesseurs();
 
+    this.chargerMatieres();
   }
 
   // 🔄 Charger les utilisateurs
@@ -194,15 +197,6 @@ export class Parametres implements OnInit {
     this.passwordVisible = false;
   }
 
-
-
-
-
-
-
-
-
-
   //////Scolarite
   nouvelleScolarite = {
     classe: '',
@@ -230,55 +224,78 @@ export class Parametres implements OnInit {
     });
   }
 
-
-
-
-
-
-
-
   //////Prof
   nouveauProfesseur: Professeur = {
-  nom: '',
-  prenom: '',
-  adresse: '',
-  telephone: '',
-  diplome: '',
-  classe: ''
-};
+    nom: '',
+    prenom: '',
+    adresse: '',
+    telephone: '',
+    diplome: '',
+    classe: '',
+  };
 
-listeProfesseurs: Professeur[] = [];
+  listeProfesseurs: Professeur[] = [];
+
+  ajouterProfesseur() {
+    this.primaireService.ajouterProfesseur(this.nouveauProfesseur).subscribe({
+      next: (data) => {
+        this.listeProfesseurs.push(data);
+        this.nouveauProfesseur = {
+          nom: '',
+          prenom: '',
+          adresse: '',
+          telephone: '',
+          diplome: '',
+          classe: '',
+        };
+      },
+      error: (err) => {
+        console.error('Erreur ajout prof :', err);
+      },
+    });
+  }
+
+  chargerProfesseurs() {
+    this.primaireService.getProfesseurs().subscribe({
+      next: (profs) => {
+        this.listeProfesseurs = profs;
+      },
+      error: (err) => {
+        console.error('Erreur récupération profs :', err);
+      },
+    });
+  }
+
+  // matière
+  listeMatieres: Matiere[] = [];
+  nouvelleMatiere: Matiere = { nom: '' };
 
 
 
-ajouterProfesseur() {
-  this.primaireService.ajouterProfesseur(this.nouveauProfesseur).subscribe({
-    next: (data) => {
-      this.listeProfesseurs.push(data);
-      this.nouveauProfesseur = {
-        nom: '',
-        prenom: '',
-        adresse: '',
-        telephone: '',
-        diplome: '',
-        classe: ''
-      };
-    },
-    error: (err) => {
-      console.error('Erreur ajout prof :', err);
+  chargerMatieres() {
+    this.primaireService.getMatieres().subscribe({
+      next: (data) => {
+        this.listeMatieres = data.filter(m => m.nom && m.nom.trim() !== '');
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des matières', err);
+      }
+    });
+  }
+
+  ajouterMatiere() {
+    if (!this.nouvelleMatiere.nom || this.nouvelleMatiere.nom.trim() === '') {
+      return;
     }
-  });
-}
 
-chargerProfesseurs() {
-  this.primaireService.getProfesseurs().subscribe({
-    next: (profs) => {
-      this.listeProfesseurs = profs;
-    },
-    error: (err) => {
-      console.error('Erreur récupération profs :', err);
-    }
-  });
-}
-
+    this.primaireService.ajouterMatiere(this.nouvelleMatiere).subscribe({
+      next: (res) => {
+        this.nouvelleMatiere.nom = '';
+        this.chargerMatieres();
+      },
+      error: (err) => {
+        console.error('Erreur lors de l\'ajout de la matière', err);
+      }
+    });
+  }
 }

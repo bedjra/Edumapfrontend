@@ -33,11 +33,16 @@ export interface Professeur {
   classe: string;
 }
 
+export interface Matiere {
+  id?: number;
+  nom: string;
+}
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class Primaire {
-  private baseUrl = environment.primaireUrl; 
+  private baseUrl = environment.primaireUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -50,24 +55,24 @@ export class Primaire {
   }
 
   /** méthode pour récupérer les stats des élèves du primaire */
- getStats(): Observable<StatPrimaire[]> {
-  return this.http.get<StatPrimaire[]>(`${this.baseUrl}/stats`);
-}
+  getStats(): Observable<StatPrimaire[]> {
+    return this.http.get<StatPrimaire[]>(`${this.baseUrl}/stats`);
+  }
 
   getElevesByClasse(classe: string): Observable<Eleve[]> {
     return this.http.get<Eleve[]>(`${this.baseUrl}/${classe}`);
   }
 
   getEleveById(id: string): Observable<Eleve> {
-  return this.http.get<Eleve>(`${this.baseUrl}/eleve/${id}`);
-}
+    return this.http.get<Eleve>(`${this.baseUrl}/eleve/${id}`);
+  }
 
   // Récupérer un élève par matricule (DTO)
   getEleveByMatricule(matricule: string): Observable<Eleve> {
     return this.http.get<Eleve>(`${this.baseUrl}/eleve/matricule/${matricule}`);
   }
 
- private eleves: Eleve[] = [];
+  private eleves: Eleve[] = [];
 
   setEleves(eleves: Eleve[]) {
     this.eleves = eleves;
@@ -85,46 +90,51 @@ export class Primaire {
     return this.http.put<Eleve>(`${this.baseUrl}/eleve/${eleve.id}`, eleve);
   }
 
-
-
   private selectedEleve: Eleve | null = null;
 
-setSelectedEleve(eleve: Eleve) {
-  this.selectedEleve = eleve;
-}
+  setSelectedEleve(eleve: Eleve) {
+    this.selectedEleve = eleve;
+  }
 
-getSelectedEleve(): Eleve | null {
-  return this.selectedEleve;
-}
+  getSelectedEleve(): Eleve | null {
+    return this.selectedEleve;
+  }
 
-supprimerEleve(id: number): Observable<any> {
-  return this.http.delete(`${this.baseUrl}/eleve/${id}`);
-}
+  supprimerEleve(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/eleve/${id}`);
+  }
 
+  /////////scolarite
+  ajouterScolarite(scolarite: Scolarite): Observable<Scolarite> {
+    return this.http.post<Scolarite>(`${this.baseUrl}/scolarite`, scolarite);
+  }
 
+  getScolarites(): Observable<Scolarite[]> {
+    return this.http.get<Scolarite[]>(`${this.baseUrl}/scolarite`);
+  }
 
-/////////scolarite
-ajouterScolarite(scolarite: Scolarite): Observable<Scolarite> {
-  return this.http.post<Scolarite>(`${this.baseUrl}/scolarite`, scolarite);
-}
+  updateScolarite(id: number, montant: number): Observable<Scolarite> {
+    return this.http.put<Scolarite>(
+      `${this.baseUrl}/scolarite/${id}?montant=${montant}`,
+      {}
+    );
+  }
 
-getScolarites(): Observable<Scolarite[]> {
-  return this.http.get<Scolarite[]>(`${this.baseUrl}/scolarite`);
-}
-
-updateScolarite(id: number, montant: number): Observable<Scolarite> {
-  return this.http.put<Scolarite>(`${this.baseUrl}/scolarite/${id}?montant=${montant}`, {});
-}
-
-
-
-
-/////////Prof
-getProfesseurs(): Observable<Professeur[]> {
+  /////////Prof
+  getProfesseurs(): Observable<Professeur[]> {
     return this.http.get<Professeur[]>(`${this.baseUrl}/profs`);
   }
 
   ajouterProfesseur(prof: Professeur): Observable<Professeur> {
     return this.http.post<Professeur>(`${this.baseUrl}/prof`, prof);
+  }
+
+  // --------------------- MATIÈRES ------------------------
+  getMatieres(): Observable<Matiere[]> {
+    return this.http.get<Matiere[]>(`${this.baseUrl}/matiere`);
+  }
+
+  ajouterMatiere(matiere: Matiere): Observable<Matiere> {
+    return this.http.post<Matiere>(`${this.baseUrl}/matiere`, matiere);
   }
 }

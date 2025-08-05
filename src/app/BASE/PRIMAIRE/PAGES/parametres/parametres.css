@@ -1,7 +1,7 @@
 /* Onglets de navigation */
 .onglets {
   display: flex;
-  gap: 170px;
+  gap: 110px;
   margin-top: -10px;
   padding: 6px 24px;
   background-color: #f9fafb;
