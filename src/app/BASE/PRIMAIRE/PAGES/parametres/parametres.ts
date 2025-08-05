@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from '../../SERVICE/login-service';
 import { RouterModule } from '@angular/router';
-import { Primaire } from '../../SERVICE/primaire';
+import { Primaire, Professeur } from '../../SERVICE/primaire';
 
 @Component({
   selector: 'app-parametres',
@@ -46,6 +46,9 @@ export class Parametres implements OnInit {
     this.chargerUtilisateurs();
 
     this.chargerScolarites();
+
+    this.chargerProfesseurs();
+
   }
 
   // 🔄 Charger les utilisateurs
@@ -191,6 +194,15 @@ export class Parametres implements OnInit {
     this.passwordVisible = false;
   }
 
+
+
+
+
+
+
+
+
+
   //////Scolarite
   nouvelleScolarite = {
     classe: '',
@@ -217,4 +229,56 @@ export class Parametres implements OnInit {
       error: (err) => console.error('Erreur chargement scolarités', err),
     });
   }
+
+
+
+
+
+
+
+
+  //////Prof
+  nouveauProfesseur: Professeur = {
+  nom: '',
+  prenom: '',
+  adresse: '',
+  telephone: '',
+  diplome: '',
+  classe: ''
+};
+
+listeProfesseurs: Professeur[] = [];
+
+
+
+ajouterProfesseur() {
+  this.primaireService.ajouterProfesseur(this.nouveauProfesseur).subscribe({
+    next: (data) => {
+      this.listeProfesseurs.push(data);
+      this.nouveauProfesseur = {
+        nom: '',
+        prenom: '',
+        adresse: '',
+        telephone: '',
+        diplome: '',
+        classe: ''
+      };
+    },
+    error: (err) => {
+      console.error('Erreur ajout prof :', err);
+    }
+  });
+}
+
+chargerProfesseurs() {
+  this.primaireService.getProfesseurs().subscribe({
+    next: (profs) => {
+      this.listeProfesseurs = profs;
+    },
+    error: (err) => {
+      console.error('Erreur récupération profs :', err);
+    }
+  });
+}
+
 }

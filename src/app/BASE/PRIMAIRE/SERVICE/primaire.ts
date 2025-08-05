@@ -23,6 +23,16 @@ export interface Scolarite {
   montant: number;
 }
 
+export interface Professeur {
+  id?: number;
+  nom: string;
+  prenom: string;
+  adresse: string;
+  telephone: string;
+  diplome: string;
+  classe: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -107,4 +117,14 @@ updateScolarite(id: number, montant: number): Observable<Scolarite> {
 }
 
 
+
+
+/////////Prof
+getProfesseurs(): Observable<Professeur[]> {
+    return this.http.get<Professeur[]>(`${this.baseUrl}/profs`);
+  }
+
+  ajouterProfesseur(prof: Professeur): Observable<Professeur> {
+    return this.http.post<Professeur>(`${this.baseUrl}/prof`, prof);
+  }
 }
