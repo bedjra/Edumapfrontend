@@ -1,4 +1,28 @@
-<a routerLink="/PRIMAIRE/parametre/utilisateur" routerLinkActive="active" class="nav-link">Utilisateur</a>
-<a routerLink="/PRIMAIRE/parametre/scolarite" routerLinkActive="active" class="nav-link">Scolarité</a>
-<a routerLink="/PRIMAIRE/parametre/professeur" routerLinkActive="active" class="nav-link">Professeur</a>
-<a routerLink="/PRIMAIRE/parametre/config" routerLinkActive="active" class="nav-link">Configuration</a>
+<!-- Onglets de navigation -->
+<a (click)="ongletActif = 'utilisateur'" class="nav-link">Utilisateur</a>
+<a (click)="ongletActif = 'scolarite'" class="nav-link">Scolarité</a>
+<a (click)="ongletActif = 'professeur'" class="nav-link">Professeur</a>
+<a (click)="ongletActif = 'config'" class="nav-link">Configuration</a>
+
+<!-- Contenus dynamiques -->
+<div *ngIf="ongletActif === 'utilisateur'">
+  <!-- Contenu de la section Utilisateur -->
+  <app-user></app-user>
+</div>
+
+<div *ngIf="ongletActif === 'scolarite'">
+  <!-- Contenu de la section Scolarité -->
+  <app-scolarite></app-scolarite>
+</div>
+
+<div *ngIf="ongletActif === 'professeur'">
+  <!-- Contenu de la section Professeur -->
+  <app-prof></app-prof>
+</div>
+
+<div *ngIf="ongletActif === 'config'">
+  <!-- Contenu de la section Configuration -->
+  <app-config></app-config>
+</div>
+
+<a (click)="ongletActif = 'utilisateur'" [ngClass]="{'active': ongletActif === 'utilisateur'}" class="nav-link">Utilisateur</a>

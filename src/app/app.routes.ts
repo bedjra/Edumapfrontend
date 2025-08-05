@@ -63,19 +63,9 @@ export const routes: Routes = [
       { path: 'paiement/CE2', component: Ce2paie },
       { path: 'paiement/CM1', component: Cm1paie },
       { path: 'paiement/CM2', component: Cm2paie },
-      /*
       {
-        path: 'parametre',
-        component: Parametres,
-        children: [
-          { path: '', redirectTo: 'utilisateur', pathMatch: 'full' },
-          { path: 'utilisateur', component: User },
-          { path: 'scolarite', component: Scolarite },
-          { path: 'professeur', component: Prof },
-          { path: 'config', component: Config },
-        ],
-      },*/
+        path: 'parametre',  component: Parametres,
+      },
     ],
   },
-
 ];
