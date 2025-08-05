@@ -62,6 +62,12 @@
                                             class="btn btn-warning btn-sm me-1" title="Modifier">
                                             <i class="fas fa-pencil-alt"></i>
                                         </button>
+
+                                        <button (click)="deleteEleve(eleve.id)" type="button"
+                                            class="btn btn-danger btn-sm" title="Supprimer"
+                                            (click)="confirmDelete(eleve.id)">
+                                            <i class="fas fa-trash-alt"></i>
+                                    </button>
                                     </td>
                                 </tr>
                                 <tr *ngIf="eleves.length === 0">

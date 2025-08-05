@@ -83,4 +83,10 @@ getSelectedEleve(): Eleve | null {
   return this.selectedEleve;
 }
 
+supprimerEleve(id: number): Observable<any> {
+  return this.http.delete(`${this.baseUrl}/eleve/${id}`);
+}
+
+
+
 }

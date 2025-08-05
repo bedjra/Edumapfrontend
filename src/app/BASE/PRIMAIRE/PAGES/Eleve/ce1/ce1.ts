@@ -89,7 +89,7 @@ export class Ce1 implements OnInit {
       },
     });
   }
-  
+
   searchEleves(nom: string, prenom: string): void {
     // Filtrage local ou appel API selon votre implémentation
     console.log('Recherche élèves:', nom, prenom);
@@ -99,4 +99,26 @@ export class Ce1 implements OnInit {
   redirectToDefitech(): void {
     this.router.navigate(['/print']);
   }
+
+
+  confirmDelete(id: number) {
+  if (confirm("Êtes-vous sûr de vouloir supprimer cet élève ? Cette action est irréversible.")) {
+    this.deleteEleve(id);
+  }
+}
+
+deleteEleve(id: number) {
+  this.primaireService.supprimerEleve(id).subscribe({
+    next: (response) => {
+      console.log("Réponse du serveur :", response);
+      alert("Élève supprimé avec succès.");
+      this.loadEleves();
+    },
+    error: (err) => {
+      console.error("Erreur lors de la suppression:", err);
+    }
+  });
+}
+
+
 }
