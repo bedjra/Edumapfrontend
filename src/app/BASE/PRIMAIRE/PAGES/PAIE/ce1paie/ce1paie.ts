@@ -1,6 +1,16 @@
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormsModule, NgModel } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { Router, RouterLink } from '@angular/router';
+
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
   PaiementDto,
@@ -8,10 +18,7 @@ import {
   Primaire,
   ClassePRIMAIRE,
 } from '../../../SERVICE/primaire';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule, NgModel } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterLink } from '@angular/router';
+
 import { LoginService } from '../../../SERVICE/login-service';
 
 @Component({
@@ -52,6 +59,7 @@ export class Ce1paie implements OnInit {
       // Charger le logo
       this.loginService.getLogo().subscribe({
         next: (data: string) => {
+          console.log('✅ Logo récupéré :', data); // <-- log ici pour vérifier la donnée reçue
           this.logoBase64 = data;
           this.cdr.detectChanges();
         },
@@ -104,7 +112,11 @@ export class Ce1paie implements OnInit {
           datePaiement: '',
           scolariteId: 0,
         };
-        document.getElementById('paiementFormModal')?.click();
+
+        alert('✅ Paiement enregistré avec succès !');
+
+        // Fermer proprement le modal après le message
+       
       },
       error: (err) => {
         console.error('Erreur paiement:', err);

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, tap } from 'rxjs';
+import { Observable, BehaviorSubject, tap, switchMap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 
 
@@ -112,8 +112,25 @@ getAllConfigurations(): Observable<Configuration[]> {
   return this.http.get<Configuration[]>(`${this.baseUrl}/ecole`);
 }
 
+
 getLogo(): Observable<string> {
-  return this.http.get(`${this.baseUrl}/ecole/image`, { responseType: 'text' });
+  return this.http.get(`${this.baseUrl}/ecole/image`, { responseType: 'blob' }).pipe(
+    switchMap(blob => this.convertBlobToBase64(blob))
+  );
+}
+
+private convertBlobToBase64(blob: Blob): Observable<string> {
+  return new Observable<string>(observer => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64data = reader.result as string;
+      // base64data est de la forme "data:image/png;base64,......"
+      observer.next(base64data);
+      observer.complete();
+    };
+    reader.onerror = error => observer.error(error);
+    reader.readAsDataURL(blob);
+  });
 }
 
 

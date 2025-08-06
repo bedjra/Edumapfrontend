@@ -1,8 +1,8 @@
 <div class="container">
   <div class="header">
   <div class="logo">
-  <div *ngIf="isLoadingImage" class="text-center">
-    Chargement du logo...
+  <div .*ngIf="isLoadingImage" class="text-center">
+    Chargement du logo..
   </div>
   <img *ngIf="!isLoadingImage && imageUrl" [src]="imageUrl" alt="Configuration Image" class="img-fluid" />
 </div>
