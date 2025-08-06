@@ -112,6 +112,9 @@ getAllConfigurations(): Observable<Configuration[]> {
   return this.http.get<Configuration[]>(`${this.baseUrl}/ecole`);
 }
 
+getLogo(): Observable<string> {
+  return this.http.get('http://localhost:8060/api/ecole/image', { responseType: 'text' });
+}
 
 
 }

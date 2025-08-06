@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import {
@@ -12,6 +12,7 @@ import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, NgModel } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
+import { LoginService } from '../../../SERVICE/login-service';
 
 @Component({
   selector: 'app-ce1paie',
@@ -23,6 +24,7 @@ export class Ce1paie implements OnInit {
   paiements: PaiementDto[] = [];
   selectedPaiement: PaiementDto | null = null;
   isLoading = false;
+  logoBase64: string = '';
 
   newPaiement: PaiementRequestDto = {
     eleveNom: '',
@@ -35,11 +37,29 @@ export class Ce1paie implements OnInit {
   constructor(
     private primaireService: Primaire,
     private modalService: NgbModal,
-    private router: Router
+    private router: Router,
+    private loginService: LoginService,
+    private cdr: ChangeDetectorRef // <-- à ajouter
   ) {}
 
-  ngOnInit() {
-    this.chargerPaiements(ClassePRIMAIRE.CE1);
+  ngOnInit(): void {
+    if (typeof window !== 'undefined') {
+      // Charger les paiements avec un léger délai
+      setTimeout(() => {
+        this.chargerPaiements(ClassePRIMAIRE.CE1);
+      }, 200);
+
+      // Charger le logo
+      this.loginService.getLogo().subscribe({
+        next: (data: string) => {
+          this.logoBase64 = data;
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('❌ Erreur lors du chargement du logo :', err);
+        },
+      });
+    }
   }
 
   chargerPaiements(classe: ClassePRIMAIRE) {
@@ -48,9 +68,12 @@ export class Ce1paie implements OnInit {
       next: (data) => {
         this.paiements = data;
         this.isLoading = false;
+        this.cdr.detectChanges(); // <-- Important ici aussi
       },
-      error: () => {
+      error: (err) => {
+        console.error('❌ Erreur chargement paiements:', err);
         this.isLoading = false;
+        this.cdr.detectChanges(); // <-- Important ici aussi
       },
     });
   }
@@ -62,11 +85,11 @@ export class Ce1paie implements OnInit {
 
   openPaiementForm(paiement: PaiementDto) {
     this.newPaiement = {
-      eleveNom: '',
-      elevePrenom: '',
+      eleveNom: paiement.eleveNom,
+      elevePrenom: paiement.elevePrenom,
       montantActuel: 0,
       datePaiement: new Date().toISOString().substring(0, 10),
-      scolariteId: 1,
+      scolariteId: 0,
     };
   }
 

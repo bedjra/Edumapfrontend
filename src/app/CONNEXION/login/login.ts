@@ -39,8 +39,6 @@ export class LoginComponent {
     this.loginService.login(this.credentials).subscribe({
       next: (response: any) => {
         if (response.success) {
-          alert(response.message || 'Connexion réussie !');
-
           const user = {
             email: this.credentials.email,
             role: response.role,
