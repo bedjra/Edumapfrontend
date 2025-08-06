@@ -109,7 +109,7 @@ deleteUser(id: number): Observable<void> {
 
 
 getAllConfigurations(): Observable<Configuration[]> {
-  return this.http.get<Configuration[]>(`${this.baseUrl}/configurations`);
+  return this.http.get<Configuration[]>(`${this.baseUrl}/ecole`);
 }
 
 
