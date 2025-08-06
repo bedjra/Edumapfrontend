@@ -1,11 +1,11 @@
 <div class="container">
   <div class="header">
-  <div class="logo">
-  <div .*ngIf="isLoadingImage" class="text-center">
-    Chargement du logo..
-  </div>
-  <img *ngIf="!isLoadingImage && imageUrl" [src]="imageUrl" alt="Configuration Image" class="img-fluid" />
-</div>
+    <div class="logo">
+      <div .*ngIf="isLoadingImage" class="text-center">
+        Chargement du logo..
+      </div>
+      <img *ngIf="!isLoadingImage && imageUrl" [src]="imageUrl" alt="Configuration Image" class="img-fluid" />
+    </div>
 
 
     <div class="title">
@@ -13,6 +13,8 @@
       <p>Année-scolaire : {{ previousYear }} - {{ currentYear }} </p>
     </div>
   </div>
+  
+  <pre></pre>
 
   <h6>LISTE DE CLASSE</h6>
   <h6>Classe : {{ classe }}</h6>

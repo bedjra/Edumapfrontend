@@ -1,4 +1,3 @@
-<div class="container">
   <div class="header">
     <div class="logo">
       <div *ngIf="isLoadingImage" class="text-center">
@@ -13,6 +12,7 @@
     </div>
   </div>
 
+  <pre></pre>
   <h6>LISTE DE CLASSE</h6>
   <h6>Classe : {{ classe }}</h6>
 
@@ -49,4 +49,3 @@
   <div *ngIf="!isLoading && paiements.length === 0" class="alert alert-info">
     Aucun paiement trouvé pour la classe {{ classe }}.
   </div>
-</div>

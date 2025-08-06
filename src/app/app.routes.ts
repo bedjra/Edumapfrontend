@@ -25,6 +25,7 @@ import { Ce1paie } from './BASE/PRIMAIRE/PAGES/PAIE/ce1paie/ce1paie';
 import { DefitechComponent } from './BASE/PRIMAIRE/PAGES/IMPRESS/defitech/defitech.component';
 import { UpdateComponent } from './BASE/PRIMAIRE/PAGES/Eleve/update/update';
 import { Parametres } from './BASE/PRIMAIRE/PAGES/parametres/parametres';
+import { FicheComponent } from './BASE/PRIMAIRE/PAGES/IMPRESS/fiche/fiche.component';
 
 
 export const routes: Routes = [
@@ -33,6 +34,7 @@ export const routes: Routes = [
   { path: 'inscription', component: Inscription },
   { path: 'configuration', component: Configuration },
   { path: 'print/classe', component: DefitechComponent },
+  { path: 'fiche', component: FicheComponent },
 
   {
     path: 'PRIMAIRE',

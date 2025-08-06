@@ -223,4 +223,9 @@ export class Primaire {
   getPaiementsPrimaire(): Observable<PaiementDto[]> {
     return this.http.get<PaiementDto[]>(`${this.baseUrl}/paiement`);
   }
+
+  getRenvoi(classe: string): Observable<PaiementDto[]> {
+  return this.http.get<PaiementDto[]>(`${this.baseUrl}/paiement/renvoi/${classe}`);
+}
+
 }

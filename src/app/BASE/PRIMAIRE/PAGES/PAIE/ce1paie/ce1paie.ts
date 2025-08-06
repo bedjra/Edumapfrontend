@@ -28,6 +28,8 @@ import { LoginService } from '../../../SERVICE/login-service';
   styleUrl: './ce1paie.css',
 })
 export class Ce1paie implements OnInit {
+  classe: string = 'CE1'; // ou dynamique selon ton contexte
+
   paiements: PaiementDto[] = [];
   selectedPaiement: PaiementDto | null = null;
   isLoading = false;
@@ -116,7 +118,6 @@ export class Ce1paie implements OnInit {
         alert('✅ Paiement enregistré avec succès !');
 
         // Fermer proprement le modal après le message
-       
       },
       error: (err) => {
         console.error('Erreur paiement:', err);
@@ -125,6 +126,8 @@ export class Ce1paie implements OnInit {
   }
 
   redirectToImpression(): void {
-    this.router.navigate(['/print']);
+    this.router.navigate(['/fiche'], {
+      queryParams: { classe: this.classe }, // Assure-toi que this.classe est bien défini
+    });
   }
 }

@@ -50,7 +50,7 @@ export class FicheComponent implements OnInit {
     this.isLoading = true;
     const classeEnum = this.classe as ClassePRIMAIRE; // conversion en enum
 
-    this.primaireService.getPaiementsParClasse(classeEnum).subscribe({
+    this.primaireService.getRenvoi(classeEnum).subscribe({
       next: (data) => {
         this.paiements = data;
         this.isLoading = false;
