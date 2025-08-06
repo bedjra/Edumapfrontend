@@ -3,6 +3,20 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 
+
+export interface Configuration {
+  id: number;
+  nom: string;
+  adresse: string;
+  bp: string;
+  cel: string;
+  devise: string;
+  image?: string;
+  tel: string;
+  systeme: Systeme;
+}
+
+
 export type Systeme = 'PRIMAIRE' | 'COLLEGE' | 'LYCEE';
 
 @Injectable({ providedIn: 'root' })
@@ -90,5 +104,14 @@ updateUser(id: number, data: {
 deleteUser(id: number): Observable<void> {
   return this.http.delete<void>(`${this.baseUrl}/user/${id}`);
 }
+
+
+
+
+getAllConfigurations(): Observable<Configuration[]> {
+  return this.http.get<Configuration[]>(`${this.baseUrl}/configurations`);
+}
+
+
 
 }

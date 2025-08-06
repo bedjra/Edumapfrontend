@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginService } from '../../SERVICE/login-service';
 import { RouterModule } from '@angular/router';
 import { Matiere, Primaire, Professeur } from '../../SERVICE/primaire';
+import { Configuration } from '../../SERVICE/login-service';
 
 @Component({
   selector: 'app-parametres',
@@ -52,6 +53,10 @@ export class Parametres implements OnInit {
     this.chargerProfesseurs();
 
     this.chargerMatieres();
+
+    this.chargerConfigurations() ;
+ 
+ 
   }
 
   // 🔄 Charger les utilisateurs
@@ -303,7 +308,20 @@ export class Parametres implements OnInit {
 
 
 
+/*****Connfigurations */
+// ✅ Ajoute ça à la fin de ta classe Parametres
 
-    configurations: any[] = [];
+configurations: Configuration[] = [];
+configurationEnEdition: Configuration | null = null;
+
+// Charger les configurations
+chargerConfigurations() {
+  this.loginService.getAllConfigurations().subscribe({
+    next: (data) => (this.configurations = data),
+    error: (err) => console.error('Erreur lors du chargement des configurations :', err),
+  });
+}
+
+
 
 }
