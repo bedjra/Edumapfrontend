@@ -298,4 +298,12 @@ export class Parametres implements OnInit {
       }
     });
   }
+
+
+
+
+
+
+    configurations: any[] = [];
+
 }
