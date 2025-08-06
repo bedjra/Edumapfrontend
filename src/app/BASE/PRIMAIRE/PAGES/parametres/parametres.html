@@ -239,57 +239,52 @@
 
 
 
-
-
-
 <!-- Bloc CONFIG---------->
 
+<!-- Bloc CONFIG -->
 <div class="container" *ngIf="ongletActif === 'config'">
   <div *ngFor="let config of configurations" class="config-card">
+
     <h3 class="config-title">Établissement : {{ config.nom }}</h3>
 
+    <!-- Ligne 1 -->
     <div class="form-row">
       <div class="form-group">
         <label>Nom</label>
         <input type="text" [value]="config.nom" readonly />
       </div>
-
       <div class="form-group">
         <label>Adresse</label>
         <input type="text" [value]="config.adresse" readonly />
       </div>
-    </div>
-
-    <div class="form-row">
       <div class="form-group">
         <label>BP</label>
         <input type="text" [value]="config.bp" readonly />
       </div>
+    </div>
 
+    <!-- Ligne 2 -->
+    <div class="form-row">
       <div class="form-group">
         <label>Téléphone</label>
         <input type="text" [value]="config.tel" readonly />
       </div>
-    </div>
-
-    <div class="form-row">
       <div class="form-group">
         <label>Cellulaire</label>
         <input type="text" [value]="config.cel" readonly />
       </div>
-
       <div class="form-group">
         <label>Devise</label>
         <input type="text" [value]="config.devise" readonly />
       </div>
     </div>
 
+    <!-- Ligne 3 -->
     <div class="form-row">
       <div class="form-group">
         <label>Système</label>
         <input type="text" [value]="config.systeme" readonly />
       </div>
-
       <div class="form-group">
         <label>Logo</label>
         <div class="logo-wrapper">
@@ -300,6 +295,7 @@
 
   </div>
 </div>
+
 
 
 <!-- Bloc Matière -->
