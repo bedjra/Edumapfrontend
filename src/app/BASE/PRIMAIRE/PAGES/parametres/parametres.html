@@ -1,16 +1,16 @@
 <nav class="onglets">
 
 
-    <!-- Ces onglets sont visibles pour tout le monde -->
+      <a (click)="ongletActif = 'config'" [ngClass]="{ 'active': ongletActif === 'config' }"
+        class="nav-link">Configuration</a>
+
     <a (click)="ongletActif = 'scolarite'" [ngClass]="{ 'active': ongletActif === 'scolarite' }"
         class="nav-link">Scolarité</a>
 
     <a (click)="ongletActif = 'professeur'" [ngClass]="{ 'active': ongletActif === 'professeur' }"
         class="nav-link">Professeur</a>
 
-    <a (click)="ongletActif = 'config'" [ngClass]="{ 'active': ongletActif === 'config' }"
-        class="nav-link">Configuration</a>
-
+  
     <a (click)="ongletActif = 'matiere'" [ngClass]="{ 'active': ongletActif === 'matiere' }"
         class="nav-link">Matiere</a>
 
@@ -239,7 +239,6 @@
 
 
 
-<!-- Bloc CONFIG---------->
 
 <!-- Bloc CONFIG -->
 <div class="container" *ngIf="ongletActif === 'config'">
@@ -249,15 +248,15 @@
 
     <!-- Ligne 1 -->
     <div class="form-row">
-      <div class="form-group">
+      <div class="formgroup">
         <label>Nom</label>
         <input type="text" [value]="config.nom" readonly />
       </div>
-      <div class="form-group">
+      <div class="formgroup">
         <label>Adresse</label>
         <input type="text" [value]="config.adresse" readonly />
       </div>
-      <div class="form-group">
+      <div class="formgroup">
         <label>BP</label>
         <input type="text" [value]="config.bp" readonly />
       </div>
@@ -265,15 +264,15 @@
 
     <!-- Ligne 2 -->
     <div class="form-row">
-      <div class="form-group">
+      <div class="formgroup">
         <label>Téléphone</label>
         <input type="text" [value]="config.tel" readonly />
       </div>
-      <div class="form-group">
+      <div class="formgroup">
         <label>Cellulaire</label>
         <input type="text" [value]="config.cel" readonly />
       </div>
-      <div class="form-group">
+      <div class="formgroup">
         <label>Devise</label>
         <input type="text" [value]="config.devise" readonly />
       </div>
@@ -281,11 +280,11 @@
 
     <!-- Ligne 3 -->
     <div class="form-row">
-      <div class="form-group">
+      <div class="formgroup">
         <label>Système</label>
         <input type="text" [value]="config.systeme" readonly />
       </div>
-      <div class="form-group">
+      <div class="formgroup">
         <label>Logo</label>
         <div class="logo-wrapper">
           <img *ngIf="config.image" [src]="'data:image/png;base64,' + config.image" alt="Logo" class="logo-img" />
@@ -300,39 +299,53 @@
 
 <!-- Bloc Matière -->
 <div class="container" *ngIf="ongletActif === 'matiere'">
-    <div class="left-box">
-        <h4>Ajouter une matière</h4>
-        <form #formMatiere="ngForm" (ngSubmit)="ajouterMatiere()">
-            <div class="form-group">
-                <label for="nom">Nom :</label>
-                <input type="text" id="nom" name="nom" class="form-control" required [(ngModel)]="nouvelleMatiere.nom" />
-            </div>
+  <div class="left-box">
+    <h4>Ajouter une matière</h4>
+    <form #formMatiere="ngForm" (ngSubmit)="ajouterMatiere()">
+      <div class="form-group">
+        <label for="nom">Nom :</label>
+        <input
+          type="text"
+          id="nom"
+          name="nom"
+          class="form-control"
+          required
+          [(ngModel)]="nouvelleMatiere.nom"
+        />
+      </div>
 
-            <button type="submit" class="submit-btn" [disabled]="!formMatiere.valid">
-                Ajouter
-            </button>
-        </form>
-    </div>
+      <button type="submit" class="submit-btn" [disabled]="!formMatiere.valid">
+        Ajouter
+      </button>
+    </form>
+  </div>
 
-    <div class="right-box">
-        <h4>Liste des matières</h4>
-        <table *ngIf="listeMatieres.length > 0">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nom</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let mat of listeMatieres; let i = index">
-                    <td>{{ i + 1 }}</td>
-                    <td>{{ mat.nom }}</td>
-                </tr>
-            </tbody>
-        </table>
-        <p *ngIf="listeMatieres.length === 0">Aucune matière enregistrée.</p>
-    </div>
+  <div class="right-box">
+    <h4>Matières enregistrées</h4>
+    <table *ngIf="listeMatieres.length > 0">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nom</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mat of listeMatieres; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ mat.nom }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="listeMatieres.length === 0">Aucune matière enregistrée.</p>
+
+    <pre></pre>
+    <h4>Matières par défaut</h4>
+    <ul>
+      <li *ngFor="let mat of enumMatieres">{{ mat }}</li>
+    </ul>
+  </div>
 </div>
+
 
 
 

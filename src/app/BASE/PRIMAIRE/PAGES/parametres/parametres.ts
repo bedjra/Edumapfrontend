@@ -15,7 +15,7 @@ import { Configuration } from '../../SERVICE/login-service';
   styleUrls: ['./parametres.css'],
 })
 export class Parametres implements OnInit {
-  ongletActif: string = 'scolarite';
+  ongletActif: string = 'config';
 
   // Formulaire
   credentials = {
@@ -54,9 +54,7 @@ export class Parametres implements OnInit {
 
     this.chargerMatieres();
 
-    this.chargerConfigurations() ;
- 
- 
+    this.chargerConfigurations();
   }
 
   // 🔄 Charger les utilisateurs
@@ -273,55 +271,54 @@ export class Parametres implements OnInit {
 
   // matière
   listeMatieres: Matiere[] = [];
+  enumMatieres: string[] = [];
   nouvelleMatiere: Matiere = { nom: '' };
-
-
 
   chargerMatieres() {
     this.primaireService.getMatieres().subscribe({
       next: (data) => {
-        this.listeMatieres = data.filter(m => m.nom && m.nom.trim() !== '');
+        this.listeMatieres = data.dbMatieres.filter(
+          (m) => m.nom && m.nom.trim() !== ''
+        );
+        this.enumMatieres = data.enumMatieres;
       },
       error: (err) => {
         console.error('Erreur lors du chargement des matières', err);
-      }
-    });
-  }
-
-  ajouterMatiere() {
-    if (!this.nouvelleMatiere.nom || this.nouvelleMatiere.nom.trim() === '') {
-      return;
-    }
-
-    this.primaireService.ajouterMatiere(this.nouvelleMatiere).subscribe({
-      next: (res) => {
-        this.nouvelleMatiere.nom = '';
-        this.chargerMatieres();
       },
-      error: (err) => {
-        console.error('Erreur lors de l\'ajout de la matière', err);
-      }
     });
   }
 
+ajouterMatiere() {
+  if (!this.nouvelleMatiere.nom || this.nouvelleMatiere.nom.trim() === '') {
+    return;
+  }
 
-
-
-
-/*****Connfigurations */
-// ✅ Ajoute ça à la fin de ta classe Parametres
-
-configurations: Configuration[] = [];
-configurationEnEdition: Configuration | null = null;
-
-// Charger les configurations
-chargerConfigurations() {
-  this.loginService.getAllConfigurations().subscribe({
-    next: (data) => (this.configurations = data),
-    error: (err) => console.error('Erreur lors du chargement des configurations :', err),
+  this.primaireService.ajouterMatiere(this.nouvelleMatiere).subscribe({
+    next: (res) => {
+      this.nouvelleMatiere.nom = '';
+      this.chargerMatieres();
+      window.alert('Matière ajoutée avec succès !');
+    },
+    error: (err) => {
+      console.error("Erreur lors de l'ajout de la matière", err);
+      window.alert("Échec de l'ajout de la matière !");
+    },
   });
 }
 
 
+  /*****Connfigurations */
+  // ✅ Ajoute ça à la fin de ta classe Parametres
 
+  configurations: Configuration[] = [];
+  configurationEnEdition: Configuration | null = null;
+
+  // Charger les configurations
+  chargerConfigurations() {
+    this.loginService.getAllConfigurations().subscribe({
+      next: (data) => (this.configurations = data),
+      error: (err) =>
+        console.error('Erreur lors du chargement des configurations :', err),
+    });
+  }
 }

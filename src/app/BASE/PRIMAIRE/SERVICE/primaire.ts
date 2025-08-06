@@ -38,6 +38,12 @@ export interface Matiere {
   nom: string;
 }
 
+export interface MatiereResponse {
+  dbMatieres: Matiere[];
+  enumMatieres: string[];
+}
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -130,9 +136,10 @@ export class Primaire {
   }
 
   // --------------------- MATIÈRES ------------------------
-  getMatieres(): Observable<Matiere[]> {
-    return this.http.get<Matiere[]>(`${this.baseUrl}/matiere`);
-  }
+getMatieres(): Observable<MatiereResponse> {
+  return this.http.get<MatiereResponse>(`${this.baseUrl}/matiere`);
+}
+
 
   ajouterMatiere(matiere: Matiere): Observable<Matiere> {
     return this.http.post<Matiere>(`${this.baseUrl}/matiere`, matiere);
