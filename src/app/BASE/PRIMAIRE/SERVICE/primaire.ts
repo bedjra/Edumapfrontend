@@ -59,7 +59,8 @@ export interface PaiementDto {
 }
 
 export interface PaiementRequestDto {
-  eleveId: number;
+   eleveNom: string;
+  elevePrenom: string;
   montantActuel: number;
   datePaiement: string;
   scolariteId: number;

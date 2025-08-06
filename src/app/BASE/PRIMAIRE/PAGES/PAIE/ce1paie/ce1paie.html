@@ -1,1 +1,143 @@
-<p>ce1paie works!</p>
+<section class="home-section">
+  <div class="home-content">
+    <div class="sales-boxes position-relative">
+      <div class="recent-sales box p-4 position-relative">
+
+        <!-- Bandeau haut -->
+        <div class="stat-banner d-flex align-items-center justify-content-between px-3" style="border: none;">
+          <span class="h4 mb-0 text-black">💰 LISTE DES PAIEMENTS</span>
+
+          <button class="btn btn-link text-dark p-0" (click)="redirectToImpression()">
+            <i class="fas fa-print fa-lg"></i>
+          </button>
+
+          <button class="btn btn-light btn-sm" [routerLink]="['/scolarite']" style="color: black;">
+            <i class="fas fa-arrow-left"></i>&nbsp; retour
+          </button>
+        </div>
+
+        <!-- Loader -->
+        <div *ngIf="isLoading" class="text-center pt-5 mt-4">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Chargement...</span>
+          </div>
+          <p class="mt-2">Chargement des paiements...</p>
+        </div>
+
+        <!-- Tableau -->
+        <div *ngIf="!isLoading" class="sales-details pt-5 mt-4">
+          <div class="table-responsive">
+            <table class="table table-hover text-center align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>Nom</th>
+                  <th>Prénom</th>
+                  <th>Classe</th>
+                  <th>Mtt déjà payé</th>
+                  <th>Reste</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let paiement of paiements">
+                  <td>{{ paiement.eleveNom }}</td>
+                  <td>{{ paiement.elevePrenom }}</td>
+                  <td>{{ paiement.classe }}</td>
+                  <td>{{ paiement.montantDejaPaye | number }}</td>
+                  <td [ngClass]="{'text-danger': paiement.resteEcolage > 0}">
+                    {{ paiement.resteEcolage | number }}
+                  </td>
+                  <td>
+                    <button class="btn btn-info btn-sm me-1" title="Détails"
+                      (click)="openDetails(paiement, paiementModal)">
+                      <i class="fas fa-eye"></i>
+                    </button>
+
+                    <button class="btn btn-success btn-sm" title="Nouveau paiement"
+                      (click)="openPaiementForm(paiement)" [disabled]="paiement.resteEcolage === 0"
+                      data-bs-toggle="modal" data-bs-target="#paiementFormModal">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="paiements.length === 0">
+                  <td colspan="6" class="text-muted">
+                    <i class="fas fa-info-circle"></i> Aucun paiement enregistré
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<ng-template #paiementModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Détails du paiement</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="infos-eleve">
+      <h5>Informations de paiement</h5>
+      <p><strong>Nom:</strong> {{ selectedPaiement?.eleveNom }}</p>
+      <p><strong>Prénom:</strong> {{ selectedPaiement?.elevePrenom }}</p>
+      <p><strong>Classe:</strong> {{ selectedPaiement?.classe }}</p>
+      <p><strong>Date de paiement:</strong> {{ selectedPaiement?.datePaiement }}</p>
+      <p><strong>Montant actuel:</strong> {{ selectedPaiement?.montantActuel | number }}</p>
+      <p><strong>Déjà payé:</strong> {{ selectedPaiement?.montantDejaPaye | number }}</p>
+      <p><strong>Montant restant:</strong> {{ selectedPaiement?.resteEcolage | number }}</p>
+      <p><strong>Statut:</strong> {{ selectedPaiement?.statut }}</p>
+      <p><strong>Scolarité totale:</strong> {{ selectedPaiement?.montantScolarite | number }}</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Fermer</button>
+  </div>
+</ng-template>
+
+
+<div class="modal fade" id="paiementFormModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Nouveau paiement</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form #formPaiement="ngForm" (ngSubmit)="submitPaiement()" novalidate>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="nom" class="form-label">Nom</label>
+              <input type="text" id="nom" class="form-control" [(ngModel)]="newPaiement.eleveNom" name="eleveNom"
+                required>
+            </div>
+            <div class="col-md-6">
+              <label for="prenom" class="form-label">Prénom</label>
+              <input type="text" id="prenom" class="form-control" [(ngModel)]="newPaiement.elevePrenom"
+                name="elevePrenom" required>
+            </div>
+            <div class="col-md-6">
+              <label for="montant" class="form-label">Montant</label>
+              <input type="number" id="montant" class="form-control" [(ngModel)]="newPaiement.montantActuel"
+                name="montantActuel" required>
+            </div>
+            <div class="col-md-6">
+              <label for="date" class="form-label">Date de paiement</label>
+              <input type="date" id="date" class="form-control" [(ngModel)]="newPaiement.datePaiement"
+                name="datePaiement" required>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!formPaiement.valid">Valider</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
