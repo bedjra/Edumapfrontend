@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -16,6 +16,7 @@ import { Configuration } from '../../SERVICE/login-service';
 })
 export class Parametres implements OnInit {
   ongletActif: string = 'config';
+  isLoading = true;
 
   // Formulaire
   credentials = {
@@ -40,7 +41,7 @@ export class Parametres implements OnInit {
   constructor(
     private loginService: LoginService,
     private primaireService: Primaire,
-
+    private cdr: ChangeDetectorRef,
     private router: Router
   ) {}
 
@@ -54,7 +55,11 @@ export class Parametres implements OnInit {
 
     this.chargerMatieres();
 
-    this.chargerConfigurations();
+     if (typeof window !== 'undefined') {
+      setTimeout(() => {
+        this.chargerConfigurations();
+      }, 200);
+    }
   }
 
   // 🔄 Charger les utilisateurs
@@ -71,6 +76,8 @@ export class Parametres implements OnInit {
         this.loading = false;
       },
     });
+
+    
   }
 
   // ➕ Ajouter un nouvel utilisateur
@@ -297,7 +304,6 @@ ajouterMatiere() {
     next: (res) => {
       this.nouvelleMatiere = { nom: '' }; // Réaffectation complète ici
       this.chargerMatieres();
-      window.alert('Matière ajoutée avec succès !');
     },
     error: (err) => {
       console.error("Erreur lors de l'ajout de la matière", err);
@@ -315,11 +321,21 @@ ajouterMatiere() {
   configurationEnEdition: Configuration | null = null;
 
   // Charger les configurations
-  chargerConfigurations() {
+  private chargerConfigurations(): void {
+    console.log('🔄 Chargement des configurations...');
+
     this.loginService.getAllConfigurations().subscribe({
-      next: (data) => (this.configurations = data),
-      error: (err) =>
-        console.error('Erreur lors du chargement des configurations :', err),
+      next: (data) => {
+        console.log('✅ Données reçues du serveur:', data);
+        this.configurations = JSON.parse(JSON.stringify(data)); // copie propre
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('❌ Erreur lors du chargement des configurations :', err);
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      }
     });
   }
 }
