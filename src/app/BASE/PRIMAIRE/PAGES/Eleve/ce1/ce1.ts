@@ -42,8 +42,6 @@ export class Ce1 implements OnInit {
 
     this.primaireService.getElevesByClasse('CE1').subscribe({
       next: (data) => {
-        console.log('✅ Données reçues du serveur:', data);
-
         // Stockage dans le service pour partage entre composants
         this.primaireService.setEleves(data);
 
@@ -67,7 +65,6 @@ export class Ce1 implements OnInit {
     const idString = id.toString(); // Convertir en string toujours
     this.primaireService.getEleveById(idString).subscribe({
       next: (eleve) => {
-        console.log('Élève récupéré:', eleve); // <-- Affiche dans la console l'élève reçu
         this.selectedEleve = eleve;
         this.modalService.open(content, { size: 'lg' });
       },

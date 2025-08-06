@@ -76,7 +76,6 @@ loadLogoImage(): void {
       this.cdr.detectChanges();
     },
     error: (error) => {
-      console.error('Erreur lors du chargement du logo:', error);
       this.isLoadingImage = false;
       this.cdr.detectChanges();
     }

@@ -39,6 +39,8 @@ export class LoginComponent {
     this.loginService.login(this.credentials).subscribe({
       next: (response: any) => {
         if (response.success) {
+          alert(response.message || 'Connexion réussie !');
+
           const user = {
             email: this.credentials.email,
             role: response.role,
@@ -49,7 +51,6 @@ export class LoginComponent {
           localStorage.setItem('user', JSON.stringify(user));
           localStorage.setItem('systeme', response.systeme);
 
-          console.log('Système récupéré depuis la réponse:', response.systeme);
 
           if (response.systeme) {
             this.router.navigate([`/${response.systeme}/dashboard`]);

@@ -42,12 +42,12 @@ export class Cp1 implements OnInit {
   }
 
   private loadEleves(): void {
-    console.log('🔄 Chargement des élèves CP1...');
 
+    
     this.primaireService.getElevesByClasse('CP1').subscribe({
       next: (data) => {
-        console.log('✅ Données reçues du serveur:', data);
 
+        
         // Stockage dans le service pour partage entre composants
         this.primaireService.setEleves(data);
 
@@ -71,7 +71,7 @@ export class Cp1 implements OnInit {
     const idString = id.toString(); // Convertir en string toujours
     this.primaireService.getEleveById(idString).subscribe({
       next: (eleve) => {
-        console.log('Élève récupéré:', eleve); // <-- Affiche dans la console l'élève reçu
+
         this.selectedEleve = eleve;
         this.modalService.open(content, { size: 'lg' });
       },
@@ -97,7 +97,7 @@ export class Cp1 implements OnInit {
 
   searchEleves(nom: string, prenom: string): void {
     // Filtrage local ou appel API selon votre implémentation
-    console.log('Recherche élèves:', nom, prenom);
+
   }
 
   confirmDelete(id: number) {
@@ -113,7 +113,7 @@ export class Cp1 implements OnInit {
   deleteEleve(id: number) {
     this.primaireService.supprimerEleve(id).subscribe({
       next: (response) => {
-        console.log('Réponse du serveur :', response);
+
         alert('Élève supprimé avec succès.');
         this.loadEleves();
       },

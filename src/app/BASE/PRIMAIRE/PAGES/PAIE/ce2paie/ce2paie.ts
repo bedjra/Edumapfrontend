@@ -25,7 +25,7 @@ import { LoginService } from '../../../SERVICE/login-service';
   selector: 'app-ce2paie',
   imports: [CommonModule, FormsModule, NgbModule, HttpClientModule, RouterLink],
   templateUrl: './ce2paie.html',
-  styleUrl: './ce2paie.css',
+  styleUrl: './ce2paie.css'
 })
 export class Ce2paie implements OnInit {
   classe: string = 'CE2'; // ou dynamique selon ton contexte
