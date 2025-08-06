@@ -26,25 +26,25 @@ export class Paiement implements OnInit {
   }
 
   private loadStats(): void {
-    console.log('🔄 Chargement des statistiques...');
+  console.log('🔄 Chargement des statistiques...');
 
-    this.primaireService.getStats().subscribe({
-      next: (data) => {
-        console.log('✅ Données reçues du serveur:', data);
+  this.primaireService.getStatPai().subscribe({
+    next: (data) => {
+      console.log('✅ Données reçues du serveur:', data);
 
-        this.isLoading = false;
+      this.statsPrimaire = data; // ✅ AJOUTER CETTE LIGNE
 
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error('❌ Erreur lors du chargement:', err);
-        this.isLoading = false;
-        this.cdr.detectChanges();
-      }
-    });
-  }
+      this.isLoading = false;
+      this.cdr.detectChanges();
+    },
+    error: (err) => {
+      console.error('❌ Erreur lors du chargement:', err);
+      this.isLoading = false;
+      this.cdr.detectChanges();
+    }
+  });
+}
 
-  printEtudiant() {
-    window.print(); // Impression simple
-  }
+
+
 }

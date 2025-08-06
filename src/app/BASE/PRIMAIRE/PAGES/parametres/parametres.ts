@@ -72,7 +72,6 @@ export class Parametres implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        console.error('Erreur lors du chargement des utilisateurs :', err);
         this.loading = false;
       },
     });
@@ -322,11 +321,9 @@ ajouterMatiere() {
 
   // Charger les configurations
   private chargerConfigurations(): void {
-    console.log('🔄 Chargement des configurations...');
 
     this.loginService.getAllConfigurations().subscribe({
       next: (data) => {
-        console.log('✅ Données reçues du serveur:', data);
         this.configurations = JSON.parse(JSON.stringify(data)); // copie propre
         this.isLoading = false;
         this.cdr.detectChanges();

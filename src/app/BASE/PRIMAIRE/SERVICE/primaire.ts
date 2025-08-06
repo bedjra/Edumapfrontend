@@ -73,6 +73,7 @@ export interface StatPaiementPrimaireDTO {
 }
 
 
+
 export enum ClassePRIMAIRE {
   CP1 = 'CP1',
   CP2 = 'CP2',
@@ -202,7 +203,7 @@ export class Primaire {
   }
 
  
-  getStatistiquesPaiementPrimaire(): Observable<StatPaiementPrimaireDTO[]> {
+  getStatPai(): Observable<StatPaiementPrimaireDTO[]> {
     return this.http.get<StatPaiementPrimaireDTO[]>(
       `${this.baseUrl}/paiement/stat`
     );
