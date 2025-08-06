@@ -47,23 +47,24 @@ ngOnInit(): void {
 
 
   loadEleves(): void {
-    this.isLoading = true;
-    console.log('🔄 Chargement des élèves...');
-    
-    this.primaireService.getElevesByClasse(this.classe).subscribe({
-      next: (data) => {
-        console.log('✅ Élèves reçus:', data);
-        this.eleves = JSON.parse(JSON.stringify(data)); // copie profonde
-        this.isLoading = false;
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error('❌ Erreur chargement élèves:', err);
-        this.isLoading = false;
-        this.cdr.detectChanges();
-      }
-    });
-  }
+  this.isLoading = true;
+  console.log('✅ Classe reçue pour chargement :', this.classe); // <--- à ajouter
+
+  this.primaireService.getElevesByClasse(this.classe).subscribe({
+    next: (data) => {
+      console.log('✅ Élèves reçus:', data);
+      this.eleves = JSON.parse(JSON.stringify(data));
+      this.isLoading = false;
+      this.cdr.detectChanges();
+    },
+    error: (err) => {
+      console.error('❌ Erreur chargement élèves:', err);
+      this.isLoading = false;
+      this.cdr.detectChanges();
+    }
+  });
+}
+
 
 loadLogoImage(): void {
   const url = 'http://localhost:8060/api/ecole/image';
