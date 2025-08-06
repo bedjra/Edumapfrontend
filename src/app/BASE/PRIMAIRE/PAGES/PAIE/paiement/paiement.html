@@ -40,7 +40,7 @@
 
         <!-- Bannière superposée -->
         <div class="stat-banner text-black text-center shadow-sm">
-          <span class="h5 mb-0">📊 STATISTIQUES DES ÉLÈVES</span>
+          <span class="h5 mb-0">📊 STATISTIQUES DES PAIEMENTS</span>
         </div>
 
         <!-- Tableau sans bordures -->
@@ -51,19 +51,23 @@
                 <tr>
                   <th>Classe</th>
                   <th>Effectif total</th>
-                  <th>Garçons</th>
-                  <th>Filles</th>
+                  <th>Solde</th>
+                  <th>En cours</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let stat of statsPrimaire">
-                  <td>{{ stat.classe }}</td>
+                  <td>{{ stat.classe || 'Non défini' }}</td>
                   <td>{{ stat.total }}</td>
-                  <td>{{ stat.garcons }}</td>
-                  <td>{{ stat.filles }}</td>
+                  <td>{{ stat.nombreSolde }}</td>
+                  <td>{{ stat.nombreEnCours }}</td>
                 </tr>
               </tbody>
             </table>
+
+            <div *ngIf="!isLoading && statsPrimaire.length === 0" class="text-center text-muted pt-4">
+              Aucune statistique disponible.
+            </div>
           </div>
         </div>
 

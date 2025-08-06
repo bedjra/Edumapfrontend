@@ -44,6 +44,45 @@ export interface MatiereResponse {
 }
 
 
+
+export interface PaiementDto {
+  eleveId: number;
+  eleveNom: string;
+  elevePrenom: string;
+  classe?: string;
+  datePaiement: string;
+  montantActuel: number;
+  resteEcolage: number;
+  montantDejaPaye: number;
+  statut: 'EN_COURS' | 'SOLDE';
+  montantScolarite: number;
+}
+
+export interface PaiementRequestDto {
+  eleveId: number;
+  montantActuel: number;
+  datePaiement: string;
+  scolariteId: number;
+}
+
+export interface StatPaiementPrimaireDTO {
+  classe: string;
+  total: number;
+  nombreSolde: number;
+  nombreEnCours: number;
+}
+
+
+export enum ClassePRIMAIRE {
+  CP1 = 'CP1',
+  CP2 = 'CP2',
+  CE1 = 'CE1',
+  CE2 = 'CE2',
+  CM1 = 'CM1',
+  CM2 = 'CM2'
+}
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -136,12 +175,50 @@ export class Primaire {
   }
 
   // --------------------- MATIÈRES ------------------------
-getMatieres(): Observable<MatiereResponse> {
-  return this.http.get<MatiereResponse>(`${this.baseUrl}/matiere`);
-}
-
+  getMatieres(): Observable<MatiereResponse> {
+    return this.http.get<MatiereResponse>(`${this.baseUrl}/matiere`);
+  }
 
   ajouterMatiere(matiere: Matiere): Observable<Matiere> {
     return this.http.post<Matiere>(`${this.baseUrl}/matiere`, matiere);
+  }
+
+  // --------------------- PAIEMENTS ------------------------
+
+  enregistrerPaiement(paiement: PaiementRequestDto): Observable<PaiementDto> {
+    return this.http.post<PaiementDto>(`${this.baseUrl}/paiement`, paiement);
+  }
+
+
+  getPaiementParEleveId(eleveId: number): Observable<PaiementDto> {
+    return this.http.get<PaiementDto>(`${this.baseUrl}/paiement/${eleveId}`);
+  }
+
+ 
+  getPaiementsParClasse(classe: ClassePRIMAIRE): Observable<PaiementDto[]> {
+    return this.http.get<PaiementDto[]>(
+      `${this.baseUrl}/paiement/eleve/${classe}`
+    );
+  }
+
+ 
+  getStatistiquesPaiementPrimaire(): Observable<StatPaiementPrimaireDTO[]> {
+    return this.http.get<StatPaiementPrimaireDTO[]>(
+      `${this.baseUrl}/paiement/stat`
+    );
+  }
+
+
+  getHistoriquePaiementParEleveId(
+    eleveId: number
+  ): Observable<StatPaiementPrimaireDTO[]> {
+    return this.http.get<StatPaiementPrimaireDTO[]>(
+      `${this.baseUrl}/paiement/his/${eleveId}`
+    );
+  }
+
+
+  getPaiementsPrimaire(): Observable<PaiementDto[]> {
+    return this.http.get<PaiementDto[]>(`${this.baseUrl}/paiement`);
   }
 }
