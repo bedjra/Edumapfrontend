@@ -102,61 +102,68 @@
 
 
 <div class="modal fade" id="paiementFormModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
 
-            <div class="modal-header">
-                <h5 class="modal-title">Nouveau paiement</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      <div class="modal-header">
+        <h5 class="modal-title">Nouveau paiement</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <form #formPaiement="ngForm" (ngSubmit)="submitPaiement()" novalidate>
+        <div class="modal-body">
+          <div class="row">
+            <!-- Colonne gauche : logo (50%) -->
+            <div class="col-md-6 d-flex align-items-center justify-content-center border-end">
+              <img *ngIf="logoBase64"
+                   [src]="'data:image/png;base64,' + logoBase64"
+                   alt="Logo établissement"
+                   class="img-fluid"
+                   style="max-height: 200px;" />
             </div>
 
-            <form #formPaiement="ngForm" (ngSubmit)="submitPaiement()" novalidate>
-                <div class="modal-body">
-                    <div class="row">
-                        <!-- Colonne gauche : logo -->
-                        <div class="col-md-4 d-flex align-items-center justify-content-center border-end">
-                            <div class="text-center">
-                                <img *ngIf="logoBase64" [src]="'data:image/png;base64,' + logoBase64"
-                                    alt="Logo établissement" class="img-fluid" style="max-height: 150px;" />
-                            </div>
-                        </div>
+            <!-- Colonne droite : formulaire (50%) en une seule colonne -->
+            <div class="col-md-6">
+              <div class="d-flex flex-column gap-3 mt-3">
 
-                        <!-- Colonne droite : formulaire -->
-                        <div class="col-md-8">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label for="nom" class="form-label">Nom</label>
-                                    <input type="text" id="nom" class="form-control" [(ngModel)]="newPaiement.eleveNom"
-                                        name="eleveNom" required readonly>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="prenom" class="form-label">Prénom</label>
-                                    <input type="text" id="prenom" class="form-control"
-                                        [(ngModel)]="newPaiement.elevePrenom" name="elevePrenom" required readonly>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="montant" class="form-label">Montant</label>
-                                    <input type="number" id="montant" class="form-control"
-                                        [(ngModel)]="newPaiement.montantActuel" name="montantActuel" required>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="date" class="form-label">Date de paiement</label>
-                                    <input type="date" id="date" class="form-control"
-                                        [(ngModel)]="newPaiement.datePaiement" name="datePaiement" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div>
+                  <label for="nom" class="form-label">Nom</label>
+                  <input type="text" id="nom" class="form-control"
+                         [(ngModel)]="newPaiement.eleveNom"
+                         name="eleveNom" required readonly>
                 </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                    <button type="submit" class="btn btn-primary" [disabled]="!formPaiement.valid">Valider</button>
+                <div>
+                  <label for="prenom" class="form-label">Prénom</label>
+                  <input type="text" id="prenom" class="form-control"
+                         [(ngModel)]="newPaiement.elevePrenom"
+                         name="elevePrenom" required readonly>
                 </div>
-            </form>
+
+                <div>
+                  <label for="montant" class="form-label">Montant</label>
+                  <input type="number" id="montant" class="form-control"
+                         [(ngModel)]="newPaiement.montantActuel"
+                         name="montantActuel" required>
+                </div>
+
+                <div>
+                  <label for="date" class="form-label">Date de paiement</label>
+                  <input type="date" id="date" class="form-control"
+                         [(ngModel)]="newPaiement.datePaiement"
+                         name="datePaiement" required>
+                </div>
+
+              </div>
+            </div>
+          </div>
         </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!formPaiement.valid">Valider</button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>

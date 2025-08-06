@@ -113,8 +113,9 @@ getAllConfigurations(): Observable<Configuration[]> {
 }
 
 getLogo(): Observable<string> {
-  return this.http.get('http://localhost:8060/api/ecole/image', { responseType: 'text' });
+  return this.http.get(`${this.baseUrl}/ecole/image`, { responseType: 'text' });
 }
+
 
 
 }
