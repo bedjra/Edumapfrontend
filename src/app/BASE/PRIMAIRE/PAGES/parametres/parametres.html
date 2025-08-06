@@ -247,8 +247,7 @@
         <form #formMatiere="ngForm" (ngSubmit)="ajouterMatiere()">
             <div class="form-group">
                 <label for="nom">Nom :</label>
-                <input type="text" id="nom" name="nom" class="form-control" required
-                    [(ngModel)]="nouvelleMatiere.nom" />
+                <input type="text" id="nom" name="nom" class="form-control" required [(ngModel)]="nouvelleMatiere.nom" />
             </div>
 
             <button type="submit" class="submit-btn" [disabled]="!formMatiere.valid">
@@ -281,40 +280,49 @@
 
 
 <div class="container" *ngIf="ongletActif === 'config'">
-    <div class="configurations-container">
-        <table class="configurations-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nom</th>
-                    <th>Adresse</th>
-                    <th>BP</th>
-                    <th>Tél</th>
-                    <th>Cel</th>
-                    <th>Devise</th>
-                    <th>Système</th>
-                    <th>Logo</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let config of configurations">
-                    <td>{{ config.id }}</td>
-                    <td>{{ config.nom }}</td>
-                    <td>{{ config.adresse }}</td>
-                    <td>{{ config.bp }}</td>
-                    <td>{{ config.tel }}</td>
-                    <td>{{ config.cel }}</td>
-                    <td>{{ config.devise }}</td>
-                    <td>{{ config.systeme }}</td>
-                    <td>
-                        <img *ngIf="config.image" [src]="'data:image/png;base64,' + config.image" alt="Logo"
-                            class="logo-img" />
-                    </td>
-                  
-                </tr>
-            </tbody>
-        </table>
+  <div *ngFor="let config of configurations" class="config-card">
+    <h3 class="config-title">{{ config.nom }}</h3>
+
+    <div class="form-group">
+      <label>ID</label>
+      <input type="text" [value]="config.id" readonly />
     </div>
 
+    <div class="form-group">
+      <label>Adresse</label>
+      <input type="text" [value]="config.adresse" readonly />
+    </div>
 
+    <div class="form-group">
+      <label>BP</label>
+      <input type="text" [value]="config.bp" readonly />
+    </div>
+
+    <div class="form-group">
+      <label>Téléphone</label>
+      <input type="text" [value]="config.tel" readonly />
+    </div>
+
+    <div class="form-group">
+      <label>Cellulaire</label>
+      <input type="text" [value]="config.cel" readonly />
+    </div>
+
+    <div class="form-group">
+      <label>Devise</label>
+      <input type="text" [value]="config.devise" readonly />
+    </div>
+
+    <div class="form-group">
+      <label>Système</label>
+      <input type="text" [value]="config.systeme" readonly />
+    </div>
+
+    <div class="form-group">
+      <label>Logo</label>
+      <div class="logo-wrapper">
+        <img *ngIf="config.image" [src]="'data:image/png;base64,' + config.image" alt="Logo" class="logo-img" />
+      </div>
+    </div>
+  </div>
 </div>
