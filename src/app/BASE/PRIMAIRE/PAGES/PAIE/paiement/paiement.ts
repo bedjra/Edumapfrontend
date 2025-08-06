@@ -9,10 +9,9 @@ import { StatPaiementPrimaireDTO, Primaire } from '../../../SERVICE/primaire';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './paiement.html',
-  styleUrls: ['./paiement.css']
+  styleUrls: ['./paiement.css'],
 })
 export class Paiement implements OnInit {
-
   statsPrimaire: StatPaiementPrimaireDTO[] = [];
   isLoading = true;
 
@@ -26,25 +25,18 @@ export class Paiement implements OnInit {
   }
 
   private loadStats(): void {
-  console.log('🔄 Chargement des statistiques...');
+    this.primaireService.getStatPai().subscribe({
+      next: (data) => {
+        this.statsPrimaire = data; // ✅ AJOUTER CETTE LIGNE
 
-  this.primaireService.getStatPai().subscribe({
-    next: (data) => {
-      console.log('✅ Données reçues du serveur:', data);
-
-      this.statsPrimaire = data; // ✅ AJOUTER CETTE LIGNE
-
-      this.isLoading = false;
-      this.cdr.detectChanges();
-    },
-    error: (err) => {
-      console.error('❌ Erreur lors du chargement:', err);
-      this.isLoading = false;
-      this.cdr.detectChanges();
-    }
-  });
-}
-
-
-
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('❌ Erreur lors du chargement:', err);
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      },
+    });
+  }
 }

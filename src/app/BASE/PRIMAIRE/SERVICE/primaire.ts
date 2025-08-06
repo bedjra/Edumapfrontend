@@ -199,7 +199,7 @@ export class Primaire {
  
   getPaiementsParClasse(classe: ClassePRIMAIRE): Observable<PaiementDto[]> {
     return this.http.get<PaiementDto[]>(
-      `${this.baseUrl}/paiement/eleve/${classe}`
+      `${this.baseUrl}/paie/eleve/${classe}`
     );
   }
 

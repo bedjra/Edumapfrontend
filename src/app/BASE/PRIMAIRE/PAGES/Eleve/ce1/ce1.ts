@@ -39,7 +39,6 @@ export class Ce1 implements OnInit {
   }
 
   private loadEleves(): void {
-    console.log('🔄 Chargement des élèves CE1...');
 
     this.primaireService.getElevesByClasse('CE1').subscribe({
       next: (data) => {

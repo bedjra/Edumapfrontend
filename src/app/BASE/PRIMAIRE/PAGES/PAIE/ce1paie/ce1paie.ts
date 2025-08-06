@@ -39,7 +39,7 @@ export class Ce1paie implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.chargerPaiements; // 👈 Modifier uniquement ici
+    this.chargerPaiements(ClassePRIMAIRE.CE1);
   }
 
   chargerPaiements(classe: ClassePRIMAIRE) {
@@ -73,7 +73,7 @@ export class Ce1paie implements OnInit {
   submitPaiement() {
     this.primaireService.enregistrerPaiement(this.newPaiement).subscribe({
       next: (res) => {
-        this.chargerPaiements(res.classe as ClassePRIMAIRE);
+        this.chargerPaiements(ClassePRIMAIRE.CE1);
         this.newPaiement = {
           eleveNom: '',
           elevePrenom: '',

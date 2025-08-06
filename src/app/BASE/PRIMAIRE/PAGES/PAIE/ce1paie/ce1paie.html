@@ -8,10 +8,10 @@
           <span class="h4 mb-0 text-black">💰 LISTE DES PAIEMENTS</span>
 
           <button class="btn btn-link text-dark p-0" (click)="redirectToImpression()">
-            <i class="fas fa-print fa-lg"></i>
+            <i class="fas fa-print fa-lg"> </i>
           </button>
 
-          <button class="btn btn-light btn-sm" [routerLink]="['/scolarite']" style="color: black;">
+          <button class="btn btn-light btn-sm" [routerLink]="['/PRIMAIRE/paiement']" style="color: black;">
             <i class="fas fa-arrow-left"></i>&nbsp; retour
           </button>
         </div>
@@ -32,7 +32,6 @@
                 <tr>
                   <th>Nom</th>
                   <th>Prénom</th>
-                  <th>Classe</th>
                   <th>Mtt déjà payé</th>
                   <th>Reste</th>
                   <th>Actions</th>
@@ -42,7 +41,6 @@
                 <tr *ngFor="let paiement of paiements">
                   <td>{{ paiement.eleveNom }}</td>
                   <td>{{ paiement.elevePrenom }}</td>
-                  <td>{{ paiement.classe }}</td>
                   <td>{{ paiement.montantDejaPaye | number }}</td>
                   <td [ngClass]="{'text-danger': paiement.resteEcolage > 0}">
                     {{ paiement.resteEcolage | number }}
