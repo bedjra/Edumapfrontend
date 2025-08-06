@@ -272,7 +272,7 @@ export class Parametres implements OnInit {
   // matière
   listeMatieres: Matiere[] = [];
   enumMatieres: string[] = [];
-  nouvelleMatiere: Matiere = { nom: '' };
+  nouvelleMatiere = { nom: '' }; // Très important !
 
   chargerMatieres() {
     this.primaireService.getMatieres().subscribe({
@@ -295,7 +295,7 @@ ajouterMatiere() {
 
   this.primaireService.ajouterMatiere(this.nouvelleMatiere).subscribe({
     next: (res) => {
-      this.nouvelleMatiere.nom = '';
+      this.nouvelleMatiere = { nom: '' }; // Réaffectation complète ici
       this.chargerMatieres();
       window.alert('Matière ajoutée avec succès !');
     },
@@ -305,6 +305,7 @@ ajouterMatiere() {
     },
   });
 }
+
 
 
   /*****Connfigurations */
