@@ -1,7 +1,6 @@
-<div class="container">
   <div class="header">
     <div class="logo">
-      <div .*ngIf="isLoadingImage" class="text-center">
+      <div *ngIf="isLoadingImage" class="text-center">
         Chargement du logo..
       </div>
       <img *ngIf="!isLoadingImage && imageUrl" [src]="imageUrl" alt="Configuration Image" class="img-fluid" />
@@ -52,4 +51,3 @@
   <div *ngIf="!isLoading && eleves.length === 0" class="alert alert-info">
     Aucun élève trouvé pour la classe {{ classe }}.
   </div>
-</div>

@@ -1,5 +1,3 @@
-fgff
-<!--
 <div class="dashboard-container">
   <div class="row">
     <div class="col-lg-3 col-md-6 mb-4">
@@ -8,8 +6,20 @@ fgff
           <h5 class="card-title">Total des élèves inscrits</h5>
         </div>
         <div class="card-body">
-          <div class="card-value">{{ totalStudents }}</div>
-          <div class="card-subtitle">+20% par rapport au mois dernier</div>
+          <div class="card-value">{{ totalEleves }}</div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="dashboard-card">
+        <div class="card-header">
+          <h5 class="card-title">Paiements effectués</h5>
+        </div>
+        <div class="card-body">
+          <div class="card-value">{{ totalPayments }}</div>
         </div>
       </div>
     </div>
@@ -21,19 +31,6 @@ fgff
         </div>
         <div class="card-body">
           <div class="card-value">{{ totalBulletins }}</div>
-          <div class="card-subtitle">+89% par rapport au mois dernier</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6 mb-4">
-      <div class="dashboard-card">
-        <div class="card-header">
-          <h5 class="card-title">Paiements effectués</h5>
-        </div>
-        <div class="card-body">
-          <div class="card-value">{{ totalPayments }}</div>
-          <div class="card-subtitle">+15% par rapport au mois dernier</div>
         </div>
       </div>
     </div>
@@ -44,39 +41,13 @@ fgff
           <h5 class="card-title">Revenus totaux</h5>
         </div>
         <div class="card-body">
-          <div class="card-value">{{ totalRevenue | currency:'XOF':'symbol':'1.0-0' }}</div>
-          <div class="card-subtitle">+12% par rapport au mois dernier</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-lg-8 mb-4">
-      <div class="dashboard-card">
-        <div class="card-header">
-          <h5 class="card-title">Évolution des effectifs par année</h5>
-        </div>
-        <div class="card-body">
-          <div class="chart-placeholder">
-            <p>Graphique des effectifs par année</p>
-          </div>
         </div>
       </div>
     </div>
 
-    <div class="col-lg-4 mb-4">
-      <div class="dashboard-card">
-        <div class="card-header">
-          <h5 class="card-title">Liste d'élève par classe</h5>
-        </div>
-        <div class="card-body">
-          <div class="chart-placeholder">
-            <p>Graphique circulaire des classes</p>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
+
+
+
+
 </div>
------>

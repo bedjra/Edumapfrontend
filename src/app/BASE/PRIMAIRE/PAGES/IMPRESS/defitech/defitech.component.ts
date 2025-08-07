@@ -35,7 +35,7 @@ ngOnInit(): void {
       this.classe = params['classe'];
       this.loadEleves();
     } else {
-      console.warn('Aucune classe spécifiée dans les paramètres de requête. Aucun élève chargé.');
+      console.warn('❌ Aucune classe reçue');
       this.eleves = [];
       this.isLoading = false;
       this.cdr.detectChanges();
@@ -46,10 +46,9 @@ ngOnInit(): void {
 }
 
 
+
   loadEleves(): void {
   this.isLoading = true;
-  console.log('✅ Classe reçue pour chargement :', this.classe); // <--- à ajouter
-
   this.primaireService.getElevesByClasse(this.classe).subscribe({
     next: (data) => {
       console.log('✅ Élèves reçus:', data);

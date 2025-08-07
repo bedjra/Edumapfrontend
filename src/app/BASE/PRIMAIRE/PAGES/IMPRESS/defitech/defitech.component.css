@@ -1,19 +1,11 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-}
-
-.container {
-    border: 1px solid rgb(161, 160, 160);
-    padding: 20px;
-}
 
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid rgb(161, 160, 160);
+    border: 1.5px solid #d8d6d6;;
     padding: 10px;
+    margin: 10px;
 }
 
 .logo img {
@@ -53,7 +45,6 @@ h6 {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
     border-top: 2px solid #ddd;
   }
   

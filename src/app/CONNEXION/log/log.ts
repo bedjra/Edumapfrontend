@@ -9,14 +9,13 @@ import {
 } from '../../BASE/PRIMAIRE/SERVICE/login-service';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
+  selector: 'app-log',
   imports: [FormsModule, CommonModule, RouterLink],
-  templateUrl: './login.html',
-  styleUrls: ['./login.css'],
+  templateUrl: './log.html',
+  styleUrl: './log.css'
 })
-export class LoginComponent {
-  credentials = {
+export class Log {
+ credentials = {
     email: '',
     password: '',
   };

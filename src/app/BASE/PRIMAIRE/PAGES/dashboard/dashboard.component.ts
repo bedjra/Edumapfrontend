@@ -11,6 +11,7 @@ export class DashboardComponent implements OnInit {
   totalBulletins = 573;
   totalPayments = 12234;
   totalRevenue = 15500000;
+  totalEleves!: number;
 
   constructor() {}
 

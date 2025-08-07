@@ -8,7 +8,6 @@ import { Note } from './BASE/PRIMAIRE/PAGES/Note/note/note';
 import { Paiement } from './BASE/PRIMAIRE/PAGES/PAIE/paiement/paiement';
 import { Configuration } from './CONNEXION/configuration/configuration';
 import { Inscription } from './CONNEXION/inscription/inscription';
-import { LoginComponent } from './CONNEXION/login/login';
 import { Cp1 } from './BASE/PRIMAIRE/PAGES/Eleve/cp1/cp1';
 import { Ce1 } from './BASE/PRIMAIRE/PAGES/Eleve/ce1/ce1';
 import { Ce2 } from './BASE/PRIMAIRE/PAGES/Eleve/ce2/ce2';
@@ -26,11 +25,12 @@ import { DefitechComponent } from './BASE/PRIMAIRE/PAGES/IMPRESS/defitech/defite
 import { UpdateComponent } from './BASE/PRIMAIRE/PAGES/Eleve/update/update';
 import { Parametres } from './BASE/PRIMAIRE/PAGES/parametres/parametres';
 import { FicheComponent } from './BASE/PRIMAIRE/PAGES/IMPRESS/fiche/fiche.component';
+import { Log } from './CONNEXION/log/log';
 
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // 🔁 redirection claire
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: Log},
   { path: 'inscription', component: Inscription },
   { path: 'configuration', component: Configuration },
   { path: 'print/classe', component: DefitechComponent },

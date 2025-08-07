@@ -61,7 +61,6 @@ export class Ce1paie implements OnInit {
       // Charger le logo
       this.loginService.getLogo().subscribe({
         next: (data: string) => {
-          console.log('✅ Logo récupéré :', data); // <-- log ici pour vérifier la donnée reçue
           this.logoBase64 = data;
           this.cdr.detectChanges();
         },

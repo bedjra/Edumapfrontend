@@ -93,6 +93,15 @@ export class Primaire {
 
   constructor(private http: HttpClient) {}
 
+   // Appel du backend pour récupérer le nombre total d'élèves
+  getNombreTotalEleves(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/count`);
+  }
+
+  getTotauxPaiement(): Observable<{ totalPaye: number, totalReste: number }> {
+  return this.http.get<{ totalPaye: number, totalReste: number }>(`${this.baseUrl}/totaux`);
+}
+
   enregistrerEleve(eleve: Eleve): Observable<Eleve> {
     return this.http.post<Eleve>(`${this.baseUrl}/eleve`, eleve);
   }
