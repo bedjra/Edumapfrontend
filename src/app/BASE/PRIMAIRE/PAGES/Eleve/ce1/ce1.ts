@@ -241,4 +241,7 @@ formatMatiere(matiere: string): string {
   return matiere.charAt(0).toUpperCase() + matiere.slice(1);
 }
 
+voirNote(): void {
+   
+}
 }
