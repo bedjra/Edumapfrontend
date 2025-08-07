@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../../SERVICE/login-service';
 
 @Component({
-  selector: 'app-cp1',
+  selector: 'app-cm1',
   standalone: true,
   imports: [CommonModule, FormsModule, NgbModule, HttpClientModule, RouterLink],
   templateUrl: './cm1.html',

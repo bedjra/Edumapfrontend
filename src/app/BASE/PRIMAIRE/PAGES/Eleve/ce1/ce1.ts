@@ -1,4 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef, TemplateRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { Eleve } from '../../../Model/Eleve';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -10,13 +16,15 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../../SERVICE/login-service';
 
 @Component({
-  selector: 'app-cp1',
+  selector: 'app-ce1',
   standalone: true,
   imports: [CommonModule, FormsModule, NgbModule, HttpClientModule, RouterLink],
   templateUrl: './ce1.html',
   styleUrls: ['./ce1.css'],
 })
 export class Ce1 implements OnInit {
+  @ViewChild('modalNote', { static: true }) modalNote!: TemplateRef<any>; // <= CECI EST OBLIGATOIRE
+
   eleves: Eleve[] = [];
   selectedEleve?: Eleve;
   isLoading = true;
@@ -67,7 +75,6 @@ export class Ce1 implements OnInit {
     const idString = id.toString(); // Convertir en string toujours
     this.primaireService.getEleveById(idString).subscribe({
       next: (eleve) => {
-        console.log('Élève récupéré:', eleve); // <-- Affiche dans la console l'élève reçu
         this.selectedEleve = eleve;
         this.modalService.open(content, { size: 'lg' });
       },
@@ -134,7 +141,6 @@ export class Ce1 implements OnInit {
   notes: { [key: string]: number } = {};
   etape = 1;
   eleveEnCours: any;
-  modalNote!: TemplateRef<any>;
 
   evaluations: string[] = ['Composition', 'Devoir', 'Interrogation']; // Exemple
 
@@ -151,13 +157,24 @@ export class Ce1 implements OnInit {
     });
   }
 
-  ouvrirModalNote(eleve: any) {
-    this.eleveEnCours = eleve;
-    this.etape = 1;
-    this.evaluationChoisie = '';
-    this.notes = {};
-    this.modalService.open(this.modalNote, { size: 'lg' });
-  }
+ouvrirModalNote(eleve: any) {
+  this.eleveEnCours = eleve;
+  this.etape = 1;
+  this.evaluationChoisie = '';
+  this.notes = {};
+  this.chargerMatieres();
+
+  const modalRef = this.modalService.open(this.modalNote, { size: 'lg' });
+
+  // Repositionner le focus dans le modal après ouverture
+  setTimeout(() => {
+    const modalElement = document.querySelector('.modal-body select');
+    if (modalElement) {
+      (modalElement as HTMLElement).focus();
+    }
+  }, 100); // Petit délai pour que le modal soit rendu
+}
+
 
   passerEtape2() {
     if (!this.evaluationChoisie) {

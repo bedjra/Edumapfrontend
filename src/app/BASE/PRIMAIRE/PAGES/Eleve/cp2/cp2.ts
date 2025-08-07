@@ -45,11 +45,9 @@ export class Cp2 implements OnInit {
   }
 
   private loadEleves(): void {
-    console.log('🔄 Chargement des élèves CP2...');
 
     this.primaireService.getElevesByClasse('CP2').subscribe({
       next: (data) => {
-        console.log('✅ Données reçues du serveur:', data);
 
         // Stockage dans le service pour partage entre composants
         this.primaireService.setEleves(data);
