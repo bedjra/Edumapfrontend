@@ -26,6 +26,12 @@ import { UpdateComponent } from './BASE/PRIMAIRE/PAGES/Eleve/update/update';
 import { Parametres } from './BASE/PRIMAIRE/PAGES/parametres/parametres';
 import { FicheComponent } from './BASE/PRIMAIRE/PAGES/IMPRESS/fiche/fiche.component';
 import { Log } from './CONNEXION/log/log';
+import { Cp1note } from './BASE/PRIMAIRE/PAGES/Note/cp1note/cp1note';
+import { Cp2note } from './BASE/PRIMAIRE/PAGES/Note/cp2note/cp2note';
+import { Ce1note } from './BASE/PRIMAIRE/PAGES/Note/ce1note/ce1note';
+import { Ce2note } from './BASE/PRIMAIRE/PAGES/Note/ce2note/ce2note';
+import { Cm1note } from './BASE/PRIMAIRE/PAGES/Note/cm1note/cm1note';
+import { Cm2note } from './BASE/PRIMAIRE/PAGES/Note/cm2note/cm2note';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // 🔁 redirection claire
@@ -63,7 +69,12 @@ export const routes: Routes = [
       { path: 'paiement/CM2', component: Cm2paie },
 
       { path: 'note', component: Note },
-      { path: 'note/CP1', component: e },
+      { path: 'note/CP1', component: Cp1note },
+      { path: 'note/CP2', component: Cp2note },
+      { path: 'note/CE1', component: Ce1note },
+      { path: 'note/CE2', component: Ce2note },
+      { path: 'note/CM1', component: Cm1note },
+      { path: 'note/CM2', component: Cm2note },
 
       {
         path: 'parametre',
