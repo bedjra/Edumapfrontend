@@ -30,67 +30,11 @@ export class Ce1note implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // ✅ Solution garantie pour l'hydration (comme dans votre exemple Liste)
-    if (typeof window !== 'undefined') {
-      setTimeout(() => {
-        this.loadEleves();
-      }, 200);
-    }
+ 
     this.chargerMatieres();
   }
 
-  private loadEleves(): void {
-    this.primaireService.getElevesByClasse('CE1').subscribe({
-      next: (data) => {
-        console.log('✅ Données reçues du serveur:', data);
 
-        // Stockage dans le service pour partage entre composants
-        this.primaireService.setEleves(data);
-
-        // Assignation locale (copie profonde si tu veux vraiment, mais pas obligatoire)
-        this.eleves = JSON.parse(JSON.stringify(data));
-
-        this.isLoading = false;
-
-        // Forcer la détection des changements si besoin
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error('❌ Erreur lors du chargement des élèves :', err);
-        this.isLoading = false;
-        this.cdr.detectChanges();
-      },
-    });
-  }
-
-
-
-  confirmDelete(id: number) {
-    if (
-      confirm(
-        'Êtes-vous sûr de vouloir supprimer cet élève ? Cette action est irréversible.'
-      )
-    ) {
-      this.deleteEleve(id);
-    }
-  }
-
-  deleteEleve(id: number) {
-    this.primaireService.supprimerEleve(id).subscribe({
-      next: (response) => {
-        console.log('Réponse du serveur :', response);
-        alert('Élève supprimé avec succès.');
-        this.loadEleves();
-      },
-      error: (err) => {
-        console.error('Erreur lors de la suppression:', err);
-      },
-    });
-  }
-
-  get isAdmin(): boolean {
-    return this.authService.isAdmin();
-  }
 
   /***************** */
   /*************** */

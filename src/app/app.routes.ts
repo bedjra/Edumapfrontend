@@ -32,9 +32,8 @@ import { Ce1note } from './BASE/PRIMAIRE/PAGES/Note/ce1note/ce1note';
 import { Ce2note } from './BASE/PRIMAIRE/PAGES/Note/ce2note/ce2note';
 import { Cm1note } from './BASE/PRIMAIRE/PAGES/Note/cm1note/cm1note';
 import { Cm2note } from './BASE/PRIMAIRE/PAGES/Note/cm2note/cm2note';
-
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' }, // 🔁 redirection claire
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Log },
   { path: 'inscription', component: Inscription },
   { path: 'configuration', component: Configuration },
@@ -42,39 +41,38 @@ export const routes: Routes = [
   { path: 'fiche', component: FicheComponent },
 
   {
-    path: 'PRIMAIRE',
+    path: 'primaire',  // minuscules
     component: BaseComponent,
 
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'ajouter', component: Add },
+      { path: 'ajouter', component: Add },  // idéalement AddComponent
       { path: 'modifier/:id', component: UpdateComponent },
       { path: 'liste', component: Liste },
       { path: 'note', component: Note },
       { path: 'bulletin', component: Buletin },
-      { path: 'CP1', component: Cp1 },
-      { path: 'CP2', component: Cp2 },
-      { path: 'CE1', component: Ce1 },
-      { path: 'CE2', component: Ce2 },
-      { path: 'CM1', component: Cm1 },
-      { path: 'CM2', component: Cm2 },
+      { path: 'cp1', component: Cp1 },
+      { path: 'cp2', component: Cp2 },
+      { path: 'ce1', component: Ce1 },
+      { path: 'ce2', component: Ce2 },
+      { path: 'cm1', component: Cm1 },
+      { path: 'cm2', component: Cm2 },
 
       { path: 'paiement', component: Paiement },
-      { path: 'paiement/CP1', component: Cp1paie },
-      { path: 'paiement/CP2', component: Cp2paie },
-      { path: 'paiement/CE1', component: Ce1paie },
-      { path: 'paiement/CE2', component: Ce2paie },
-      { path: 'paiement/CM1', component: Cm1paie },
-      { path: 'paiement/CM2', component: Cm2paie },
+      { path: 'paiement/cp1', component: Cp1paie },
+      { path: 'paiement/cp2', component: Cp2paie },
+      { path: 'paiement/ce1', component: Ce1paie },
+      { path: 'paiement/ce2', component: Ce2paie },
+      { path: 'paiement/cm1', component: Cm1paie },
+      { path: 'paiement/cm2', component: Cm2paie },
 
-      { path: 'note', component: Note },
-      { path: 'note/CP1', component: Cp1note },
-      { path: 'note/CP2', component: Cp2note },
-      { path: 'note/CE1', component: Ce1note },
-      { path: 'note/CE2', component: Ce2note },
-      { path: 'note/CM1', component: Cm1note },
-      { path: 'note/CM2', component: Cm2note },
+      { path: 'note/cp1', component: Cp1note },
+      { path: 'note/cp2', component: Cp2note },
+      { path: 'note/ce1', component: Ce1note },
+      { path: 'note/ce2', component: Ce2note },
+      { path: 'note/cm1', component: Cm1note },
+      { path: 'note/cm2', component: Cm2note },
 
       {
         path: 'parametre',
@@ -83,3 +81,4 @@ export const routes: Routes = [
     ],
   },
 ];
+
