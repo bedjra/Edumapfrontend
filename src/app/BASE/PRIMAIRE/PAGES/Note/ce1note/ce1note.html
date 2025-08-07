@@ -1,1 +1,143 @@
 <p>ce1note works!</p>
+<section class="home-section">
+    <div class="home-content">
+        <div class="sales-boxes position-relative">
+            <div class="recent-sales box p-4 position-relative">
+
+                <div class="stat-banner d-flex align-items-center justify-content-between px-3" style="border: none;">
+
+                    <!-- À gauche : Titre -->
+                    <span class="h4 mb-0 text-black">📚 LISTE DES ÉLÈVES - CE1</span>
+
+                    <button class="btn btn-link text-dark p-0" aria-label="Imprimer" [routerLink]="['/print/classe']"
+                        [queryParams]="{ classe: 'CE1' }">
+                        <i class="fas fa-print fa-lg"></i>
+                    </button>
+
+
+
+                    <!-- À droite : Bouton retour -->
+                    <button class="btn btn-light btn-sm" [routerLink]="['/PRIMAIRE/liste']" style="color: black;">
+                        <i class="fas fa-arrow-left"></i>&nbsp; retour
+                    </button>
+
+                </div>
+
+
+                <!-- Loader -->
+                <div *ngIf="isLoading" class="text-center pt-5 mt-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Chargement...</span>
+                    </div>
+                    <p class="mt-2">Chargement des élèves...</p>
+                </div>
+
+                <!-- Tableau -->
+                <div *ngIf="!isLoading" class="sales-details pt-5 mt-4">
+                    <div class="table-responsive">
+                        <table class="table  table-hover text-center align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Matricule</th>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Sexe</th>
+                                    <th>Adresse</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let eleve of eleves">
+                                    <td>{{ eleve.matricule }}</td>
+                                    <td>{{ eleve.nom }}</td>
+                                    <td>{{ eleve.prenom }}</td>
+                                    <td>{{ eleve.sexe }}</td>
+                                    <td>{{ eleve.adresse }}</td>
+
+
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                            <!-- Ligne 1 : 3 boutons -->
+
+
+                                            <!-- Ligne 2 : 2 boutons -->
+                                            <div class="d-flex">
+                                                <button type="button" class="btn btn-primary btn-sm me-1" title="Noter"
+                                                    (click)="ouvrirModalNote(eleve)">
+                                                    <i class="fas fa-file-alt"></i>
+                                                </button>
+
+                                                <button type="button" class="btn btn-secondary btn-sm" title="Voir note"
+                                                    (click)="voirNote()">
+                                                    <i class="fas fa-book"></i>
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                    </td>
+
+
+                                </tr>
+                                <tr *ngIf="eleves.length === 0">
+                                    <td colspan="6" class="text-muted">
+                                        <i class="fas fa-info-circle"></i> Aucun élève trouvé en CE1
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<ng-template #modalNote let-modal>
+
+    <div class="modal-header">
+        <h5 class="modal-title">
+            <ng-container *ngIf="etape === 1">Sélectionner le type d'évaluation</ng-container>
+            <ng-container *ngIf="etape === 2">
+                Attribuer les notes pour {{ eleveEnCours?.nom }} {{ eleveEnCours?.prenom }}
+                <br><small>(Évaluation {{ evaluationChoisie }})</small>
+            </ng-container>
+        </h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+
+    <div class="modal-body">
+        <!-- Étape 1 -->
+        <div *ngIf="etape === 1">
+            <p>Veuillez choisir le type d’évaluation pour <strong>{{ eleveEnCours?.nom }} {{ eleveEnCours?.prenom
+                    }}</strong>.</p>
+            <select class="form-select" [(ngModel)]="evaluationChoisie">
+                <option value="" disabled selected>Sélectionnez un type d’évaluation</option>
+                <option *ngFor="let eval of evaluations" [value]="eval">{{ eval }}</option>
+            </select>
+            <button class="btn btn-primary mt-3" (click)="passerEtape2()">Suivant</button>
+        </div>
+
+        <!-- Étape 2 -->
+        <div *ngIf="etape === 2">
+            <p>Saisissez les notes de l’élève pour chaque matière.</p>
+
+            <div *ngFor="let matiere of matieresFusionnees" class="mb-3">
+                <label>{{ formatMatiere(matiere) }}</label>
+                <input type="number" class="form-control" [(ngModel)]="notes[matiere]" name="{{ matiere }}" min="0"
+                    max="20" />
+            </div>
+
+            <button class="btn btn-success" (click)="enregistrerNotes(modal)">
+                Enregistrer les notes
+            </button>
+        </div>
+
+
+    </div>
+</ng-template>

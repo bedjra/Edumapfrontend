@@ -68,10 +68,7 @@
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </button>
 
-                                                <button *ngIf="isAdmin" (click)="confirmDelete(eleve.id)" type="button"
-                                                    class="btn btn-danger btn-sm" title="Supprimer">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
+                                              
                                             </div>
 
                                             <!-- Ligne 2 : 2 boutons -->
@@ -84,6 +81,10 @@
                                                 <button type="button" class="btn btn-secondary btn-sm" title="Voir note"
                                                     (click)="voirNote()">
                                                     <i class="fas fa-book"></i>
+                                                </button>
+                                                  <button *ngIf="isAdmin" (click)="confirmDelete(eleve.id)" type="button"
+                                                    class="btn btn-danger btn-sm" title="Supprimer">
+                                                    <i class="fas fa-trash"></i>
                                                 </button>
                                             </div>
                                         </div>
