@@ -237,4 +237,10 @@ export class Primaire {
   return this.http.get<PaiementDto[]>(`${this.baseUrl}/paiement/renvoi/${classe}`);
 }
 
+
+ajouterNotes(noteDto: any): Observable<any> {
+  return this.http.post(`${this.baseUrl}/note`, noteDto);
+}
+
+
 }

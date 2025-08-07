@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, TemplateRef } from '@angular/core';
 import { Eleve } from '../../../Model/Eleve';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -36,10 +36,10 @@ export class Ce1 implements OnInit {
         this.loadEleves();
       }, 200);
     }
+    this.chargerMatieres();
   }
 
   private loadEleves(): void {
-
     this.primaireService.getElevesByClasse('CE1').subscribe({
       next: (data) => {
         console.log('✅ Données reçues du serveur:', data);
@@ -101,29 +101,100 @@ export class Ce1 implements OnInit {
     this.router.navigate(['/print']);
   }
 
-
   confirmDelete(id: number) {
-  if (confirm("Êtes-vous sûr de vouloir supprimer cet élève ? Cette action est irréversible.")) {
-    this.deleteEleve(id);
-  }
-}
-
-deleteEleve(id: number) {
-  this.primaireService.supprimerEleve(id).subscribe({
-    next: (response) => {
-      console.log("Réponse du serveur :", response);
-      alert("Élève supprimé avec succès.");
-      this.loadEleves();
-    },
-    error: (err) => {
-      console.error("Erreur lors de la suppression:", err);
+    if (
+      confirm(
+        'Êtes-vous sûr de vouloir supprimer cet élève ? Cette action est irréversible.'
+      )
+    ) {
+      this.deleteEleve(id);
     }
-  });
-}
+  }
 
-get isAdmin(): boolean {
-  return this.authService.isAdmin();
-}
+  deleteEleve(id: number) {
+    this.primaireService.supprimerEleve(id).subscribe({
+      next: (response) => {
+        console.log('Réponse du serveur :', response);
+        alert('Élève supprimé avec succès.');
+        this.loadEleves();
+      },
+      error: (err) => {
+        console.error('Erreur lors de la suppression:', err);
+      },
+    });
+  }
 
+  get isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
 
+  matieres: string[] = []; // Retiré si tu avais ça
+  listeMatieres: any[] = [];
+  evaluationChoisie: string = '';
+  notes: { [key: string]: number } = {};
+  etape = 1;
+  eleveEnCours: any;
+  modalNote!: TemplateRef<any>;
+
+  evaluations: string[] = ['Composition', 'Devoir', 'Interrogation']; // Exemple
+
+  chargerMatieres() {
+    this.primaireService.getMatieres().subscribe({
+      next: (data) => {
+        this.listeMatieres = data.dbMatieres.filter(
+          (m) => m.nom && m.nom.trim() !== ''
+        );
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des matières', err);
+      },
+    });
+  }
+
+  ouvrirModalNote(eleve: any) {
+    this.eleveEnCours = eleve;
+    this.etape = 1;
+    this.evaluationChoisie = '';
+    this.notes = {};
+    this.modalService.open(this.modalNote, { size: 'lg' });
+  }
+
+  passerEtape2() {
+    if (!this.evaluationChoisie) {
+      alert('Veuillez choisir une évaluation.');
+      return;
+    }
+    this.etape = 2;
+  }
+
+  enregistrerNotes(modal: any) {
+    const noteDto = {
+      eleveId: this.eleveEnCours.id,
+      classe: this.eleveEnCours.classe,
+      evaluation: this.evaluationChoisie,
+      notes: Object.entries(this.notes).map(
+        ([matierePrimaire, valeurNote]) => ({
+          matierePrimaire,
+          valeurNote,
+        })
+      ),
+    };
+
+    this.primaireService.ajouterNotes(noteDto).subscribe({
+      next: () => {
+        alert('✅ Notes enregistrées avec succès.');
+        modal.close();
+      },
+      error: () => {
+        alert('❌ Erreur lors de l’enregistrement.');
+      },
+    });
+  }
+
+  formatMatiere(nom: string): string {
+    return nom
+      .replace(/_/g, ' ')
+      .toLowerCase()
+      .replace(/\b\w/g, (c) => c.toUpperCase());
+  }
 }
