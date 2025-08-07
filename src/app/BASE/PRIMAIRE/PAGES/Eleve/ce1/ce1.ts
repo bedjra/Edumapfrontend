@@ -137,13 +137,7 @@ export class Ce1 implements OnInit {
   /*************** */
   /*******NOTES */
 
-  actionsVisible = false;
-
-toggleActions() {
-  this.actionsVisible = !this.actionsVisible;
-}
-
-
+  
   @ViewChild('modalNote', { static: true }) modalNote!: TemplateRef<any>; // <= CECI EST OBLIGATOIRE
 
   matieres: string[] = []; // Retiré si tu avais ça

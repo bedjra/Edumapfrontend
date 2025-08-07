@@ -54,36 +54,43 @@
                                     <td>{{ eleve.adresse }}</td>
                                     <td class="d-flex align-items-center gap-1">
 
-  <!-- Bouton Actions (visible au départ) -->
-  <button *ngIf="!actionsVisible"
-          type="button"
-          class="btn btn-secondary btn-sm"
-          (click)="toggleActions()">
-    <i class="fas fa-ellipsis-h"></i> Actions
-  </button>
+                                        <!-- 🧾 Bouton "Actions" -->
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-secondary btn-sm dropdown-toggle"
+                                                data-bs-toggle="dropdown" aria-expanded="false" title="Autres actions">
+                                                <i class="fas fa-ellipsis-h"></i> Actions
+                                            </button>
 
-  <!-- Groupe de boutons affiché à la place -->
-  <div *ngIf="actionsVisible" class="d-flex gap-1">
-    <button type="button" class="btn btn-info btn-sm"
-            (click)="openEleveModal(eleve.id, eleveModal); toggleActions()">
-      <i class="fas fa-eye"></i>
-    </button>
-    <button type="button" class="btn btn-warning btn-sm"
-            (click)="editEleve(eleve.matricule); toggleActions()">
-      <i class="fas fa-pencil-alt"></i>
-    </button>
-    <button type="button" class="btn btn-primary btn-sm"
-            (click)="ouvrirModalNote(eleve); toggleActions()">
-      <i class="fas fa-file-alt"></i>
-    </button>
-    <button *ngIf="isAdmin" type="button" class="btn btn-danger btn-sm"
-            (click)="confirmDelete(eleve.id); toggleActions()">
-      <i class="fas fa-trash"></i>
-    </button>
-  </div>
+                                            <!-- Menu avec toutes les actions -->
+                                            <ul class="dropdown-menu p-2">
+                                                <li>
+                                                    <button type="button" class="btn btn-info btn-sm w-100 my-1"
+                                                        (click)="openEleveModal(eleve.id, eleveModal)">
+                                                        <i class="fas fa-eye me-1"></i> Voir détails
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button type="button" class="btn btn-warning btn-sm w-100 my-1"
+                                                        (click)="editEleve(eleve.matricule)">
+                                                        <i class="fas fa-pencil-alt me-1"></i> Modifier
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button type="button" class="btn btn-primary btn-sm w-100 my-1"
+                                                        (click)="ouvrirModalNote(eleve)">
+                                                        <i class="fas fa-file-alt me-1"></i> Noter
+                                                    </button>
+                                                </li>
+                                                <li *ngIf="isAdmin">
+                                                    <button type="button" class="btn btn-danger btn-sm w-100 my-1"
+                                                        (click)="confirmDelete(eleve.id)">
+                                                        <i class="fas fa-trash me-1"></i> Supprimer
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
 
-</td>
-
+                                    </td>
 
                                 </tr>
                                 <tr *ngIf="eleves.length === 0">
