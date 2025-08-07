@@ -23,8 +23,6 @@ import { LoginService } from '../../../SERVICE/login-service';
   styleUrls: ['./ce1.css'],
 })
 export class Ce1 implements OnInit {
-  @ViewChild('modalNote', { static: true }) modalNote!: TemplateRef<any>; // <= CECI EST OBLIGATOIRE
-
   eleves: Eleve[] = [];
   selectedEleve?: Eleve;
   isLoading = true;
@@ -135,46 +133,73 @@ export class Ce1 implements OnInit {
     return this.authService.isAdmin();
   }
 
+  /***************** */
+  /*************** */
+  /*******NOTES */
+
+  @ViewChild('modalNote', { static: true }) modalNote!: TemplateRef<any>; // <= CECI EST OBLIGATOIRE
+
   matieres: string[] = []; // Retiré si tu avais ça
   listeMatieres: any[] = [];
+  enumMatieres: string[] = [];
+  matieresFusionnees: string[] = [];
+
   evaluationChoisie: string = '';
   notes: { [key: string]: number } = {};
   etape = 1;
   eleveEnCours: any;
 
-  evaluations: string[] = ['Composition', 'Devoir', 'Interrogation']; // Exemple
+evaluations = [
+  "Mois 1",
+  "Mois 2",
+  "Trimestre 1",
+  "Mois 4",
+  "Mois 5",
+  "Trimestre 2",
+  "Mois 7",
+  "Mois 8",
+  "Trimestre 3"
+];
 
-  chargerMatieres() {
-    this.primaireService.getMatieres().subscribe({
-      next: (data) => {
-        this.listeMatieres = data.dbMatieres.filter(
-          (m) => m.nom && m.nom.trim() !== ''
-        );
-      },
-      error: (err) => {
-        console.error('Erreur lors du chargement des matières', err);
-      },
-    });
-  }
+chargerMatieres() {
+  this.primaireService.getMatieres().subscribe({
+    next: (data) => {
+      this.listeMatieres = data.dbMatieres.filter(
+        (m) => m.nom && m.nom.trim() !== ''
+      );
+      this.enumMatieres = data.enumMatieres;
 
-ouvrirModalNote(eleve: any) {
-  this.eleveEnCours = eleve;
-  this.etape = 1;
-  this.evaluationChoisie = '';
-  this.notes = {};
-  this.chargerMatieres();
+      const matieresDb = this.listeMatieres.map(m => m.nom);
+      const matieresEnum = this.enumMatieres;
 
-  const modalRef = this.modalService.open(this.modalNote, { size: 'lg' });
+      // Fusion des deux, sans doublons
+      const fusion = [...new Set([...matieresDb, ...matieresEnum])];
 
-  // Repositionner le focus dans le modal après ouverture
-  setTimeout(() => {
-    const modalElement = document.querySelector('.modal-body select');
-    if (modalElement) {
-      (modalElement as HTMLElement).focus();
-    }
-  }, 100); // Petit délai pour que le modal soit rendu
+      this.matieresFusionnees = fusion;
+    },
+    error: (err) => {
+      console.error('Erreur lors du chargement des matières', err);
+    },
+  });
 }
 
+
+  ouvrirModalNote(eleve: any) {
+    this.eleveEnCours = eleve;
+    this.etape = 1;
+    this.evaluationChoisie = '';
+    this.notes = {};
+    this.chargerMatieres();
+
+    const modalRef = this.modalService.open(this.modalNote, { size: 'lg' });
+
+    setTimeout(() => {
+      const modalElement = document.querySelector('.modal-body select');
+      if (modalElement) {
+        (modalElement as HTMLElement).focus();
+      }
+    }, 100);
+  }
 
   passerEtape2() {
     if (!this.evaluationChoisie) {
