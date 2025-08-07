@@ -135,44 +135,44 @@
 
 
 <ng-template #modalNote let-modal>
-    <div class="modal-header">
-        <h5 class="modal-title">
-            <ng-container *ngIf="etape === 1">Sélectionner le type d'évaluation</ng-container>
-            <ng-container *ngIf="etape === 2">
-                Attribuer les notes pour {{ eleveEnCours?.nom }} {{ eleveEnCours?.prenom }}
-                <br><small>(Évaluation {{ evaluationChoisie }})</small>
-            </ng-container>
-        </h5>
-        <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
-    </div>
 
-    <div class="modal-body">
-        <!-- Étape 1 -->
-        <div *ngIf="etape === 1">
-            <p>Veuillez choisir le type d’évaluation pour <strong>{{ eleveEnCours?.nom }} {{ eleveEnCours?.prenom
-                    }}</strong>.</p>
-            <select class="form-select" [(ngModel)]="evaluationChoisie">
-                <option value="" disabled selected>Sélectionnez un type d’évaluation</option>
-                <option *ngFor="let eval of evaluations" [value]="eval">{{ eval }}</option>
-            </select>
-            <button class="btn btn-primary mt-3" (click)="passerEtape2()">Suivant</button>
+        <div class="modal-header">
+            <h5 class="modal-title">
+                <ng-container *ngIf="etape === 1">Sélectionner le type d'évaluation</ng-container>
+                <ng-container *ngIf="etape === 2">
+                    Attribuer les notes pour {{ eleveEnCours?.nom }} {{ eleveEnCours?.prenom }}
+                    <br><small>(Évaluation {{ evaluationChoisie }})</small>
+                </ng-container>
+            </h5>
+            <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
         </div>
 
-        <!-- Étape 2 -->
-        <div *ngIf="etape === 2">
-            <p>Saisissez les notes de l’élève pour chaque matière.</p>
-
-            <div *ngFor="let matiere of matieresFusionnees" class="mb-3">
-                <label>{{ formatMatiere(matiere) }}</label>
-                <input type="number" class="form-control" [(ngModel)]="notes[matiere]" min="0" max="20"
-                     />
+        <div class="modal-body">
+            <!-- Étape 1 -->
+            <div *ngIf="etape === 1">
+                <p>Veuillez choisir le type d’évaluation pour <strong>{{ eleveEnCours?.nom }} {{ eleveEnCours?.prenom
+                        }}</strong>.</p>
+                <select class="form-select" [(ngModel)]="evaluationChoisie">
+                    <option value="" disabled selected>Sélectionnez un type d’évaluation</option>
+                    <option *ngFor="let eval of evaluations" [value]="eval">{{ eval }}</option>
+                </select>
+                <button class="btn btn-primary mt-3" (click)="passerEtape2()">Suivant</button>
             </div>
 
-            <button class="btn btn-success" (click)="enregistrerNotes(modal)">
-                Enregistrer les notes
-            </button>
+            <!-- Étape 2 -->
+            <div *ngIf="etape === 2">
+                <p>Saisissez les notes de l’élève pour chaque matière.</p>
+
+                <div *ngFor="let matiere of matieresFusionnees" class="mb-3">
+                    <label>{{ formatMatiere(matiere) }}</label>
+                    <input type="number" class="form-control" [(ngModel)]="notes[matiere]" min="0" max="20" />
+                </div>
+
+                <button class="btn btn-success" (click)="enregistrerNotes(modal)">
+                    Enregistrer les notes
+                </button>
+            </div>
+
+
         </div>
-
-
-    </div>
 </ng-template>
