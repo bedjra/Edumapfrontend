@@ -27,10 +27,9 @@ import { Parametres } from './BASE/PRIMAIRE/PAGES/parametres/parametres';
 import { FicheComponent } from './BASE/PRIMAIRE/PAGES/IMPRESS/fiche/fiche.component';
 import { Log } from './CONNEXION/log/log';
 
-
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // 🔁 redirection claire
-  { path: 'login', component: Log},
+  { path: 'login', component: Log },
   { path: 'inscription', component: Inscription },
   { path: 'configuration', component: Configuration },
   { path: 'print/classe', component: DefitechComponent },
@@ -43,7 +42,6 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'paiement', component: Paiement },
       { path: 'ajouter', component: Add },
       { path: 'modifier/:id', component: UpdateComponent },
       { path: 'liste', component: Liste },
@@ -56,14 +54,20 @@ export const routes: Routes = [
       { path: 'CM1', component: Cm1 },
       { path: 'CM2', component: Cm2 },
 
+      { path: 'paiement', component: Paiement },
       { path: 'paiement/CP1', component: Cp1paie },
       { path: 'paiement/CP2', component: Cp2paie },
       { path: 'paiement/CE1', component: Ce1paie },
       { path: 'paiement/CE2', component: Ce2paie },
       { path: 'paiement/CM1', component: Cm1paie },
       { path: 'paiement/CM2', component: Cm2paie },
+
+      { path: 'note', component: Note },
+      { path: 'note/CP1', component: e },
+
       {
-        path: 'parametre',  component: Parametres,
+        path: 'parametre',
+        component: Parametres,
       },
     ],
   },
