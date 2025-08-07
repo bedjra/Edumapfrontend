@@ -210,33 +210,34 @@ chargerMatieres() {
   }
 
   enregistrerNotes(modal: any) {
-    const noteDto = {
-      eleveId: this.eleveEnCours.id,
-      classe: this.eleveEnCours.classe,
-      evaluation: this.evaluationChoisie,
-      notes: Object.entries(this.notes).map(
-        ([matierePrimaire, valeurNote]) => ({
-          matierePrimaire,
-          valeurNote,
-        })
-      ),
-    };
+  const noteDto = {
+    eleveId: this.eleveEnCours.id,
+    classe: this.eleveEnCours.classe,
+    evaluation: this.evaluationChoisie.toUpperCase().replace(/ /g, '_'),
+    notes: Object.entries(this.notes).map(
+      ([matierePrimaire, valeurNote]) => ({
+        matierePrimaire: matierePrimaire.toUpperCase(),
+        valeurNote,
+      })
+    ),
+  };
 
-    this.primaireService.ajouterNotes(noteDto).subscribe({
-      next: () => {
-        alert('✅ Notes enregistrées avec succès.');
-        modal.close();
-      },
-      error: () => {
-        alert('❌ Erreur lors de l’enregistrement.');
-      },
-    });
-  }
+  this.primaireService.ajouterNotes(noteDto).subscribe({
+    next: () => {
+      alert('✅ Notes enregistrées avec succès.');
+      modal.close();
+    },
+    error: (err) => {
+      console.error(err);
+      alert('❌ Erreur lors de l’enregistrement.');
+    },
+  });
+}
 
-  formatMatiere(nom: string): string {
-    return nom
-      .replace(/_/g, ' ')
-      .toLowerCase()
-      .replace(/\b\w/g, (c) => c.toUpperCase());
-  }
+
+// Supprimer ou commenter si ce n’est plus utile
+formatMatiere(matiere: string): string {
+  return matiere.charAt(0).toUpperCase() + matiere.slice(1);
+}
+
 }
