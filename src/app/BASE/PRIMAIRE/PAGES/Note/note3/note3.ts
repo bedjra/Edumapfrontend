@@ -28,9 +28,7 @@ export class Note3 implements OnInit {
   constructor(
     private primaireService: Primaire,
     private cdr: ChangeDetectorRef,
-    private modalService: NgbModal,
-    private authService: LoginService,
-    private router: Router
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
