@@ -26,7 +26,6 @@ import { UpdateComponent } from './BASE/PRIMAIRE/PAGES/Eleve/update/update';
 import { Parametres } from './BASE/PRIMAIRE/PAGES/parametres/parametres';
 import { FicheComponent } from './BASE/PRIMAIRE/PAGES/IMPRESS/fiche/fiche.component';
 import { Log } from './CONNEXION/log/log';
-import { Ce1note } from './BASE/PRIMAIRE/PAGES/Note/ce1note/ce1note';
 import { Note1 } from './BASE/PRIMAIRE/PAGES/Note/note1/note1';
 import { Note3 } from './BASE/PRIMAIRE/PAGES/Note/note3/note3';
 
