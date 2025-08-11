@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { Primaire } from '../../../SERVICE/primaire';
+import { NoteDto, Primaire } from '../../../SERVICE/primaire';
 import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { LoginService } from '../../../SERVICE/login-service';
@@ -18,7 +18,7 @@ import { LoginService } from '../../../SERVICE/login-service';
   selector: 'app-note3',
   imports: [CommonModule, FormsModule, NgbModule, HttpClientModule, RouterLink],
   templateUrl: './note3.html',
-  styleUrl: './note3.css'
+  styleUrl: './note3.css',
 })
 export class Note3 implements OnInit {
   eleves: Eleve[] = [];
@@ -65,22 +65,15 @@ export class Note3 implements OnInit {
     });
   }
 
- 
-
   searchEleves(nom: string, prenom: string): void {
     // Filtrage local ou appel API selon votre implémentation
     console.log('Recherche élèves:', nom, prenom);
   }
 
-
-
- 
-
   /***************** */
   /*************** */
   /*******NOTES */
 
-  
   @ViewChild('modalNote', { static: true }) modalNote!: TemplateRef<any>; // <= CECI EST OBLIGATOIRE
 
   matieres: string[] = []; // Retiré si tu avais ça
@@ -93,41 +86,39 @@ export class Note3 implements OnInit {
   etape = 1;
   eleveEnCours: any;
 
-evaluations = [
-  "Octobre",
-  "Novembre",
-  "Trimestre 1",
-  "Janvier",
-  "Février",
-  "Trimestre 2",
-  "Avril",
-  "Mai",
-  "Trimestre 3"
-];
+  evaluations = [
+    'Octobre',
+    'Novembre',
+    'Trimestre 1',
+    'Janvier',
+    'Février',
+    'Trimestre 2',
+    'Avril',
+    'Mai',
+    'Trimestre 3',
+  ];
 
+  chargerMatieres() {
+    this.primaireService.getMatieres().subscribe({
+      next: (data) => {
+        this.listeMatieres = data.dbMatieres.filter(
+          (m) => m.nom && m.nom.trim() !== ''
+        );
+        this.enumMatieres = data.enumMatieres;
 
-chargerMatieres() {
-  this.primaireService.getMatieres().subscribe({
-    next: (data) => {
-      this.listeMatieres = data.dbMatieres.filter(
-        (m) => m.nom && m.nom.trim() !== ''
-      );
-      this.enumMatieres = data.enumMatieres;
+        const matieresDb = this.listeMatieres.map((m) => m.nom);
+        const matieresEnum = this.enumMatieres;
 
-      const matieresDb = this.listeMatieres.map(m => m.nom);
-      const matieresEnum = this.enumMatieres;
+        // Fusion des deux, sans doublons
+        const fusion = [...new Set([...matieresDb, ...matieresEnum])];
 
-      // Fusion des deux, sans doublons
-      const fusion = [...new Set([...matieresDb, ...matieresEnum])];
-
-      this.matieresFusionnees = fusion;
-    },
-    error: (err) => {
-      console.error('Erreur lors du chargement des matières', err);
-    },
-  });
-}
-
+        this.matieresFusionnees = fusion;
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des matières', err);
+      },
+    });
+  }
 
   ouvrirModalNote(eleve: any) {
     this.eleveEnCours = eleve;
@@ -155,37 +146,36 @@ chargerMatieres() {
   }
 
   enregistrerNotes(modal: any) {
-  const noteDto = {
-    eleveId: this.eleveEnCours.id,
-    classe: this.eleveEnCours.classe,
-    evaluation: this.evaluationChoisie.toUpperCase().replace(/ /g, '_'),
-    notes: Object.entries(this.notes).map(
-      ([matierePrimaire, valeurNote]) => ({
-        matierePrimaire: matierePrimaire.toUpperCase(),
-        valeurNote,
-      })
-    ),
-  };
+    const noteDto: NoteDto = {
+      eleveId: this.eleveEnCours.id,
+      classe: this.eleveEnCours.classe, // doit correspondre au nom exact de l'enum ClassePRIMAIRE
+      evaluation: this.evaluationChoisie.toUpperCase().replace(/ /g, '_'),
+      notes: Object.entries(this.notes).map(([matiere, valeur]) => ({
+        // si c’est une matière dynamique => matiereId, sinon matierePrimaire
+        matierePrimaire: isNaN(Number(matiere))
+          ? matiere.toUpperCase()
+          : undefined,
+        matiereId: !isNaN(Number(matiere)) ? Number(matiere) : undefined,
+        valeurNote: Number(valeur),
+      })),
+    };
 
-  this.primaireService.ajouterNotes(noteDto).subscribe({
-    next: () => {
-      alert('✅ Notes enregistrées avec succès.');
-      modal.close();
-    },
-    error: (err) => {
-      console.error(err);
-      alert('❌ Erreur lors de l’enregistrement.');
-    },
-  });
-}
+    this.primaireService.ajouterNotes(noteDto).subscribe({
+      next: () => {
+        alert('✅ Notes enregistrées avec succès.');
+        modal.close();
+      },
+      error: (err) => {
+        console.error(err);
+        alert('❌ Erreur lors de l’enregistrement.');
+      },
+    });
+  }
 
+  // Supprimer ou commenter si ce n’est plus utile
+  formatMatiere(matiere: string): string {
+    return matiere.charAt(0).toUpperCase() + matiere.slice(1);
+  }
 
-// Supprimer ou commenter si ce n’est plus utile
-formatMatiere(matiere: string): string {
-  return matiere.charAt(0).toUpperCase() + matiere.slice(1);
-}
-
-voirNote(): void {
-   
-}
+  voirNote(): void {}
 }

@@ -85,6 +85,25 @@ export enum ClassePRIMAIRE {
 }
 
 
+export interface NoteDto {
+  eleveId: number;
+  evaluation: string; // Doit être en majuscules et sans espaces (Enum)
+  classe: string; // Enum ClassePRIMAIRE → envoyer la valeur exacte
+  notes: MatiereNote[];
+}
+
+export interface MatiereNote {
+  matiereId?: number; // Optionnel
+  valeurNote: number;
+  matierePrimaire?: string; // Optionnel
+}
+
+export interface NoteResponse {
+  id: number;
+  message: string;
+}
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -238,8 +257,8 @@ export class Primaire {
 }
 
 
-ajouterNotes(noteDto: any): Observable<any> {
-  return this.http.post(`${this.baseUrl}/note`, noteDto);
+ajouterNotes(noteDto: NoteDto): Observable<NoteResponse> {
+  return this.http.post<NoteResponse>(`${this.baseUrl}/note`, noteDto);
 }
 
 
