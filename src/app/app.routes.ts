@@ -28,6 +28,10 @@ import { FicheComponent } from './BASE/PRIMAIRE/PAGES/IMPRESS/fiche/fiche.compon
 import { Log } from './CONNEXION/log/log';
 import { Note1 } from './BASE/PRIMAIRE/PAGES/Note/note1/note1';
 import { Note3 } from './BASE/PRIMAIRE/PAGES/Note/note3/note3';
+import { Note2 } from './BASE/PRIMAIRE/PAGES/Note/note2/note2';
+import { Note4 } from './BASE/PRIMAIRE/PAGES/Note/note4/note4';
+import { Note5 } from './BASE/PRIMAIRE/PAGES/Note/note5/note5';
+import { Note6 } from './BASE/PRIMAIRE/PAGES/Note/note6/note6';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // 🔁 redirection claire
@@ -65,15 +69,11 @@ export const routes: Routes = [
 
       { path: 'note', component: Note },
       { path: 'note/CP1', component: Note1 },
-      { path: 'note/CE1', component: Note3 },
-
-      /*   
-      { path: 'note/CP2', component: Cp2note },
-      { path: 'note/CP1', component: Ce1note },
-      { path: 'note/CE2', component: Ce2note },
-      { path: 'note/CM1', component: Cm1note },
-      { path: 'note/CM2', component: Cm2note },
-*/
+      { path: 'note/CE1', component: Note3 },    
+      { path: 'note/CP2', component:Note2  },
+      { path: 'note/CE2', component: Note4 },
+      { path: 'note/CM1', component: Note5 },
+      { path: 'note/CM2', component: Note6 },
       {
         path: 'parametre',
         component: Parametres,
