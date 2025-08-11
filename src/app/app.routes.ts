@@ -26,12 +26,9 @@ import { UpdateComponent } from './BASE/PRIMAIRE/PAGES/Eleve/update/update';
 import { Parametres } from './BASE/PRIMAIRE/PAGES/parametres/parametres';
 import { FicheComponent } from './BASE/PRIMAIRE/PAGES/IMPRESS/fiche/fiche.component';
 import { Log } from './CONNEXION/log/log';
-import { Cp1note } from './BASE/PRIMAIRE/PAGES/Note/cp1note/cp1note';
-import { Cp2note } from './BASE/PRIMAIRE/PAGES/Note/cp2note/cp2note';
 import { Ce1note } from './BASE/PRIMAIRE/PAGES/Note/ce1note/ce1note';
-import { Ce2note } from './BASE/PRIMAIRE/PAGES/Note/ce2note/ce2note';
-import { Cm1note } from './BASE/PRIMAIRE/PAGES/Note/cm1note/cm1note';
-import { Cm2note } from './BASE/PRIMAIRE/PAGES/Note/cm2note/cm2note';
+import { Note1 } from './BASE/PRIMAIRE/PAGES/Note/note1/note1';
+import { Note3 } from './BASE/PRIMAIRE/PAGES/Note/note3/note3';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // 🔁 redirection claire
@@ -66,9 +63,12 @@ export const routes: Routes = [
       { path: 'paiement/CE2', component: Ce2paie },
       { path: 'paiement/CM1', component: Cm1paie },
       { path: 'paiement/CM2', component: Cm2paie },
-/*
-      { path: 'note', component: Note },*/
-      { path: 'note/CE1', component: Cp1note },/*
+
+      { path: 'note', component: Note },
+      { path: 'note/CP1', component: Note1 },
+      { path: 'note/CE1', component: Note3 },
+
+      /*   
       { path: 'note/CP2', component: Cp2note },
       { path: 'note/CP1', component: Ce1note },
       { path: 'note/CE2', component: Ce2note },
