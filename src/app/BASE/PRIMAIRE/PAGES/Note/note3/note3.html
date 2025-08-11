@@ -90,41 +90,6 @@
 
 
 
-<!-- ✅ Modal pour les détails -->
-<ng-template #eleveModal let-modal>
-    <div class="modal-header">
-        <h5 class="modal-title">Détails de l'élève</h5>
-        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-        <div class="infos-eleve">
-            <h5>Informations personnelles</h5>
-            <p><strong>Matricule:</strong> {{ selectedEleve?.matricule }}</p>
-            <p><strong>Nom:</strong> {{ selectedEleve?.nom }}</p>
-            <p><strong>Prénom:</strong> {{ selectedEleve?.prenom }}</p>
-            <p><strong>Sexe:</strong> {{ selectedEleve?.sexe }}</p>
-            <p><strong>Date de naissance:</strong> {{ selectedEleve?.dateNaiss }}</p>
-            <p><strong>Lieu de naissance:</strong> {{ selectedEleve?.lieuNais }}</p>
-            <p><strong>Nationalité:</strong> {{ selectedEleve?.nationnalite }}</p>
-            <p><strong>Adresse:</strong> {{ selectedEleve?.adresse }}</p>
-            <p><strong>Classe:</strong> {{ selectedEleve?.classe }}</p>
-        </div>
-
-        <div class="infos-tuteur">
-            <h5>Informations du tuteur</h5>
-            <p><strong>Nom:</strong> {{ selectedEleve?.tuteurNom }}</p>
-            <p><strong>Prénom:</strong> {{ selectedEleve?.tuteurPrenom }}</p>
-            <p><strong>Profession:</strong> {{ selectedEleve?.tuteurProfession }}</p>
-            <p><strong>Téléphone:</strong> {{ selectedEleve?.tuteurTelephone }}</p>
-        </div>
-    </div>
-
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Close click')">Fermer</button>
-    </div>
-</ng-template>
-
-
 
 
 
