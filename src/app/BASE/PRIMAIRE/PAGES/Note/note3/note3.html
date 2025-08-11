@@ -6,14 +6,7 @@
                 <div class="stat-banner d-flex align-items-center justify-content-between px-3" style="border: none;">
 
                     <!-- À gauche : Titre -->
-                    <span class="h4 mb-0 text-black">📚 LISTE DES ÉLÈVES - CE1</span>
-
-                    <button class="btn btn-link text-dark p-0" aria-label="Imprimer" [routerLink]="['/print/classe']"
-                        [queryParams]="{ classe: 'CE1' }">
-                        <i class="fas fa-print fa-lg"></i>
-                    </button>
-
-
+                    <span class="h4 mb-0 text-black">📚 GESTION DES NOTES - CE1</span>
 
                     <!-- À droite : Bouton retour -->
                     <button class="btn btn-light btn-sm" [routerLink]="['/PRIMAIRE/liste']" style="color: black;">
@@ -40,8 +33,6 @@
                                     <th>Matricule</th>
                                     <th>Nom</th>
                                     <th>Prénom</th>
-                                    <th>Sexe</th>
-                                    <th>Adresse</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -50,13 +41,11 @@
                                     <td>{{ eleve.matricule }}</td>
                                     <td>{{ eleve.nom }}</td>
                                     <td>{{ eleve.prenom }}</td>
-                                    <td>{{ eleve.sexe }}</td>
-                                    <td>{{ eleve.adresse }}</td>
 
 
-                                    <td>
+                                    <td >
                                         <div class="d-flex flex-column">
-                                            <div class="d-flex">
+                                            <div style="padding-left: 60px;" class="d-flex">
                                                 <button type="button" class="btn btn-primary btn-sm me-1" title="Noter"
                                                     (click)="ouvrirModalNote(eleve)">
                                                     <i class="fas fa-file-alt"></i>
