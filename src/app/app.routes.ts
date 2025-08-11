@@ -34,7 +34,7 @@ import { Cm1note } from './BASE/PRIMAIRE/PAGES/Note/cm1note/cm1note';
 import { Cm2note } from './BASE/PRIMAIRE/PAGES/Note/cm2note/cm2note';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' }, // 🔁 redirection claire
   { path: 'login', component: Log },
   { path: 'inscription', component: Inscription },
   { path: 'configuration', component: Configuration },
@@ -44,6 +44,7 @@ export const routes: Routes = [
   {
     path: 'PRIMAIRE',
     component: BaseComponent,
+
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
@@ -51,8 +52,6 @@ export const routes: Routes = [
       { path: 'modifier/:id', component: UpdateComponent },
       { path: 'liste', component: Liste },
       { path: 'bulletin', component: Buletin },
-
-      // Classes
       { path: 'CP1', component: Cp1 },
       { path: 'CP2', component: Cp2 },
       { path: 'CE1', component: Ce1 },
@@ -60,7 +59,6 @@ export const routes: Routes = [
       { path: 'CM1', component: Cm1 },
       { path: 'CM2', component: Cm2 },
 
-      // Paiement
       { path: 'paiement', component: Paiement },
       { path: 'paiement/CP1', component: Cp1paie },
       { path: 'paiement/CP2', component: Cp2paie },
@@ -68,22 +66,19 @@ export const routes: Routes = [
       { path: 'paiement/CE2', component: Ce2paie },
       { path: 'paiement/CM1', component: Cm1paie },
       { path: 'paiement/CM2', component: Cm2paie },
-
-      // Notes avec sous-routes
+/*
+      { path: 'note', component: Note },*/
+      { path: 'note/CE1', component: Cp1note },/*
+      { path: 'note/CP2', component: Cp2note },
+      { path: 'note/CP1', component: Ce1note },
+      { path: 'note/CE2', component: Ce2note },
+      { path: 'note/CM1', component: Cm1note },
+      { path: 'note/CM2', component: Cm2note },
+*/
       {
-        path: 'note',
-        component: Note,
-        children: [
-          { path: 'CP1', component: Cp1note },
-          { path: 'CP2', component: Cp2note },
-          { path: 'CE1', component: Ce1note },
-          { path: 'CE2', component: Ce2note },
-          { path: 'CM1', component: Cm1note },
-          { path: 'CM2', component: Cm2note },
-        ],
+        path: 'parametre',
+        component: Parametres,
       },
-
-      { path: 'parametre', component: Parametres },
     ],
   },
 ];
