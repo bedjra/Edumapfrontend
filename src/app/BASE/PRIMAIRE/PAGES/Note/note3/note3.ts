@@ -67,69 +67,16 @@ export class Note3 implements OnInit {
     });
   }
 
-  openEleveModal(id: string | number, content: any) {
-    const idString = id.toString(); // Convertir en string toujours
-    this.primaireService.getEleveById(idString).subscribe({
-      next: (eleve) => {
-        this.selectedEleve = eleve;
-        this.modalService.open(content, { size: 'lg' });
-      },
-      error: (err) => {
-        alert("Impossible de charger les détails de l'élève");
-      },
-    });
-  }
-
-  editEleve(matricule: string) {
-    this.primaireService.getEleveByMatricule(matricule).subscribe({
-      next: (eleve) => {
-        this.selectedEleve = eleve;
-        this.primaireService.setSelectedEleve(eleve);
-        this.router.navigate(['PRIMAIRE', 'modifier', matricule]);
-      },
-      error: (err) => {
-        alert('Erreur lors de la récupération de l’élève pour modification');
-        console.error(err);
-      },
-    });
-  }
+ 
 
   searchEleves(nom: string, prenom: string): void {
     // Filtrage local ou appel API selon votre implémentation
     console.log('Recherche élèves:', nom, prenom);
   }
 
-  // Impression
-  redirectToDefitech(): void {
-    this.router.navigate(['/print']);
-  }
 
-  confirmDelete(id: number) {
-    if (
-      confirm(
-        'Êtes-vous sûr de vouloir supprimer cet élève ? Cette action est irréversible.'
-      )
-    ) {
-      this.deleteEleve(id);
-    }
-  }
 
-  deleteEleve(id: number) {
-    this.primaireService.supprimerEleve(id).subscribe({
-      next: (response) => {
-        console.log('Réponse du serveur :', response);
-        alert('Élève supprimé avec succès.');
-        this.loadEleves();
-      },
-      error: (err) => {
-        console.error('Erreur lors de la suppression:', err);
-      },
-    });
-  }
-
-  get isAdmin(): boolean {
-    return this.authService.isAdmin();
-  }
+ 
 
   /***************** */
   /*************** */
