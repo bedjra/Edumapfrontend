@@ -96,16 +96,17 @@ export class Note3 implements OnInit {
   eleveEnCours: any;
 
 evaluations = [
-  "Mois 1",
-  "Mois 2",
+  "Octobre",
+  "Novembre",
   "Trimestre 1",
-  "Mois 4",
-  "Mois 5",
+  "Janvier",
+  "Février",
   "Trimestre 2",
-  "Mois 7",
-  "Mois 8",
+  "Avril",
+  "Mai",
   "Trimestre 3"
 ];
+
 
 chargerMatieres() {
   this.primaireService.getMatieres().subscribe({
