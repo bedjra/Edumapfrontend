@@ -34,6 +34,7 @@ import { Note5 } from './BASE/PRIMAIRE/PAGES/Note/note5/note5';
 import { Note6 } from './BASE/PRIMAIRE/PAGES/Note/note6/note6';
 import { Board } from './BASE/COLLEGE/PAGES/board/board';
 import { Basecol } from './BASE/COLLEGE/COMPOSANTS/basecol/basecol';
+import { Para } from './BASE/COLLEGE/PAGES/para/para';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // 🔁 redirection claire
@@ -70,8 +71,8 @@ export const routes: Routes = [
 
       { path: 'note', component: Note },
       { path: 'note/CP1', component: Note1 },
-      { path: 'note/CE1', component: Note3 },    
-      { path: 'note/CP2', component:Note2  },
+      { path: 'note/CE1', component: Note3 },
+      { path: 'note/CP2', component: Note2 },
       { path: 'note/CE2', component: Note4 },
       { path: 'note/CM1', component: Note5 },
       { path: 'note/CM2', component: Note6 },
@@ -82,14 +83,14 @@ export const routes: Routes = [
     ],
   },
 
-
-   {
+  {
     path: 'COLLEGE',
     component: Basecol,
 
     children: [
-     { path: 'dashboard', component: Board },
-    /*  { path: 'ajouter', component: Add },
+      { path: 'dashboard', component: Board },
+      { path: 'parametre', component: Para },
+      /*  { path: 'ajouter', component: Add },
       { path: 'modifier/:id', component: UpdateComponent },
       { path: 'liste', component: Liste },
       { path: 'bulletin', component: Buletin },
@@ -115,10 +116,7 @@ export const routes: Routes = [
       { path: 'note/CE2', component: Note4 },
       { path: 'note/CM1', component: Note5 },
       { path: 'note/CM2', component: Note6 },
-      {
-        path: 'parametre',
-        component: Parametres,
-      },*/
+      */
     ],
   },
 ];
