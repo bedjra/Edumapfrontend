@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-board',
   imports: [],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css',
+  templateUrl: './board.html',
+  styleUrl: './board.css'
 })
-export class DashboardComponent implements OnInit {
+export class Board implements OnInit {
   totalStudents = 5000;
   totalBulletins = 573;
   totalPayments = 12234;

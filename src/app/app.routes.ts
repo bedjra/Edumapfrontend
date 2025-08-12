@@ -32,6 +32,7 @@ import { Note2 } from './BASE/PRIMAIRE/PAGES/Note/note2/note2';
 import { Note4 } from './BASE/PRIMAIRE/PAGES/Note/note4/note4';
 import { Note5 } from './BASE/PRIMAIRE/PAGES/Note/note5/note5';
 import { Note6 } from './BASE/PRIMAIRE/PAGES/Note/note6/note6';
+import { Board } from './BASE/COLLEGE/PAGES/board/board';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // 🔁 redirection claire
@@ -87,9 +88,8 @@ export const routes: Routes = [
     component: BaseComponent,
 
     children: [
-      { path:'dashboard', pathMatch: 'full' },
-    /*  { path: 'dashboard', component: DashboardComponent },
-      { path: 'ajouter', component: Add },
+     { path: 'dashboard', component: Board },
+    /*  { path: 'ajouter', component: Add },
       { path: 'modifier/:id', component: UpdateComponent },
       { path: 'liste', component: Liste },
       { path: 'bulletin', component: Buletin },
