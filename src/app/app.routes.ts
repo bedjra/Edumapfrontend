@@ -80,4 +80,45 @@ export const routes: Routes = [
       },
     ],
   },
+
+
+   {
+    path: 'COLLEGE',
+    component: BaseComponent,
+
+    children: [
+      { path:'dashboard', pathMatch: 'full' },
+    /*  { path: 'dashboard', component: DashboardComponent },
+      { path: 'ajouter', component: Add },
+      { path: 'modifier/:id', component: UpdateComponent },
+      { path: 'liste', component: Liste },
+      { path: 'bulletin', component: Buletin },
+      { path: 'CP1', component: Cp1 },
+      { path: 'CP2', component: Cp2 },
+      { path: 'CE1', component: Ce1 },
+      { path: 'CE2', component: Ce2 },
+      { path: 'CM1', component: Cm1 },
+      { path: 'CM2', component: Cm2 },
+
+      { path: 'paiement', component: Paiement },
+      { path: 'paiement/CP1', component: Cp1paie },
+      { path: 'paiement/CP2', component: Cp2paie },
+      { path: 'paiement/CE1', component: Ce1paie },
+      { path: 'paiement/CE2', component: Ce2paie },
+      { path: 'paiement/CM1', component: Cm1paie },
+      { path: 'paiement/CM2', component: Cm2paie },
+
+      { path: 'note', component: Note },
+      { path: 'note/CP1', component: Note1 },
+      { path: 'note/CE1', component: Note3 },    
+      { path: 'note/CP2', component:Note2  },
+      { path: 'note/CE2', component: Note4 },
+      { path: 'note/CM1', component: Note5 },
+      { path: 'note/CM2', component: Note6 },
+      {
+        path: 'parametre',
+        component: Parametres,
+      },*/
+    ],
+  },
 ];
