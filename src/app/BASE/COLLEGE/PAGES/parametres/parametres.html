@@ -1,0 +1,350 @@
+<nav class="onglets">
+
+
+    <a (click)="ongletActif = 'config'" [ngClass]="{ 'active': ongletActif === 'config' }"
+        class="nav-link">Configuration</a>
+
+    <a (click)="ongletActif = 'scolarite'" [ngClass]="{ 'active': ongletActif === 'scolarite' }"
+        class="nav-link">Scolarité</a>
+
+    <a (click)="ongletActif = 'professeur'" [ngClass]="{ 'active': ongletActif === 'professeur' }"
+        class="nav-link">Professeur</a>
+
+
+    <a (click)="ongletActif = 'matiere'" [ngClass]="{ 'active': ongletActif === 'matiere' }"
+        class="nav-link">Matiere</a>
+
+    <!-- Onglet Utilisateur uniquement pour les NON-secrétaires -->
+    <a *ngIf="roleConnecte !== 'SECRETAIRE'" (click)="ongletActif = 'utilisateur'"
+        [ngClass]="{ 'active': ongletActif === 'utilisateur' }" class="nav-link">Utilisateur</a>
+</nav>
+
+
+
+<!-- Contenu affiché selon l'onglet actif -->
+
+<!-- Onglet Utilisateur -->
+<div class="container" *ngIf="ongletActif === 'utilisateur' && roleConnecte !== 'SECRETAIRE'">
+    <div class="left-box">
+        <h4>{{ isEditMode ? 'Modifier un utilisateur' : 'Ajouter un utilisateur' }}</h4>
+        <form #formUser="ngForm" (ngSubmit)="isEditMode ? modifierUtilisateur() : ajouterUtilisateur()">
+            <div class="form-group">
+                <label for="roleUser">Rôle :</label>
+                <select id="roleUser" [(ngModel)]="credentials.role" name="role" required>
+                    <option value="" disabled selected>Sélectionnez un rôle</option>
+                    <option *ngFor="let r of roles" [value]="r">{{ r | titlecase }}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="emailUser">Email :</label>
+                <input type="email" id="emailUser" [(ngModel)]="credentials.email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="passwordUser">Mot de passe :</label>
+                <input [type]="passwordVisible ? 'text' : 'password'" id="passwordUser"
+                    [(ngModel)]="credentials.password" name="password" required autocomplete="off">
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPasswordUser">Confirmer le mot de passe :</label>
+                <input [type]="passwordVisible ? 'text' : 'password'" id="confirmPasswordUser"
+                    [(ngModel)]="credentials.confirmPassword" name="confirmPassword" required autocomplete="off">
+            </div>
+
+
+
+            <button type="submit" class="submit-btn"
+                [disabled]="!formUser.valid || credentials.password !== credentials.confirmPassword">
+                {{ isEditMode ? 'Mettre à jour' : 'S\'inscrire' }}
+            </button>
+
+            <div *ngIf="credentials.password && credentials.confirmPassword && credentials.password !== credentials.confirmPassword"
+                style="color: red;">
+                Les mots de passe ne correspondent pas.
+            </div>
+        </form>
+    </div>
+
+    <div class="right-box">
+        <h4>Gestion des Utilisateurs</h4>
+        <table *ngIf="utilisateurs.length > 0">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Rôle</th>
+                    <th>Email</th>
+                    <th>Mdp</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let u of utilisateurs; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ u.role }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>{{ u.password }}</td>
+
+                    <!-- 
+             <th>Actions</th>
+
+                    <td>
+            <button (click)="remplirFormulairePourModification(u, i)">Modifier</button>
+            <button (click)="supprimerUtilisateur(i)">Supprimer</button>
+          </td>
+          --->
+                </tr>
+            </tbody>
+        </table>
+        <p *ngIf="utilisateurs.length === 0">Aucun utilisateur trouvé.</p>
+    </div>
+</div>
+
+
+<!-- Onglet Scolarité -->
+<!-- Bloc Scolarité -->
+<div class="container" *ngIf="ongletActif === 'scolarite'">
+    <div class="left-box">
+        <h4>Ajouter une scolarité</h4>
+        <form #formScolarite="ngForm" (ngSubmit)="ajouterScolarite()">
+            <div class="form-group">
+                <label for="classe">Classe :</label>
+                <select id="classe" name="classe" class="form-control" required [(ngModel)]="nouvelleScolarite.classe">
+                    <option value="">-- Sélectionner la classe --</option>
+                    <option value="CP1">CP1</option>
+                    <option value="CP2">CP2</option>
+                    <option value="CE1">CE1</option>
+                    <option value="CE2">CE2</option>
+                    <option value="CM1">CM1</option>
+                    <option value="CM2">CM2</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="montant">Montant :</label>
+                <input type="number" id="montant" [(ngModel)]="nouvelleScolarite.montant" name="montant" required />
+            </div>
+
+            <button type="submit" class="submit-btn" [disabled]="!formScolarite.valid">
+                Ajouter
+            </button>
+        </form>
+    </div>
+
+    <div class="right-box">
+        <h4>Liste des scolarités</h4>
+        <table *ngIf="listeScolarites.length > 0">
+            <thead>
+                <tr>
+                    <th>Classe</th>
+                    <th>Montant</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let sc of listeScolarites">
+                    <td>{{ sc.classe }}</td>
+                    <td>{{ sc.montant }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <p *ngIf="listeScolarites.length === 0">Aucune scolarité enregistrée.</p>
+    </div>
+</div>
+
+
+<!-- Bloc Professeur -->
+<div class="container" *ngIf="ongletActif === 'professeur'">
+    <div class="left-box">
+        <h4>Ajouter un professeur</h4>
+        <form #formProf="ngForm" (ngSubmit)="ajouterProfesseur()">
+            <div class="form-group">
+                <label for="nom">Nom :</label>
+                <input type="text" id="nom" name="nom" class="form-control" required
+                    [(ngModel)]="nouveauProfesseur.nom" />
+            </div>
+
+            <div class="form-group">
+                <label for="prenom">Prénom :</label>
+                <input type="text" id="prenom" name="prenom" class="form-control" required
+                    [(ngModel)]="nouveauProfesseur.prenom" />
+            </div>
+
+            <div class="form-group">
+                <label for="adresse">Adresse :</label>
+                <input type="text" id="adresse" name="adresse" class="form-control" required
+                    [(ngModel)]="nouveauProfesseur.adresse" />
+            </div>
+
+            <div class="form-group">
+                <label for="telephone">Téléphone :</label>
+                <input type="text" id="telephone" name="telephone" class="form-control" required
+                    [(ngModel)]="nouveauProfesseur.telephone" />
+            </div>
+
+            <div class="form-group">
+                <label for="diplome">Diplôme :</label>
+                <input type="text" id="diplome" name="diplome" class="form-control" required
+                    [(ngModel)]="nouveauProfesseur.diplome" />
+            </div>
+
+            <div class="form-group">
+                <label for="classe">Classe :</label>
+                <select id="classe" name="classe" class="form-control" required [(ngModel)]="nouveauProfesseur.classe">
+                    <option value="">-- Sélectionner une classe --</option>
+                    <option value="CP1">CP1</option>
+                    <option value="CP2">CP2</option>
+                    <option value="CE1">CE1</option>
+                    <option value="CE2">CE2</option>
+                    <option value="CM1">CM1</option>
+                    <option value="CM2">CM2</option>
+                </select>
+            </div>
+
+            <button type="submit" class="submit-btn" [disabled]="!formProf.valid">
+                Ajouter
+            </button>
+        </form>
+    </div>
+
+    <div class="right-box">
+        <h4>Liste des professeurs</h4>
+        <table *ngIf="listeProfesseurs.length > 0">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Adresse</th>
+                    <th>Téléphone</th>
+                    <th>Diplôme</th>
+                    <th>Classe</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let prof of listeProfesseurs">
+                    <td>{{ prof.nom }}</td>
+                    <td>{{ prof.prenom }}</td>
+                    <td>{{ prof.adresse }}</td>
+                    <td>{{ prof.telephone }}</td>
+                    <td>{{ prof.diplome }}</td>
+                    <td>{{ prof.classe }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <p *ngIf="listeProfesseurs.length === 0">Aucun professeur enregistré.</p>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- Bloc CONFIG -->
+<div class="container" *ngIf="ongletActif === 'config'">
+    <div *ngFor="let config of configurations" class="config-card">
+
+        <h3 class="config-title">Établissement : {{ config.nom }}</h3>
+
+        <!-- Ligne 1 -->
+        <div class="form-row">
+            <div class="formgroup">
+                <label>Nom</label>
+                <input type="text" [value]="config.nom" readonly />
+            </div>
+            <div class="formgroup">
+                <label>Adresse</label>
+                <input type="text" [value]="config.adresse" readonly />
+            </div>
+            <div class="formgroup">
+                <label>BP</label>
+                <input type="text" [value]="config.bp" readonly />
+            </div>
+        </div>
+
+        <!-- Ligne 2 -->
+        <div class="form-row">
+            <div class="formgroup">
+                <label>Téléphone</label>
+                <input type="text" [value]="config.tel" readonly />
+            </div>
+            <div class="formgroup">
+                <label>Cellulaire</label>
+                <input type="text" [value]="config.cel" readonly />
+            </div>
+            <div class="formgroup">
+                <label>Devise</label>
+                <input type="text" [value]="config.devise" readonly />
+            </div>
+        </div>
+
+        <!-- Ligne 3 -->
+        <div class="form-row">
+            <div class="formgroup">
+                <label>Système</label>
+                <input type="text" [value]="config.systeme" readonly />
+            </div>
+            <div class="formgroup">
+                <label>Logo</label>
+                <div class="logo-wrapper">
+                    <img *ngIf="config.image" [src]="'data:image/png;base64,' + config.image" alt="Logo"
+                        class="logo-img" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- Bloc Matière -->
+<div class="container" *ngIf="ongletActif === 'matiere'">
+    <div class="left-box">
+        <h4>Ajouter une matière</h4>
+        <form #formMatiere="ngForm" (ngSubmit)="ajouterMatiere()">
+            <div class="form-group">
+                <label for="nom">Nom :</label>
+                <input type="text" id="nom" name="nom" class="form-control" required
+                    [(ngModel)]="nouvelleMatiere.nom" />
+            </div>
+
+            <button type="submit" class="submit-btn" [disabled]="!formMatiere.valid">
+                Ajouter
+            </button>
+
+
+            <pre></pre>
+            <pre></pre>
+            <pre></pre>
+            <!---
+            <h4>Matières par défaut</h4>
+            <ul>
+                <li *ngFor="let mat of enumMatieres">{{ mat }}</li>
+            </ul>
+
+            -->
+        </form>
+    </div>
+
+    <div class="right-box">
+        <h4>Matières enregistrées</h4>
+        <table *ngIf="listeMatieres.length > 0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let mat of listeMatieres; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ mat.nom }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <p *ngIf="listeMatieres.length === 0">Aucune matière enregistrée.</p>
+
+
+    </div>
+</div>
