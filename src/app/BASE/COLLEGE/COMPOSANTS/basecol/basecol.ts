@@ -4,13 +4,14 @@ import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { HeaderComponent } from '../header/header.component';
 import { MenuComponent } from '../menu/menu.component';
+
 @Component({
-  selector: 'app-base',
+  selector: 'app-basecol',
   imports: [RouterOutlet, MenuComponent, HeaderComponent],
-  templateUrl: './base.component.html',
-  styleUrl: './base.component.css',
+  templateUrl: './basecol.html',
+  styleUrl: './basecol.css'
 })
-export class BaseComponent implements OnInit {
+export class Basecol implements OnInit {
   sidebarCollapsed = false;
   currentPage: string = 'Tableau de bord'; // ou une autre valeur par défaut
 
