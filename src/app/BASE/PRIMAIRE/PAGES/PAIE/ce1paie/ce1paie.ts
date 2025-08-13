@@ -10,7 +10,7 @@ import autoTable from 'jspdf-autotable';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgModel } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -22,6 +22,7 @@ import {
 } from '../../../SERVICE/primaire';
 
 import { LoginService } from '../../../SERVICE/login-service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-ce1paie',
@@ -46,6 +47,10 @@ export class Ce1paie implements OnInit {
   };
 
   constructor(
+
+     private sanitizer: DomSanitizer,
+    private route: ActivatedRoute,
+
     private primaireService: Primaire,
     private modalService: NgbModal,
     private router: Router,
@@ -121,8 +126,15 @@ submitPaiement() {
     next: (res) => {
       this.chargerPaiements(ClassePRIMAIRE.CE1);
 
-      // Générer le PDF après succès
-      this.genererRecuPDF(this.newPaiement);
+      if (!this.logoBase64) {
+        // Charger le logo puis générer le PDF
+        this.loadLogoImage();
+        setTimeout(() => {
+          this.genererRecuPDF(this.newPaiement);
+        }, 500); // attendre un peu le temps du chargement
+      } else {
+        this.genererRecuPDF(this.newPaiement);
+      }
 
       // Reset form
       this.newPaiement = {
@@ -140,9 +152,8 @@ submitPaiement() {
     },
   });
 }
+  isLoadingImage = true;
 
-
-logoBase64: string | null = null;
 
 loadLogoImage(): void {
   const url = 'http://localhost:8060/api/ecole/image';
@@ -177,18 +188,23 @@ genererRecuPDF(paiement: any) {
   // Ajouter le logo (s'il est chargé)
   if (this.logoBase64) {
     doc.addImage(this.logoBase64, 'PNG', 150, 5, 40, 20); 
-    // x=150 et y=5 : position; 40x20 : taille
   }
 
-  // Titre
-  doc.setFontSize(18);
-  doc.text('Reçu de Paiement - École Primaire', 10, 15);
+  // Numéro de reçu + Date en haut
+  doc.setFontSize(10);
+  doc.text(`N° Reçu: ${new Date().getTime()}`, 10, 10);
+  doc.text(`Date: ${new Date().toLocaleDateString()}`, 160, 10);
 
-  // Informations élève
+  // Titre centré
+  doc.setFontSize(18);
+  doc.text('Reçu de Paiement - École Primaire', 105, 20, { align: 'center' });
+
+  // Encadré infos élève
   doc.setFontSize(12);
-  doc.text(`Nom: ${paiement.eleveNom}`, 10, 35);
-  doc.text(`Prénom: ${paiement.elevePrenom}`, 10, 42);
-  doc.text(`Date paiement: ${paiement.datePaiement}`, 10, 49);
+  doc.rect(8, 25, 194, 30); 
+  doc.text(`Nom: ${paiement.eleveNom}`, 12, 35);
+  doc.text(`Prénom: ${paiement.elevePrenom}`, 12, 42);
+  doc.text(`Date paiement: ${paiement.datePaiement}`, 12, 49);
 
   // Tableau du paiement
   autoTable(doc, {
@@ -199,11 +215,16 @@ genererRecuPDF(paiement: any) {
     ],
   });
 
-  // Pied de page
+  // Signature
+  const pageHeight = doc.internal.pageSize.height;
   doc.setFontSize(10);
-  doc.text('Merci pour votre paiement', 10, doc.internal.pageSize.height - 20);
+  doc.text("Signature:", 150, pageHeight - 30);
+  doc.line(170, pageHeight - 30, 200, pageHeight - 30);
 
-  // Télécharger le PDF
+  // Pied de page
+  doc.text('Merci pour votre paiement', 10, pageHeight - 20);
+
+  // Télécharger le PDF à la fin
   doc.save(`recu_${paiement.eleveNom}_${paiement.elevePrenom}.pdf`);
 }
 

@@ -18,8 +18,8 @@ export class DefitechComponent implements OnInit {
   eleves: any[] = [];
   imageUrl?: SafeUrl;
   classe: string = '';
-  isLoading = true;  // indicateur de chargement
-isLoadingImage = true;
+  isLoading = true; // indicateur de chargement
+  isLoadingImage = true;
 
   constructor(
     private primaireService: Primaire,
@@ -29,60 +29,56 @@ isLoadingImage = true;
     private cdr: ChangeDetectorRef
   ) {}
 
-ngOnInit(): void {
-  this.route.queryParams.subscribe(params => {
-    if (params['classe']) {
-      this.classe = params['classe'];
-      this.loadEleves();
-    } else {
-      console.warn('❌ Aucune classe reçue');
-      this.eleves = [];
-      this.isLoading = false;
-      this.cdr.detectChanges();
-    }
-  });
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      if (params['classe']) {
+        this.classe = params['classe'];
+        this.loadEleves();
+      } else {
+        console.warn('❌ Aucune classe reçue');
+        this.eleves = [];
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      }
+    });
 
-  this.loadLogoImage();
-}
-
-
+    this.loadLogoImage();
+  }
 
   loadEleves(): void {
-  this.isLoading = true;
-  this.primaireService.getElevesByClasse(this.classe).subscribe({
-    next: (data) => {
-      console.log('✅ Élèves reçus:', data);
-      this.eleves = JSON.parse(JSON.stringify(data));
-      this.isLoading = false;
-      this.cdr.detectChanges();
-    },
-    error: (err) => {
-      console.error('❌ Erreur chargement élèves:', err);
-      this.isLoading = false;
-      this.cdr.detectChanges();
-    }
-  });
-}
+    this.isLoading = true;
+    this.primaireService.getElevesByClasse(this.classe).subscribe({
+      next: (data) => {
+        console.log('✅ Élèves reçus:', data);
+        this.eleves = JSON.parse(JSON.stringify(data));
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('❌ Erreur chargement élèves:', err);
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      },
+    });
+  }
 
-
-loadLogoImage(): void {
-  const url = 'http://localhost:8060/api/ecole/image';
-  this.isLoadingImage = true;
-  this.http.get(url, { responseType: 'blob' }).subscribe({
-    next: (blob: Blob) => {
-      const objectURL = URL.createObjectURL(blob);
-      this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-      this.isLoadingImage = false;
-      this.cdr.detectChanges();
-    },
-    error: (error) => {
-      console.error('Erreur lors du chargement du logo:', error);
-      this.isLoadingImage = false;
-      this.cdr.detectChanges();
-    }
-  });
-}
-
+  loadLogoImage(): void {
+    const url = 'http://localhost:8060/api/ecole/image';
+    this.isLoadingImage = true;
+    this.http.get(url, { responseType: 'blob' }).subscribe({
+      next: (blob: Blob) => {
+        const objectURL = URL.createObjectURL(blob);
+        this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        this.isLoadingImage = false;
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement du logo:', error);
+        this.isLoadingImage = false;
+        this.cdr.detectChanges();
+      },
+    });
+  }
 
   print(): void {
     window.print();
