@@ -257,4 +257,8 @@ export class Primaire {
   ajouterNotes(noteDto: NoteDto): Observable<NoteResponse> {
     return this.http.post<NoteResponse>(`${this.baseUrl}/note`, noteDto);
   }
+
+    getNotesByEvaluation(eleveId: number, evaluation: string): Observable<NoteDto[]> {
+    return this.http.get<NoteDto[]>(`${this.baseUrl}/note/${eleveId}/${evaluation}`);
+  }
 }

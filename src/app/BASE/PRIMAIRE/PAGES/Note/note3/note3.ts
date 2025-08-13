@@ -85,6 +85,7 @@ export class Note3 implements OnInit {
   notes: { [key: string]: number } = {};
   etape = 1;
   eleveEnCours: any;
+  notesEleve: NoteDto[] = [];
 
   evaluations = [
     'Octobre',
@@ -176,5 +177,48 @@ export class Note3 implements OnInit {
     return matiere.charAt(0).toUpperCase() + matiere.slice(1);
   }
 
-  voirNote(): void {}
+// Méthode pour voir les notes
+// Méthode pour voir les notes corrigée
+voirNote(eleve: Eleve, evaluation: string) {
+  if (!evaluation) {
+    alert("Veuillez d'abord sélectionner un type d'évaluation !");
+    return;
+  }
+
+  this.eleveEnCours = eleve;
+
+  // Transformation : majuscules et suppression des accents
+  const evaluationFormattee = evaluation
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toUpperCase();
+
+  this.evaluationChoisie = evaluationFormattee;
+  this.etape = 2; // passer à l'étape affichage des notes
+
+  // Réinitialiser les notes précédentes
+  this.notes = {};
+
+  // Récupérer les notes depuis le service
+  this.primaireService
+  .getNotesByEvaluation(eleve.id, evaluationFormattee)
+  .subscribe({
+    next: (data: NoteDto[]) => {
+      this.notesEleve = data;
+
+      // Remplir le dictionnaire this.notes pour le formulaire
+      this.notes = {}; // vider avant de remplir
+      
+
+      // Ouvrir le modal
+      this.modalService.open(this.modalNote, { size: 'lg', centered: true });
+    },
+    error: (err) => {
+      console.error("Erreur lors de la récupération des notes :", err);
+      alert("Impossible de récupérer les notes pour cet élève.");
+    }
+  });
+
+}
+
 }
