@@ -106,6 +106,11 @@ export class Ce1paie implements OnInit {
     this.primaireService.enregistrerPaiement(this.newPaiement).subscribe({
       next: (res) => {
         this.chargerPaiements(ClassePRIMAIRE.CE1);
+
+        // Sauvegarde temporaire dans sessionStorage
+        sessionStorage.setItem('recuData', JSON.stringify(this.newPaiement));
+
+        // Reset form
         this.newPaiement = {
           eleveNom: '',
           elevePrenom: '',
@@ -116,7 +121,8 @@ export class Ce1paie implements OnInit {
 
         alert('✅ Paiement enregistré avec succès !');
 
-        // Fermer proprement le modal après le message
+        // Redirection vers le reçu
+        this.router.navigate(['/recu']);
       },
       error: (err) => {
         console.error('Erreur paiement:', err);

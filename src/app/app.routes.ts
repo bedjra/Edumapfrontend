@@ -35,6 +35,7 @@ import { Note6 } from './BASE/PRIMAIRE/PAGES/Note/note6/note6';
 import { Board } from './BASE/COLLEGE/PAGES/board/board';
 import { Basecol } from './BASE/COLLEGE/COMPOSANTS/basecol/basecol';
 import { Para } from './BASE/COLLEGE/PAGES/para/para';
+import { Recu } from './BASE/PRIMAIRE/PAGES/IMPRESS/recu/recu';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // 🔁 redirection claire
@@ -43,6 +44,7 @@ export const routes: Routes = [
   { path: 'configuration', component: Configuration },
   { path: 'print/classe', component: DefitechComponent },
   { path: 'fiche', component: FicheComponent },
+  { path: 'recu', component: Recu },
 
   {
     path: 'PRIMAIRE',
@@ -80,6 +82,7 @@ export const routes: Routes = [
         path: 'parametre',
         component: Parametres,
       },
+
     ],
   },
 
