@@ -104,7 +104,17 @@ export class Ce1paie implements OnInit {
     };
   }
 
+  redirectToImpression(): void {
+    this.router.navigate(['/fiche'], {
+      queryParams: { classe: this.classe }, // Assure-toi que this.classe est bien défini
+    });
+  }
 
+
+
+
+
+  /******recu */
 
 submitPaiement() {
   this.primaireService.enregistrerPaiement(this.newPaiement).subscribe({
@@ -131,22 +141,58 @@ submitPaiement() {
   });
 }
 
+
+logoBase64: string | null = null;
+
+loadLogoImage(): void {
+  const url = 'http://localhost:8060/api/ecole/image';
+  this.isLoadingImage = true;
+
+  this.http.get(url, { responseType: 'blob' }).subscribe({
+    next: (blob: Blob) => {
+      const objectURL = URL.createObjectURL(blob);
+      this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+
+      // Convertir le blob en base64
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        this.logoBase64 = reader.result as string;
+        this.isLoadingImage = false;
+        this.cdr.detectChanges();
+      };
+      reader.readAsDataURL(blob);
+    },
+    error: (error) => {
+      console.error('Erreur lors du chargement du logo:', error);
+      this.isLoadingImage = false;
+      this.cdr.detectChanges();
+    }
+  });
+}
+
+
 genererRecuPDF(paiement: any) {
   const doc = new jsPDF();
 
+  // Ajouter le logo (s'il est chargé)
+  if (this.logoBase64) {
+    doc.addImage(this.logoBase64, 'PNG', 150, 5, 40, 20); 
+    // x=150 et y=5 : position; 40x20 : taille
+  }
+
   // Titre
   doc.setFontSize(18);
-  doc.text('Reçu de Paiement - École Primaire', 10, 10);
+  doc.text('Reçu de Paiement - École Primaire', 10, 15);
 
   // Informations élève
   doc.setFontSize(12);
-  doc.text(`Nom: ${paiement.eleveNom}`, 10, 20);
-  doc.text(`Prénom: ${paiement.elevePrenom}`, 10, 27);
-  doc.text(`Date paiement: ${paiement.datePaiement}`, 10, 34);
+  doc.text(`Nom: ${paiement.eleveNom}`, 10, 35);
+  doc.text(`Prénom: ${paiement.elevePrenom}`, 10, 42);
+  doc.text(`Date paiement: ${paiement.datePaiement}`, 10, 49);
 
   // Tableau du paiement
   autoTable(doc, {
-    startY: 45,
+    startY: 60,
     head: [['Description', 'Montant (FCFA)']],
     body: [
       ['Frais de scolarité', paiement.montantActuel.toLocaleString()],
@@ -154,6 +200,7 @@ genererRecuPDF(paiement: any) {
   });
 
   // Pied de page
+  doc.setFontSize(10);
   doc.text('Merci pour votre paiement', 10, doc.internal.pageSize.height - 20);
 
   // Télécharger le PDF
@@ -161,9 +208,9 @@ genererRecuPDF(paiement: any) {
 }
 
 
-  redirectToImpression(): void {
-    this.router.navigate(['/fiche'], {
-      queryParams: { classe: this.classe }, // Assure-toi que this.classe est bien défini
-    });
-  }
+
+
+
+
+
 }
