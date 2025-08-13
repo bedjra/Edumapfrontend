@@ -159,15 +159,14 @@ export class Note3 implements OnInit {
         valeurNote: Number(valeur),
       })),
     };
-
     this.primaireService.ajouterNotes(noteDto).subscribe({
-      next: () => {
-        alert('✅ Notes enregistrées avec succès.');
+      next: (res) => {
+        alert(res.message);
         modal.close();
       },
       error: (err) => {
         console.error(err);
-        alert('❌ Erreur lors de l’enregistrement.');
+        alert(err.error.message || '❌ Erreur lors de l’enregistrement.');
       },
     });
   }

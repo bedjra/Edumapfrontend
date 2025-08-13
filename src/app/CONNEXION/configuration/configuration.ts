@@ -45,7 +45,7 @@ export class Configuration {
   onSubmit() {
     // Validation
     if (!this.configuration.systeme) {
-      alert("Veuillez sélectionner un système.");
+      alert('Veuillez sélectionner un système.');
       return;
     }
 
@@ -66,10 +66,10 @@ export class Configuration {
       next: () => {
         alert('Configuration enregistrée avec succès.');
 
-        const chemin = this.configuration.systeme.toLowerCase();
-        localStorage.setItem('systeme', chemin); // ✅ On stocke le système
+        const chemin = this.configuration.systeme.toUpperCase();
+        localStorage.setItem('systeme', chemin);
 
-        this.router.navigate(['/' + chemin + '/dashboard']); // ✅ Redirection
+        this.router.navigate(['/login']);
       },
       error: (err) => {
         console.error("Erreur lors de l'enregistrement", err);

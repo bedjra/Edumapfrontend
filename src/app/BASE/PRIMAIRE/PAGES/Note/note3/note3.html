@@ -43,12 +43,13 @@
                                     <td>{{ eleve.prenom }}</td>
 
 
-                                    <td >
+                                    <td>
                                         <div class="d-flex flex-column">
                                             <div style="padding-left: 60px;" class="d-flex">
                                                 <button type="button" class="btn btn-primary btn-sm me-1" title="Noter"
                                                     (click)="ouvrirModalNote(eleve)">
-                                                    <i class="fas fa-file-alt"></i>
+                                                    <i class="fas fa-plus"></i>
+
                                                 </button>
 
                                                 <button type="button" class="btn btn-secondary btn-sm" title="Voir note"
@@ -108,22 +109,21 @@
         </div>
 
         <!-- Étape 2 -->
-      <div *ngIf="etape === 2">
-  <p>Saisissez les notes de l’élève pour chaque matière.</p>
+        <div *ngIf="etape === 2">
+            <p>Saisissez les notes de l’élève pour chaque matière.</p>
 
-  <div class="notes-grid">
-    <div *ngFor="let matiere of matieresFusionnees" class="mb-3">
-      <label>{{ formatMatiere(matiere) }}</label>
-      <input type="number" class="form-control"
-             [(ngModel)]="notes[matiere]"
-             name="{{ matiere }}" min="0" max="20" />
-    </div>
-  </div>
+            <div class="notes-grid">
+                <div *ngFor="let matiere of matieresFusionnees" class="mb-3">
+                    <label>{{ formatMatiere(matiere) }}</label>
+                    <input type="number" class="form-control" [(ngModel)]="notes[matiere]" name="{{ matiere }}" min="0"
+                        max="20" />
+                </div>
+            </div>
 
-  <button class="btn btn-success mt-3" (click)="enregistrerNotes(modal)">
-    Enregistrer les notes
-  </button>
-</div>
+            <button class="btn btn-success mt-3" (click)="enregistrerNotes(modal)">
+                Enregistrer les notes
+            </button>
+        </div>
 
 
 
