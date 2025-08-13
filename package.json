@@ -33,6 +33,8 @@
     "@ng-bootstrap/ng-bootstrap": "^19.0.1",
     "bootstrap": "^5.3.7",
     "express": "^5.1.0",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

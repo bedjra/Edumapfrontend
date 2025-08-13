@@ -5,6 +5,8 @@ import {
   ElementRef,
   ChangeDetectorRef,
 } from '@angular/core';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgModel } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -102,33 +104,62 @@ export class Ce1paie implements OnInit {
     };
   }
 
-  submitPaiement() {
-    this.primaireService.enregistrerPaiement(this.newPaiement).subscribe({
-      next: (res) => {
-        this.chargerPaiements(ClassePRIMAIRE.CE1);
 
-        // Sauvegarde temporaire dans sessionStorage
-        sessionStorage.setItem('recuData', JSON.stringify(this.newPaiement));
 
-        // Reset form
-        this.newPaiement = {
-          eleveNom: '',
-          elevePrenom: '',
-          montantActuel: 0,
-          datePaiement: '',
-          scolariteId: 0,
-        };
+submitPaiement() {
+  this.primaireService.enregistrerPaiement(this.newPaiement).subscribe({
+    next: (res) => {
+      this.chargerPaiements(ClassePRIMAIRE.CE1);
 
-        alert('✅ Paiement enregistré avec succès !');
+      // Générer le PDF après succès
+      this.genererRecuPDF(this.newPaiement);
 
-        // Redirection vers le reçu
-        this.router.navigate(['/recu']);
-      },
-      error: (err) => {
-        console.error('Erreur paiement:', err);
-      },
-    });
-  }
+      // Reset form
+      this.newPaiement = {
+        eleveNom: '',
+        elevePrenom: '',
+        montantActuel: 0,
+        datePaiement: '',
+        scolariteId: 0,
+      };
+
+      alert('✅ Paiement enregistré avec succès !');
+    },
+    error: (err) => {
+      console.error('Erreur paiement:', err);
+    },
+  });
+}
+
+genererRecuPDF(paiement: any) {
+  const doc = new jsPDF();
+
+  // Titre
+  doc.setFontSize(18);
+  doc.text('Reçu de Paiement - École Primaire', 10, 10);
+
+  // Informations élève
+  doc.setFontSize(12);
+  doc.text(`Nom: ${paiement.eleveNom}`, 10, 20);
+  doc.text(`Prénom: ${paiement.elevePrenom}`, 10, 27);
+  doc.text(`Date paiement: ${paiement.datePaiement}`, 10, 34);
+
+  // Tableau du paiement
+  autoTable(doc, {
+    startY: 45,
+    head: [['Description', 'Montant (FCFA)']],
+    body: [
+      ['Frais de scolarité', paiement.montantActuel.toLocaleString()],
+    ],
+  });
+
+  // Pied de page
+  doc.text('Merci pour votre paiement', 10, doc.internal.pageSize.height - 20);
+
+  // Télécharger le PDF
+  doc.save(`recu_${paiement.eleveNom}_${paiement.elevePrenom}.pdf`);
+}
+
 
   redirectToImpression(): void {
     this.router.navigate(['/fiche'], {
