@@ -10,4 +10,7 @@ import { Component, Input } from '@angular/core';
 export class Recu {
   @Input() recuData: any; // Contient uniquement les infos de paiement
   @Input() config: any;
+
+
+  
 }
