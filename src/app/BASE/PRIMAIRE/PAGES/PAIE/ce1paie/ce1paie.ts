@@ -102,32 +102,46 @@ export class Ce1paie implements OnInit {
     };
   }
 
-  submitPaiement() {
-    this.primaireService.enregistrerPaiement(this.newPaiement).subscribe({
-      next: (res) => {
-        this.chargerPaiements(ClassePRIMAIRE.CE1);
-        this.newPaiement = {
-          eleveNom: '',
-          elevePrenom: '',
-          montantActuel: 0,
-          datePaiement: '',
-          scolariteId: 0,
-        };
-
-        alert('✅ Paiement enregistré avec succès !');
-       
-        // Redirection vers le reçu
-        this.router.navigate(['/recu']);
-      },
-      error: (err) => {
-        console.error('Erreur paiement:', err);
-      },
-    });
-  }
-
   redirectToImpression(): void {
     this.router.navigate(['/fiche'], {
       queryParams: { classe: this.classe }, // Assure-toi que this.classe est bien défini
     });
   }
+
+ 
+
+  submitPaiement() {
+  this.primaireService.enregistrerPaiement(this.newPaiement).subscribe({
+    next: (paiementDto) => {
+      alert('✅ Paiement enregistré et reçu généré !');
+
+     
+      // Reset du formulaire
+      this.chargerPaiements(ClassePRIMAIRE.CE1);
+      this.newPaiement = {
+        eleveNom: '',
+        elevePrenom: '',
+        montantActuel: 0,
+        datePaiement: '',
+        scolariteId: 0,
+      };
+
+
+       // 📥 Appel direct pour télécharger le PDF
+      this.telechargerRecu(paiementDto.id);
+
+    },
+    error: (err) => {
+      console.error('Erreur paiement:', err);
+    }
+  });
+}
+
+telechargerRecu(id: number) {
+  this.primaireService.getRecuPaiement(id).subscribe((pdfBlob) => {
+    const url = window.URL.createObjectURL(pdfBlob);
+    window.open(url); // ouvre directement dans un nouvel onglet
+  });
+}
+
 }

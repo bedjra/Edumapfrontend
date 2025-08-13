@@ -43,9 +43,8 @@ export interface MatiereResponse {
   enumMatieres: string[];
 }
 
-
-
 export interface PaiementDto {
+  id:number;
   eleveId: number;
   eleveNom: string;
   elevePrenom: string;
@@ -59,7 +58,7 @@ export interface PaiementDto {
 }
 
 export interface PaiementRequestDto {
-   eleveNom: string;
+  eleveNom: string;
   elevePrenom: string;
   montantActuel: number;
   datePaiement: string;
@@ -73,17 +72,14 @@ export interface StatPaiementPrimaireDTO {
   nombreEnCours: number;
 }
 
-
-
 export enum ClassePRIMAIRE {
   CP1 = 'CP1',
   CP2 = 'CP2',
   CE1 = 'CE1',
   CE2 = 'CE2',
   CM1 = 'CM1',
-  CM2 = 'CM2'
+  CM2 = 'CM2',
 }
-
 
 export interface NoteDto {
   eleveId: number;
@@ -103,7 +99,6 @@ export interface NoteResponse {
   message: string;
 }
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -112,14 +107,16 @@ export class Primaire {
 
   constructor(private http: HttpClient) {}
 
-   // Appel du backend pour récupérer le nombre total d'élèves
+  // Appel du backend pour récupérer le nombre total d'élèves
   getNombreTotalEleves(): Observable<number> {
     return this.http.get<number>(`${this.baseUrl}/count`);
   }
 
-  getTotauxPaiement(): Observable<{ totalPaye: number, totalReste: number }> {
-  return this.http.get<{ totalPaye: number, totalReste: number }>(`${this.baseUrl}/totaux`);
-}
+  getTotauxPaiement(): Observable<{ totalPaye: number; totalReste: number }> {
+    return this.http.get<{ totalPaye: number; totalReste: number }>(
+      `${this.baseUrl}/totaux`
+    );
+  }
 
   enregistrerEleve(eleve: Eleve): Observable<Eleve> {
     return this.http.post<Eleve>(`${this.baseUrl}/eleve`, eleve);
@@ -219,25 +216,25 @@ export class Primaire {
     return this.http.post<PaiementDto>(`${this.baseUrl}/paiement`, paiement);
   }
 
+  getRecuPaiement(id: number): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/paiement/recu/${id}`, {
+      responseType: 'blob',
+    });
+  }
 
   getPaiementParEleveId(eleveId: number): Observable<PaiementDto> {
     return this.http.get<PaiementDto>(`${this.baseUrl}/paiement/${eleveId}`);
   }
 
- 
   getPaiementsParClasse(classe: ClassePRIMAIRE): Observable<PaiementDto[]> {
-    return this.http.get<PaiementDto[]>(
-      `${this.baseUrl}/paie/eleve/${classe}`
-    );
+    return this.http.get<PaiementDto[]>(`${this.baseUrl}/paie/eleve/${classe}`);
   }
 
- 
   getStatPai(): Observable<StatPaiementPrimaireDTO[]> {
     return this.http.get<StatPaiementPrimaireDTO[]>(
       `${this.baseUrl}/paiement/stat`
     );
   }
-
 
   getHistoriquePaiementParEleveId(
     eleveId: number
@@ -247,19 +244,17 @@ export class Primaire {
     );
   }
 
-
   getPaiementsPrimaire(): Observable<PaiementDto[]> {
     return this.http.get<PaiementDto[]>(`${this.baseUrl}/paiement`);
   }
 
   getRenvoi(classe: string): Observable<PaiementDto[]> {
-  return this.http.get<PaiementDto[]>(`${this.baseUrl}/paiement/renvoi/${classe}`);
-}
+    return this.http.get<PaiementDto[]>(
+      `${this.baseUrl}/paiement/renvoi/${classe}`
+    );
+  }
 
-
-ajouterNotes(noteDto: NoteDto): Observable<NoteResponse> {
-  return this.http.post<NoteResponse>(`${this.baseUrl}/note`, noteDto);
-}
-
-
+  ajouterNotes(noteDto: NoteDto): Observable<NoteResponse> {
+    return this.http.post<NoteResponse>(`${this.baseUrl}/note`, noteDto);
+  }
 }
